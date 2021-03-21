@@ -5,6 +5,7 @@ import {useDispatch , useSelector} from 'react-redux'
 import styles from '../styles/Home.module.css'
 import Navigation from '../components/Nav/Navigation'
 import Header from '../components/Header/Header'
+import ListCard from '../components/ListCard/ListCard'
 
 export default function Home() {
   const dispatch = useDispatch()
@@ -13,7 +14,7 @@ export default function Home() {
   useEffect(() => {
     dispatch(fetchListTask())
   }, [])
-  console.log("🚀 ~ file: index.js ~ line 10 ~ Home ~ listTasks", tasksReducers)
+
   return (
     <div className={styles.container}>
       <Head>
@@ -29,7 +30,7 @@ export default function Home() {
         <div class="flex flex-col flex-1 w-full">
           <Header/>
           <main class="h-full pb-16 overflow-y-auto">
-            <p>main</p>
+            <ListCard listTasks = {tasksReducers}/>
           </main>
         </div>
       </div>

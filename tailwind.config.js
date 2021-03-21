@@ -22,6 +22,9 @@ function px(pixels) {
         screens: {
           xs: "480px",
         },
+        width: {
+          '48': '14.2857143%',
+        }
       },
     },
     variants: {},

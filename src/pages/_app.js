@@ -1,6 +1,7 @@
 import "tailwindcss/tailwind.css";
 import {Provider} from "react-redux"
 import makeStore from "../redux/configureStore"
+import "../styles/globals.css"
 import "../styles/main.css"
 
 
