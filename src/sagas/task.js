@@ -1,4 +1,4 @@
-import * as taskTypes from './../constants/task'
+import * as taskTypes from '../constants/task'
 import {take , fork, call,put} from 'redux-saga/effects'
 import {getListTask} from '../apis/task'
 import { fetchListTaskFailed, fetchListTaskSuccess } from '../actions/taskActions'
@@ -17,8 +17,8 @@ function* watchFetchListTaskAction(){
     }
 }
 
-function* rootSaga(){
+function* taskSaga(){
     yield fork(watchFetchListTaskAction)
 }
 
-export default rootSaga;
+export default taskSaga;

@@ -3,7 +3,7 @@ import styles from './CardItem.module.css'
 
 
 const CardItem = ({title , description , content }) => {
-console.log("🚀 ~ file: CardItem.js ~ line 6 ~ CardItem ~ title", description)
+
     return (
         <div className={styles.card_item + " bg-white rounded-xl shadow-md overflow-hidden mb-5 mr-5 ml-5 ml-0"} >
             <div className="md:flex">

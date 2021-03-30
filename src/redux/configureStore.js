@@ -1,9 +1,11 @@
 import { createStore, applyMiddleware, compose } from "redux";
-import rootReducers from "./../reducers";
 import thunk from 'redux-thunk';
 import createSagaMiddleware from 'redux-saga';
-import rootSaga from '../sagas/index';
+import rootReducers from "./../reducers";
+import rootSaga from '../sagas/rootSaga';
 
+// import { createBrowserHistory } from 'history';
+// import { routerMiddleware } from 'connected-react-router';
 
 const composeEnhancers =
     process.env.NODE_ENV !== "production" &&
@@ -16,16 +18,22 @@ const composeEnhancers =
 
 const sagaMiddleware = createSagaMiddleware()
 
+// export const history = createBrowserHistory();
+
 const configureStore = () => {
     const middlewares = [
         thunk,
-        sagaMiddleware
+        sagaMiddleware,
+        // routerMiddleware(history)
     ];
     const enhancers = [
         applyMiddleware(...middlewares)
     ];
 
-    const store = createStore(rootReducers,composeEnhancers(...enhancers));
+    const store = createStore(
+        rootReducers(),
+        composeEnhancers(...enhancers)
+    );
     sagaMiddleware.run(rootSaga);
     return store;
 };

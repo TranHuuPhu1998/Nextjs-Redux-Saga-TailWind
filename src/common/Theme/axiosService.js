@@ -3,33 +3,68 @@ import axios from 'axios';
 class AxiosService {
     
     constructor() {
-        const instance = axios.create();
-        instance.interceptors.response.use(this.handleSuccess, this.handleError);
-        this.instance = instance;
+        const service  = axios.create({
+            header : {}
+        });
+        service.interceptors.response.use(this.handleSuccess, this.handleError);
+        this.service  = service ;
+    }
+
+    setHeader(name,value) {
+        this.service.default.header.common[name] = value;
+    }
+
+    removeHeader(name){
+        delete this.service.default.headers.common[name];
     }
 
     handleSuccess(response) {
         return response;
     }
 
-    handleError(error) {
-        return Promise.reject(error);
+    redirectTo = (document , path) => {
+        document.location = path;
     }
 
-    get(url) {
-        return this.instance.get(url);
+    get(endpoint) {
+        return this.service.get(endpoint);
+    }
+
+    handleError(error) {
+        switch(error.response.status){
+            case 401:
+                this.redirectTo(document , '/login');
+                break;
+            default:
+                return Promise.reject(error);
+        }
     }
 
     post(url, body) {
-        return this.instance.post(url, body);
+        return this.service.request({
+            method:'POST',
+            url:endpoint,
+            responseType : 'json',
+            data:payload
+        });
     }
 
     put(url, body) {
-        return this.instance.put(url, body);
+        return this.service.request({
+            method:'PUT',
+            url:endpoint,
+            responseType:'json',
+            data:payload
+        })
     }
 
     delete(url) {
-        return this.instance.delete(url);
+        return this.service.request({
+            method : 'DELETE',
+            url : endpoint,
+            responseType: 'json',
+            data : payload
+        })
     }
 }
 export default new AxiosService();

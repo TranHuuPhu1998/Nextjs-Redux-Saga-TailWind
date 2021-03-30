@@ -27,9 +27,9 @@ export default function Home() {
       {/* <Navigation/> */}
       <div className="flex h-screen bg-gray-50 dark:bg-gray-900" >
         <Navigation/>
-        <div class="flex flex-col flex-1 w-full">
+        <div className="flex flex-col flex-1 w-full">
           <Header/>
-          <main class="h-full pb-16 overflow-y-auto">
+          <main className="h-full pb-16 overflow-y-auto">
             <ListCard listTasks = {tasksReducers}/>
           </main>
         </div>

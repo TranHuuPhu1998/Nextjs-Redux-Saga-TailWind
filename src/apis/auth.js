@@ -1,9 +1,9 @@
-import axiosService from '../services/axiosService';
+import axiosService from '../common/Theme/axiosService';
 import { API_ENDPOINT } from '../constants';
 
 const url = '/auth';
 
-export const signup = data => {
+export const singup = data => {
   return axiosService.post(`${API_ENDPOINT}/${url}/signup`, data);
 };
 

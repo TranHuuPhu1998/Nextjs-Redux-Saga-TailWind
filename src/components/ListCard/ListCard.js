@@ -6,7 +6,6 @@ import {STATUSES} from '../../constants/index'
 
 
 const ListCard = ({listTasks}) => {
-console.log("🚀 ~ file: ListCard.js ~ line 5 ~ ListCard ~ props", listTasks.listTask)
     return (
         <div>
             <TopTitle/>
@@ -18,6 +17,7 @@ console.log("🚀 ~ file: ListCard.js ~ line 5 ~ ListCard ~ props", listTasks.li
                         if(item.status === 0)
                             return (
                                 <CardItem 
+                                    key={index}
                                     title={item.title}
                                     description={item.description}
                                     content={item.content}
@@ -33,6 +33,7 @@ console.log("🚀 ~ file: ListCard.js ~ line 5 ~ ListCard ~ props", listTasks.li
                         if(item.status === 1)
                             return (
                                 <CardItem 
+                                    key={index}
                                     title={item.title}
                                     description={item.description}
                                     content={item.content}
@@ -48,6 +49,7 @@ console.log("🚀 ~ file: ListCard.js ~ line 5 ~ ListCard ~ props", listTasks.li
                         if(item.status === 2)
                             return (
                                 <CardItem 
+                                    key={index}
                                     title={item.title}
                                     description={item.description}
                                     content={item.content}
