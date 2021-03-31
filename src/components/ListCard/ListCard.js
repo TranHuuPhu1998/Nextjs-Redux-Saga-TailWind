@@ -2,8 +2,6 @@ import React from 'react'
 import TopTitle from '../BlockTitle/TopTitle/TopTitle'
 import CardItem from '../CardItem/CardItem'
 import StatusTitle from '../BlockTitle/StatusTitle/StatusTitle'
-import {STATUSES} from '../../constants/index'
-
 
 const ListCard = ({listTasks}) => {
     return (

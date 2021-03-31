@@ -21,7 +21,8 @@ function MyApp({ Component, pageProps }) {
     if(token) {
       SetToken(token);
       axiosService.setHeader('Authorization' , `Bearer ${token}`);
-    }else {
+    }
+    else {
       router.push('/login');
     }
   },[])

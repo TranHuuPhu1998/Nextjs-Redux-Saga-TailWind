@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch , useSelector} from "react-redux";
 import { singup } from "../../actions/auth";
-import styles from "./singup.module.css";
-import Loading from '../../components/Loading/Loading'
-
 
 const SingUp = () => {
     const [email, SetEmail] = useState(String);
