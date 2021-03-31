@@ -1,12 +1,18 @@
 import * as types from '../constants/auth';
 
-export const singup = data => ({
-    type : types.SIGNUP,
-    payload: {
-        email,
-        password
+export const singup = (name,email,password_confirmation,password,position,permission) => {
+    return {
+        type : types.SIGNUP,
+        payload: {
+            name,
+            email,
+            password,
+            password_confirmation,
+            position,
+            permission
+        },
     }
-})
+}
 
 export const singupSuccess = data => ({
     type : types.SIGNUP_SUCCESS,

@@ -7,6 +7,8 @@ import rootSaga from '../sagas/rootSaga';
 // import { createBrowserHistory } from 'history';
 // import { routerMiddleware } from 'connected-react-router';
 
+const sagaMiddleware = createSagaMiddleware()
+
 const composeEnhancers =
     process.env.NODE_ENV !== "production" &&
     typeof window === "object" &&
@@ -16,7 +18,6 @@ const composeEnhancers =
           })
         : compose;
 
-const sagaMiddleware = createSagaMiddleware()
 
 // export const history = createBrowserHistory();
 

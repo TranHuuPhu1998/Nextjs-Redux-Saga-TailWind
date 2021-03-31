@@ -10,12 +10,12 @@ class AxiosService {
         this.service  = service ;
     }
 
-    setHeader(name,value) {
-        this.service.default.header.common[name] = value;
+    setHeader(name, value) {
+        this.service.defaults.headers.common[name] = value;
     }
-
-    removeHeader(name){
-        delete this.service.default.headers.common[name];
+    
+    removeHeader(name) {
+        delete this.service.defaults.headers.common[name];
     }
 
     handleSuccess(response) {
@@ -40,7 +40,7 @@ class AxiosService {
         }
     }
 
-    post(url, body) {
+    post(endpoint, payload) {
         return this.service.request({
             method:'POST',
             url:endpoint,
@@ -49,7 +49,7 @@ class AxiosService {
         });
     }
 
-    put(url, body) {
+    put(endpoint, payload) {
         return this.service.request({
             method:'PUT',
             url:endpoint,
@@ -58,7 +58,7 @@ class AxiosService {
         })
     }
 
-    delete(url) {
+    delete(endpoint ,payload) {
         return this.service.request({
             method : 'DELETE',
             url : endpoint,

@@ -1,22 +1,11 @@
 import Head from 'next/head'
-import {useEffect} from 'react'
-import {fetchListTask} from '../actions/taskActions'
-import {useDispatch , useSelector} from 'react-redux'
+import React from 'react'
 import styles from '../styles/Home.module.css'
-import Navigation from '../components/Nav/Navigation'
-import Header from '../components/Header/Header'
-import ListCard from '../components/ListCard/ListCard'
+import Singup from './singup/index'
 
 export default function Home() {
-  const dispatch = useDispatch()
-  const tasksReducers = useSelector((state) => state.tasksReducers)
-
-  useEffect(() => {
-    dispatch(fetchListTask())
-  }, [])
-
   return (
-    <div className={styles.container}>
+    <div className={styles.container + " w-full"}>
       <Head>
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
@@ -25,16 +14,10 @@ export default function Home() {
 
       </Head>
       {/* <Navigation/> */}
-      <div className="flex h-screen bg-gray-50 dark:bg-gray-900" >
-        <Navigation/>
-        <div className="flex flex-col flex-1 w-full">
-          <Header/>
-          <main className="h-full pb-16 overflow-y-auto">
-            <ListCard listTasks = {tasksReducers}/>
-          </main>
-        </div>
+      
+      <div className="bg-blue-300	flex justify-center items-center h-screen bg-gray-50 dark:bg-gray-900" >
+          <Singup/>
       </div>
-
 
       <footer className={styles.footer}>
         <a
@@ -42,7 +25,7 @@ export default function Home() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by{' '}
+          Powered by
           <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
         </a>
       </footer>

@@ -4,14 +4,9 @@ import qs from 'query-string';
 
 const url = 'tasks';
 
-export const getListTask = (params = {}) =>{
-    let queryParams = '';
-    // kiểm tra params laf object rong
-    if (Object.keys(params).length > 0) {
-        queryParams = `?${qs.stringify(params)}`;
-    }
-    return axiosService.get(`${API_ENDPOINT}/${url}${queryParams}`);
-}
+export const getListTask = () => {
+    return axiosService.get(`${API_ENDPOINT}/${url}`);
+};
 
 export const addTask = data => {
     return axiosService.post(`${API_ENDPOINT}/${url}` , data);
