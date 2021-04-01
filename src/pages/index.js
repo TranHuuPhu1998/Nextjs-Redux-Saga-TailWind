@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import React from 'react'
+import React , {useEffect} from 'react'
 import styles from '../styles/Home.module.css'
 import Singup from './singup/index'
 

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch , useSelector} from "react-redux";
+import Link from "next/link";
 import { singup } from "../../actions/auth";
 
 const SingUp = () => {
@@ -25,8 +26,8 @@ const SingUp = () => {
     return (
         <>
             <div className={'w-full bg-gray-200 flex justify-center items-center h-screen'}>
-            <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col my-2">
-                <h2 className="font-bold text-center text-5xl text-purple-400 pb-5 mb-5 border-b-2 border-solid border-red-500">
+            <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col my-2 xl:w-2/4 lg:w-1/2 md:w-9/12 sm:w-1/2 w-9/12">
+                <h2 className="font-bold text-center text-5xl text-purple-400 pb-4 pt-2 mb-5 border-2 border-solid border-red-500 sm:text-3xl xs:text-xl">
                     Sing Up
                 </h2>
                 <div className="-mx-3 md:flex mb-6">
@@ -142,7 +143,12 @@ const SingUp = () => {
                 <button className="mt-5 bg-gray-200 hover:bg-blue-700 hover:text-white border border-gray-400 text-blue-700 font-bold py-2 px-6 rounded-lg"
                         onClick={(e)=>onSingup(e)}
                 >
-                    SingUp
+                    Registration
+                </button>
+                <button className="mt-5 bg-gray-200 hover:bg-blue-700 hover:text-white border border-gray-400 text-blue-700 font-bold py-2 px-6 rounded-lg">
+                    <Link href="/login">
+                        Go to login
+                    </Link>
                 </button>
             </div>
         

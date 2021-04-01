@@ -11,9 +11,11 @@ import {
     loginSuccess,
     singupFailed,
     singupSuccess,
+    sendMailSuccess,
+    sendMailFailed
 } from '../actions/auth';
 
-import {login , singup} from '../apis/auth';
+import {login , singup , sendMail} from '../apis/auth';
 import * as authTypes from '../constants/auth';
 import axiosService from '../common/Theme/axiosService';
 
@@ -42,7 +44,7 @@ function* processSignup({payload}) {
         yield put(singupFailed(details));
     } 
     finally {
-        yield delay(500);
+        yield delay(100);
         yield put(hideLoading())
     }
 }
@@ -75,10 +77,34 @@ function* processLogin({payload}) {
         yield put(loginFailed(err));
     }
     finally {
-        yield delay(500);
+        yield delay(100);
         yield put(hideLoading())
     }
 }
+
+function* processSendMail({payload}){
+    const {email} = payload;
+    console.log("🚀 ~ file: auth.js ~ line 87 ~ function*processSendMail ~ email", payload)
+    yield put(showLoading())
+    try {
+        const resp = yield call(sendMail , {email})
+        const {data , status} = resp;
+
+        if(status === STATUS_CODE.SUCCESS) {
+            yield put(sendMailSuccess(data))
+        }else {
+            yield put(sendMailFailed(data))
+        }
+
+    } catch (error) {
+        const details = _get(error , 'response.data' ,{});
+        yield put(sendMailFailed(details))
+    } finally {
+        yield delay(100);
+        yield put(hideLoading())
+    }
+}
+
 // takeLatest khi thực hiện 1 loạt các action thì nó chỉ thực thi và trả về 
 // kết quả là action cuối cùng
 
@@ -87,6 +113,7 @@ function* processLogin({payload}) {
 function* authSaga(){
     yield takeLatest(authTypes.SIGNUP , processSignup);
     yield takeLatest(authTypes.LOGIN , processLogin);
+    yield takeLatest(authTypes.SEND_MAIL , processSendMail);
 }
 
 export default authSaga;

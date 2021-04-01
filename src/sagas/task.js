@@ -1,6 +1,6 @@
 import * as taskTypes from '../constants/task'
 import _get from 'lodash/get';
-import {take , fork, call,put , delay} from 'redux-saga/effects'
+import {take , fork, call,put , delay ,takeLatest} from 'redux-saga/effects'
 import {getListTask} from '../apis/task'
 import {hideLoading , showLoading} from '../actions/ui';
 import { fetchListTaskFailed, fetchListTaskSuccess } from '../actions/taskActions'
@@ -8,6 +8,7 @@ import { fetchListTaskFailed, fetchListTaskSuccess } from '../actions/taskAction
 function* watchFetchListTaskAction(){
     while(true) {
         yield take(taskTypes.FETCH_TASK)
+        console.log("dispatch");
         try {
             yield put(showLoading())
             const response = yield call(getListTask)
@@ -21,8 +22,8 @@ function* watchFetchListTaskAction(){
             const details = _get(error, 'response.data.details', {});
             yield put(fetchListTaskFailed(details));
         }finally {
-            yield delay(500);
-            yield put(hideLoading()); // nên làm sau để test
+            yield delay(100);
+            yield put(hideLoading()); 
         }
     }
 }

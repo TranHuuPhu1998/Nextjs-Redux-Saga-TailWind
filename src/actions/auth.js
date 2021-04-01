@@ -49,3 +49,23 @@ export const loginFailed = error => ({
         error
     }
 })
+
+export const sendMail = (email) => ({
+    type : types.SEND_MAIL,
+    payload : {
+        email
+    }
+})
+
+export const sendMailSuccess = (data) => ({
+    type : types.SEND_MAIL_SUCCESS,
+    payload : {
+        data
+    }
+})
+
+export const sendMailFailed = (data) => ({
+    payload : {
+        data
+    }
+})

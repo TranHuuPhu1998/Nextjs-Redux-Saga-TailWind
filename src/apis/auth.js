@@ -10,3 +10,7 @@ export const singup = data => {
 export const login = data => {
   return axiosService.post(`${API_ENDPOINT}/${url}/login`, data);
 };
+
+export const sendMail = data => {
+  return axiosService.post(`${API_ENDPOINT}/reset-password`, data);
+}

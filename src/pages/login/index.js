@@ -1,5 +1,6 @@
 import React , {useState} from 'react'
-import { useDispatch } from "react-redux";
+import Link from 'next/link'
+import { useDispatch } from "react-redux"
 import { login } from '../../actions/auth'
 
 const Login = () => {
@@ -22,7 +23,7 @@ const Login = () => {
         <>
         <div className={'w-full bg-gray-200 flex justify-center items-center h-screen'}>
         <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col my-2">
-            <h2 className="font-bold text-center text-5xl text-purple-400 pb-5 mb-5 border-b-2 border-solid border-red-500">
+            <h2 className="font-bold text-center text-5xl text-purple-400 pb-4 pt-2 mb-5 border-2 border-solid border-red-500">
                 Login 
             </h2>
             <div className="-mx-3 md:flex mb-6">
@@ -83,6 +84,21 @@ const Login = () => {
                 </p>
             </div>
             </div>
+
+            <div className="flex items-center justify-between -mx-3 mb-6">
+                <div className="flex items-center px-3">
+                    <input id="remember_me" name="remember_me" type="checkbox" className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded" />
+                    <label htmlFor="remember_me" className="ml-2 block text-sm text-gray-900">
+                        Remember me
+                    </label>
+                </div>
+                <div className="text-sm px-3 font-medium text-indigo-600 hover:text-indigo-500 text-blue-600">
+                    <Link href="/repassword" >
+                        Forgot your password?
+                    </Link>
+                </div>
+            </div>
+
             <button className="mt-5 bg-gray-200 hover:bg-blue-700 hover:text-white border border-gray-400 text-blue-700 font-bold py-2 px-6 rounded-lg"
                     onClick={(e)=>onLogin(e)}
             >

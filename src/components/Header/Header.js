@@ -1,6 +1,13 @@
-import React from "react";
+import React , {useState}from "react";
+import UserSetting from "../UserSetting/UserSetting"
 
 const Header = () => {
+  const [isOpen , setIsOpen] = useState(false)
+  
+  const onToggleSetting = () => {
+    setIsOpen(!isOpen)
+  } 
+
   return (
     <header className="z-10 py-4 bg-white shadow-md dark:bg-gray-800">
       <div className="container flex items-center justify-between h-full px-6 mx-auto text-purple-600 dark:text-purple-300">
@@ -89,6 +96,7 @@ const Header = () => {
               className="align-middle rounded-full focus:shadow-outline-purple focus:outline-none"
               aria-label="Account"
               aria-haspopup="true"
+              onClick={onToggleSetting}
             >
               <img
                 className="object-cover w-8 h-8 rounded-full"
@@ -97,7 +105,7 @@ const Header = () => {
                 aria-hidden="true"
               />
             </button>
-            <template x-if="isProfileMenuOpen" />
+            <UserSetting isOpen={isOpen}/>            
           </li>
         </ul>
       </div>

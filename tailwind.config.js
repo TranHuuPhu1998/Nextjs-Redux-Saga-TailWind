@@ -20,7 +20,10 @@ function px(pixels) {
       },
       extend: {
         screens: {
-          xs: "480px",
+          'xs': {'max': '410px'},
+          // => @media (max-width: 410px) { ... } 
+          'sm': {'max': '375px'},
+           // => @media (max-width: 375px) { ... } 
         },
         width: {
           '48': '14.2857143%',

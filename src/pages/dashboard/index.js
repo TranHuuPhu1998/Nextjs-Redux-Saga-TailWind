@@ -10,7 +10,7 @@ const DashBoard = () => {
 
     useEffect(() => {
         dispatch(fetchListTask())
-    }, [])
+    }, [dispatch])
 
     return (
         <AdminLayout>
