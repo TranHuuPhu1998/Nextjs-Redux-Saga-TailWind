@@ -1,6 +1,7 @@
 import React from 'react'
 import {useDispatch} from 'react-redux'
 import {deleteUser} from '../../actions/user'
+import ModelLayout from '../ModelLayout/ModelLayout'
 const UserAction = ({id}) => {
     const dispatch = useDispatch();
     
@@ -63,6 +64,9 @@ const UserAction = ({id}) => {
                     />
                 </svg>
             </div>
+            <ModelLayout>
+                
+            </ModelLayout>
         </div>
     )
 }

@@ -57,7 +57,7 @@ function* processLogin({payload}) {
             email,
             password
         })       
-       
+           
         const {data , status} = resp;
         if(status === STATUS_CODE.SUCCESS){
             yield put(loginSuccess(data));
@@ -84,7 +84,6 @@ function* processLogin({payload}) {
 
 function* processSendMail({payload}){
     const {email} = payload;
-    console.log("🚀 ~ file: auth.js ~ line 87 ~ function*processSendMail ~ email", payload)
     yield put(showLoading())
     try {
         const resp = yield call(sendMail , {email})

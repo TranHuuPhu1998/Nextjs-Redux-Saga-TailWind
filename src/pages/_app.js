@@ -19,21 +19,20 @@ function MyApp({ Component, pageProps }) {
 
   useEffect(()=> {
     const token = localStorage.getItem(AUTHORIZATION_KEY);
-    if(token) {
+    if(token && token !== 'undefined') {
       SetToken(token);
       axiosService.setHeader('Authorization' , `Bearer ${token}`);
     }
     else {
       router.push('/login');
     }
+
   },[])
 
   return (
     <Provider store={store}>
       <Loading/>
-      {
-        token ? <Component {...pageProps} />  : <Login/>
-      }
+      <Component {...pageProps} />
     </Provider>
   )
 }

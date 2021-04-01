@@ -1,5 +1,6 @@
 import React , {useState} from 'react'
 import Link from 'next/link'
+import {useRouter} from 'next/router'
 import { useDispatch } from "react-redux"
 import { login } from '../../actions/auth'
 
@@ -9,6 +10,7 @@ const Login = () => {
     const [password_confirmation , SetPasswordConfirmation] = useState(String);
     const [error , SetError] = useState('');
     const dispatch = useDispatch();
+    const router = useRouter();
 
     const onLogin = (event) => {
         event.preventDefault();
@@ -17,6 +19,9 @@ const Login = () => {
         }else {
             SetError('Retype Password is Wrong');
         }
+    }
+    const onRegister = () => {
+        router.push('/singup')
     }
 
     return (
@@ -103,6 +108,11 @@ const Login = () => {
                     onClick={(e)=>onLogin(e)}
             >
                 Login
+            </button>
+            <button className="mt-5 bg-gray-200 hover:bg-blue-700 hover:text-white border border-gray-400 text-blue-700 font-bold py-2 px-6 rounded-lg"
+                    onClick={onRegister}
+            >
+                Register
             </button>
         </div>
     </div>

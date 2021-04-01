@@ -1,6 +1,5 @@
 import axiosService from '../common/Theme/axiosService';
 import {API_ENDPOINT} from './../constants';
-import qs from 'query-string';
 
 const url = 'tasks';
 

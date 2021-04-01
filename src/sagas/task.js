@@ -8,7 +8,6 @@ import { fetchListTaskFailed, fetchListTaskSuccess } from '../actions/taskAction
 function* watchFetchListTaskAction(){
     while(true) {
         yield take(taskTypes.FETCH_TASK)
-        console.log("dispatch");
         try {
             yield put(showLoading())
             const response = yield call(getListTask)

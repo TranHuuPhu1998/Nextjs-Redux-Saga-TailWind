@@ -34,13 +34,11 @@ function* watchFetchListUserAction(){
 }
 
 function* processdeleleUser({payload}){
-    console.log("🚀 ~ file: user.js ~ line 37 ~ function*processdeleleUser ~ payload", payload)
     const {id} = payload;
     if(id !== null) {
         yield put(showLoading());
         try {
             const resp = yield call(deleteUser , id);
-            console.log("🚀 ~ file: user.js ~ line 42 ~ function*processdeleleUser ~ resp", resp)
 
             const {data , status} = resp;
             if(status === STATUS_CODE.SUCCESS){
