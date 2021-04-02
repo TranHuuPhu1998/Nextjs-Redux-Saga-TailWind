@@ -54,6 +54,7 @@ class AxiosService {
         return this.service.request({
             method:'PUT',
             url:endpoint,
+            headers: { 'Content-Type': 'application/json'},
             responseType:'json',
             data:payload
         })
@@ -63,6 +64,7 @@ class AxiosService {
         return this.service.request({
             method : 'DELETE',
             url : endpoint,
+            headers: { 'Content-Type': 'application/json'},
             responseType: 'json',
             data : payload
         })

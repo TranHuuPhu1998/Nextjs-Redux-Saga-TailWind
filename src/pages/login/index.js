@@ -98,7 +98,7 @@ const Login = () => {
                     </label>
                 </div>
                 <div className="text-sm px-3 font-medium text-indigo-600 hover:text-indigo-500 text-blue-600">
-                    <Link href="/repassword" >
+                    <Link href="/forgotpassword" >
                         Forgot your password?
                     </Link>
                 </div>

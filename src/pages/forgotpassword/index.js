@@ -3,7 +3,7 @@ import React , {useState} from 'react'
 import {useDispatch} from 'react-redux'
 import {sendMail} from '../../actions/auth'
 
-const RePassword = () => {
+const ForgotPassword = () => {
     const [email , setEmail] = useState(String)
     const dispatch = useDispatch()
 
@@ -12,7 +12,7 @@ const RePassword = () => {
     }
     return (
         <div className={'w-full bg-gray-200 flex justify-center items-center h-screen'}>
-        <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col my-2 xl:w-1/4 lg:w-1/2 md:w-1/2 sm:w-1/2 w-9/12">
+        <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col my-2 xl:w-2/6 lg:w-1/2 md:w-1/2 sm:w-1/2 w-9/12">
             <h2 className="font-bold text-center text-3xl text-purple-400 pb-4 pt-2 mb-5 border-2 border-solid border-red-500">
                 Reset your password
             </h2>
@@ -39,11 +39,11 @@ const RePassword = () => {
             <button className="mt-5 bg-gray-200 hover:bg-blue-700 hover:text-white border border-gray-400 text-blue-700 font-bold py-2 px-6 rounded-lg"
                     onClick={(e)=>onSendMail(e)}
             >
-                Reset password
+                Send Mail
             </button>
         </div>
     </div>
     )
 }
 
-export default RePassword
+export default ForgotPassword

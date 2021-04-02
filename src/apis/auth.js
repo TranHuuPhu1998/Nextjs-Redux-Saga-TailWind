@@ -13,4 +13,9 @@ export const login = data => {
 
 export const sendMail = data => {
   return axiosService.post(`${API_ENDPOINT}/reset-password`, data);
+};
+
+export const resetPassword = (data) => {
+  const {idToken,password} = data;
+  return axiosService.put(`${API_ENDPOINT}/reset-password/${idToken}`,password)
 }

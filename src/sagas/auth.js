@@ -12,10 +12,12 @@ import {
     singupFailed,
     singupSuccess,
     sendMailSuccess,
-    sendMailFailed
+    sendMailFailed,
+    resetPasswordSuccess,
+    resetPasswordFailed
 } from '../actions/auth';
 
-import {login , singup , sendMail} from '../apis/auth';
+import {login , singup , sendMail, resetPassword} from '../apis/auth';
 import * as authTypes from '../constants/auth';
 import axiosService from '../common/Theme/axiosService';
 
@@ -45,7 +47,7 @@ function* processSignup({payload}) {
     } 
     finally {
         yield delay(100);
-        yield put(hideLoading())
+        yield put(hideLoading());
     }
 }
 
@@ -56,7 +58,7 @@ function* processLogin({payload}) {
         const resp = yield call(login ,{
             email,
             password
-        })       
+        });   
            
         const {data , status} = resp;
         if(status === STATUS_CODE.SUCCESS){
@@ -78,7 +80,7 @@ function* processLogin({payload}) {
     }
     finally {
         yield delay(100);
-        yield put(hideLoading())
+        yield put(hideLoading());
     }
 }
 
@@ -86,21 +88,44 @@ function* processSendMail({payload}){
     const {email} = payload;
     yield put(showLoading())
     try {
-        const resp = yield call(sendMail , {email})
+        console.log("send mail");
+        const resp = yield call(sendMail , {email});
         const {data , status} = resp;
 
         if(status === STATUS_CODE.SUCCESS) {
-            yield put(sendMailSuccess(data))
+            yield put(sendMailSuccess(data));
         }else {
-            yield put(sendMailFailed(data))
+            yield put(sendMailFailed(data));
         }
 
     } catch (error) {
         const details = _get(error , 'response.data' ,{});
-        yield put(sendMailFailed(details))
+        yield put(sendMailFailed(details));
     } finally {
         yield delay(100);
-        yield put(hideLoading())
+        yield put(hideLoading());
+    }
+}
+
+function* processResetPassword({payload}){
+    const {password , idToken} = payload;
+    yield put(showLoading())
+    try {
+        console.log("send");
+        const resp = yield call(resetPassword , {idToken , password})
+        const {data , status} = resp;
+        if(status = STATUS_CODE.SUCCESS) {
+            yield put(resetPasswordSuccess(data))
+        }else {
+            yield put(resetPasswordFailed(data))
+        }
+    } catch (error) {
+        const details = _get(error , 'response.data' ,{});
+        yield put(resetPasswordFailed(details));
+    }
+    finally {
+        yield delay(100);
+        yield put(hideLoading());
     }
 }
 
@@ -113,6 +138,7 @@ function* authSaga(){
     yield takeLatest(authTypes.SIGNUP , processSignup);
     yield takeLatest(authTypes.LOGIN , processLogin);
     yield takeLatest(authTypes.SEND_MAIL , processSendMail);
+    yield takeLatest(authTypes.RESET_PASSWORD , processResetPassword);
 }
 
 export default authSaga;

@@ -69,3 +69,25 @@ export const sendMailFailed = (data) => ({
         data
     }
 })
+
+export const resetPassword = (idToken,password) => ({
+    type : types.RESET_PASSWORD,
+    payload : {
+        password,
+        idToken
+    }
+})
+
+export const resetPasswordSuccess = (data) => ({
+    type : types.RESET_PASSWORD_SUCCESS,
+    payload : {
+        data
+    }
+})
+
+export const resetPasswordFailed = (data) => ({
+    type : types.RESET_PASSWORD_FAILED,
+    payload : {
+        data
+    }
+})
