@@ -6,15 +6,14 @@ import { resetPassword } from '../../actions/auth'
 const ResetPassword = () => {
     const router = useRouter();
     const dispatch = useDispatch();
-    const tokenpassword = router.query.id;
-    console.log("🚀 ~ file: [id].js ~ line 10 ~ ResetPassword ~ tokenpassword", tokenpassword)
+    const token = router.query.id;
 
     const [password, setPassword] = useState(String);
     const [passwordConfirmation , setPasswordConfirmation] = useState(String);
     const [error , setError] = useState(String)
 
     const onResetPassword = () => {
-        dispatch(resetPassword(tokenpassword , password))    
+        dispatch(resetPassword(token , password))    
     }
     return (
         <>

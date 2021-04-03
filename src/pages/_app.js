@@ -4,9 +4,11 @@ import {useRouter} from 'next/router'
 import makeStore from "../redux/configureStore"
 import axiosService from '../common/Theme/axiosService'
 import {AUTHORIZATION_KEY} from '../constants'
-import {REDIRECT_AFTER_LOGIN_SUCCESS} from '../constants/auth'
+// import {REDIRECT_AFTER_LOGIN_SUCCESS} from '../constants/auth'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import {useEffect, useState} from 'react'
-import {fetchListTask} from './../actions/taskActions'
+// import {fetchListTask} from './../actions/taskActions'
 import Login from './login'
 import Loading from '../components/Loading/Loading'
 import "../styles/globals.css"
@@ -32,7 +34,9 @@ function MyApp({ Component, pageProps }) {
   return (
     <Provider store={store}>
       <Loading/>
+      <ToastContainer></ToastContainer>
       <Component {...pageProps} />
+     
     </Provider>
   )
 }

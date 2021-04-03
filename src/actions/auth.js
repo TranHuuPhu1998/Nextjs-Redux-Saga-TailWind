@@ -21,7 +21,7 @@ export const singupSuccess = data => ({
     }
 });
 
-export const singupFailed = error => ({
+export const singupFailed = (error) => ({
     type:types.SIGNUP_FAILED,
     payload : {
         error
@@ -43,13 +43,14 @@ export const loginSuccess = data => ({
     }
 })
 
-export const loginFailed = error => ({
-    type : types.LOGIN_FAILED,
-    payload : {
-        error
+export const loginFailed = (error) => {
+    return {
+        type : types.LOGIN_FAILED,
+        payload : {
+            error
+        }
     }
-})
-
+}
 export const sendMail = (email) => ({
     type : types.SEND_MAIL,
     payload : {
@@ -70,11 +71,11 @@ export const sendMailFailed = (data) => ({
     }
 })
 
-export const resetPassword = (idToken,password) => ({
+export const resetPassword = (token,password) => ({
     type : types.RESET_PASSWORD,
     payload : {
         password,
-        idToken
+        token
     }
 })
 

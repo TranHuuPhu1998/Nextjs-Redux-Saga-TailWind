@@ -15,10 +15,11 @@ function* watchFetchListUserAction(){
     while(true){
         yield take(userTypes.FETCH_USER)
         try {
+            
             yield put(showLoading())
             const response = yield call(getListUser)
             const {status , data} = response;
-            if(status === STATUS_CODE.SUCCESS) {
+            if(status === 200) {
                 yield put(fetchListUserSuccess(data.data))
             }else {
                 yield put(fetchListUserFailed(data.data))
@@ -41,7 +42,7 @@ function* processdeleleUser({payload}){
             const resp = yield call(deleteUser , id);
 
             const {data , status} = resp;
-            if(status === STATUS_CODE.SUCCESS){
+            if(status === 200){
                 yield put(deleteUserSuccess(id))
             }else {
                 yield put(deleteUserFailed(data.data))

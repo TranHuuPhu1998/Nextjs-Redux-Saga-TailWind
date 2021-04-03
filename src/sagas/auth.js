@@ -59,9 +59,9 @@ function* processLogin({payload}) {
             email,
             password
         });   
-           
-        const {data , status} = resp;
-        if(status === STATUS_CODE.SUCCESS){
+        console.log("dispatch");
+        const {data} = resp;
+        if(data.status === STATUS_CODE.SUCCESS){
             yield put(loginSuccess(data));
             const {access_token} = data;
            
@@ -72,11 +72,10 @@ function* processLogin({payload}) {
             axiosService.redirectTo(document , authTypes.REDIRECT_AFTER_LOGIN_SUCCESS);
          
         }else {
-            put(loginFailed(data));
+            yield put(loginFailed());
         }
     } catch (error) {
-        const err = _get(error , 'response.data' ,{});
-        yield put(loginFailed(err));
+        yield put(loginFailed());
     }
     finally {
         yield delay(100);
@@ -90,17 +89,16 @@ function* processSendMail({payload}){
     try {
         console.log("send mail");
         const resp = yield call(sendMail , {email});
-        const {data , status} = resp;
-
-        if(status === STATUS_CODE.SUCCESS) {
+        const {data} = resp;
+        
+        if(data.status === STATUS_CODE.SUCCESS) {
             yield put(sendMailSuccess(data));
         }else {
-            yield put(sendMailFailed(data));
+            yield put(sendMailFailed());
         }
 
     } catch (error) {
-        const details = _get(error , 'response.data' ,{});
-        yield put(sendMailFailed(details));
+        yield put(sendMailFailed());
     } finally {
         yield delay(100);
         yield put(hideLoading());
@@ -108,20 +106,19 @@ function* processSendMail({payload}){
 }
 
 function* processResetPassword({payload}){
-    const {password , idToken} = payload;
+    const {password , token} = payload;
     yield put(showLoading())
     try {
         console.log("send");
-        const resp = yield call(resetPassword , {idToken , password})
-        const {data , status} = resp;
-        if(status = STATUS_CODE.SUCCESS) {
+        const resp = yield call(resetPassword , {token , password})
+        const {data} = resp;
+        if(data.status = STATUS_CODE.SUCCESS) {
             yield put(resetPasswordSuccess(data))
         }else {
-            yield put(resetPasswordFailed(data))
+            yield put(resetPasswordFailed())
         }
     } catch (error) {
-        const details = _get(error , 'response.data' ,{});
-        yield put(resetPasswordFailed(details));
+        yield put(resetPasswordFailed());
     }
     finally {
         yield delay(100);

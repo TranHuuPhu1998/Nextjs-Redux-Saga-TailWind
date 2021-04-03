@@ -16,3 +16,5 @@ export const RESET_PASSWORD_FAILED = "RESET_PASSWORD_FAILED";
 
 export const REDIRECT_AFTER_SIGNUP_SUCCESS = '/login';
 export const REDIRECT_AFTER_LOGIN_SUCCESS = '/dashboard';
+
+

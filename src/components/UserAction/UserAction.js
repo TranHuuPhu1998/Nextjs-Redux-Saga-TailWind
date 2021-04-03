@@ -64,9 +64,7 @@ const UserAction = ({id}) => {
                     />
                 </svg>
             </div>
-            <ModelLayout>
-                
-            </ModelLayout>
+            {/* <ModelLayout/> */}
         </div>
     )
 }

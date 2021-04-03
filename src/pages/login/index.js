@@ -13,7 +13,7 @@ const Login = () => {
     const router = useRouter();
 
     const onLogin = (event) => {
-        event.preventDefault();
+        // event.preventDefault();
         if(password === password_confirmation){
             dispatch(login(email,password));
         }else {

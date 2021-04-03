@@ -12,10 +12,11 @@ export const login = data => {
 };
 
 export const sendMail = data => {
-  return axiosService.post(`${API_ENDPOINT}/reset-password`, data);
+console.log("🚀 ~ file: auth.js ~ line 15 ~ data", data)
+  return axiosService.post(`${API_ENDPOINT}/forgot-password`, data);
 };
 
 export const resetPassword = (data) => {
-  const {idToken,password} = data;
-  return axiosService.put(`${API_ENDPOINT}/reset-password/${idToken}`,password)
+console.log("🚀 ~ file: auth.js ~ line 20 ~ resetPassword ~ data", data)
+  return axiosService.post(`${API_ENDPOINT}/reset-password`,data)
 }
