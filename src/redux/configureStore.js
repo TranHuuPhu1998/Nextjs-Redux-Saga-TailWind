@@ -3,9 +3,7 @@ import thunk from 'redux-thunk';
 import createSagaMiddleware from 'redux-saga';
 import rootReducers from "./../reducers";
 import rootSaga from '../sagas/rootSaga';
-
-// import { createBrowserHistory } from 'history';
-// import { routerMiddleware } from 'connected-react-router';
+import {createWrapper} from 'next-redux-wrapper'
 
 const sagaMiddleware = createSagaMiddleware()
 
@@ -14,18 +12,15 @@ const composeEnhancers =
     typeof window === "object" &&
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
         ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
-              shouldHotReload:false,
+              shouldHotReload:true,
           })
         : compose;
 
-
-// export const history = createBrowserHistory();
 
 const configureStore = () => {
     const middlewares = [
         thunk,
         sagaMiddleware,
-        // routerMiddleware(history)
     ];
     const enhancers = [
         applyMiddleware(...middlewares)
@@ -39,6 +34,7 @@ const configureStore = () => {
     return store;
 };
 
+const wrapper = createWrapper(configureStore)
 
+export default wrapper
 
-export default configureStore;

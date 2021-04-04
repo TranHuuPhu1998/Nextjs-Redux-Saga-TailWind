@@ -1,9 +1,11 @@
 import Head from 'next/head'
-import React , {useEffect} from 'react'
+import React from 'react'
 import styles from '../styles/Home.module.css'
-import Singup from './singup/index'
+import Login from './login'
 
 export default function Home() {
+  
+
   return (
     <div className={styles.container + " w-full"}>
       <Head>
@@ -16,7 +18,7 @@ export default function Home() {
       {/* <Navigation/> */}
       
       <div className="bg-blue-300	flex justify-center items-center h-screen bg-gray-50 dark:bg-gray-900" >
-          <Singup/>
+          <Login/>
       </div>
 
       <footer className={styles.footer}>

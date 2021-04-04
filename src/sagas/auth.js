@@ -1,7 +1,6 @@
-// import {push} from 'connected-react-router';
+import {push} from 'connected-react-router';
 import _get from 'lodash';
-import {Router} from 'react-router-dom';
-import {call , put , take, takeLatest ,delay} from 'redux-saga/effects';
+import {call , put , take, takeLatest ,delay, takeEvery,cancel,fork} from 'redux-saga/effects';
 import {hideLoading , showLoading} from '../actions/ui';
 
 import {STATUS_CODE , AUTHORIZATION_KEY} from '../constants';
@@ -22,20 +21,23 @@ import * as authTypes from '../constants/auth';
 import axiosService from '../common/Theme/axiosService';
 
 function* processSignup({payload}) {
+
     const {name , email, password , password_confirmation ,position, permission } = payload;
     yield put(showLoading());
     try {
+      
         const resp = yield call(singup , {
             name,
             email,
             password,
             password_confirmation,
             position,
-            permission
+            permission,
         });
+      
+        const {data} = resp;
 
-        const {data , status} = resp;
-        if(status === STATUS_CODE.SUCCESS){
+        if(data.status === STATUS_CODE.SUCCESS){
             yield put(singupSuccess(data));
             axiosService.redirectTo(document , authTypes.REDIRECT_AFTER_SIGNUP_SUCCESS)
         }else {
@@ -52,25 +54,32 @@ function* processSignup({payload}) {
 }
 
 function* processLogin({payload}) {
+
     const {email , password} = payload;
     yield put(showLoading());
     try {
+        console.log("dispatch");
         const resp = yield call(login ,{
             email,
             password
         });   
-        console.log("dispatch");
+        
         const {data} = resp;
+      
         if(data.status === STATUS_CODE.SUCCESS){
-            yield put(loginSuccess(data));
+            console.log("🚀 ~ file: auth.js ~ line 70 ~ function*processLogin ~ data", data.status === STATUS_CODE.SUCCESS)
+            yield put(loginSuccess(data.user));
             const {access_token} = data;
            
             axiosService.setHeader('Authorization', `Bearer ${access_token}`);
            
             localStorage.setItem(AUTHORIZATION_KEY , access_token);
-
-            axiosService.redirectTo(document , authTypes.REDIRECT_AFTER_LOGIN_SUCCESS);
-         
+            if(data.user.isAdmin) {
+                localStorage.setItem("ADMIN" , access_token);
+            }
+            // yield put(push(authTypes.REDIRECT_AFTER_LOGIN_SUCCESS));
+            // yield axiosService.redirectPage("title",authTypes.REDIRECT_AFTER_LOGIN_SUCCESS);
+            // yield axiosService.redirectTo(document , authTypes.REDIRECT_AFTER_LOGIN_SUCCESS);
         }else {
             yield put(loginFailed());
         }
@@ -87,7 +96,7 @@ function* processSendMail({payload}){
     const {email} = payload;
     yield put(showLoading())
     try {
-        console.log("send mail");
+       
         const resp = yield call(sendMail , {email});
         const {data} = resp;
         
@@ -133,7 +142,7 @@ function* processResetPassword({payload}){
 
 function* authSaga(){
     yield takeLatest(authTypes.SIGNUP , processSignup);
-    yield takeLatest(authTypes.LOGIN , processLogin);
+    yield takeLatest(authTypes.LOGIN,processLogin);
     yield takeLatest(authTypes.SEND_MAIL , processSendMail);
     yield takeLatest(authTypes.RESET_PASSWORD , processResetPassword);
 }

@@ -50,3 +50,31 @@ export const deleteUserFailed = (error) => {
         }
     }
 }
+
+export const updateUser = (id,data) => {
+    return {
+        type : userConstants.UPDATE_USER,
+        payload : {
+            id,
+            data
+        }
+    }
+} 
+
+export const updateUserSuccess = (data) => {
+    return {
+        type : userConstants.UPDATE_USER_SUCCESS,
+        payload : {
+            data
+        }
+    }
+}
+
+export const updateUserFailed = (error) => {
+    return {
+        type : userConstants.UPDATE_USER_FAILED,
+        payload : {
+            error
+        }
+    }
+}

@@ -1,7 +1,7 @@
 import * as userTypes from '../constants/user'
 import _get from 'lodash/get'
-import { getListUser , deleteUser } from '../apis/user'
-import { call, delay, fork, put, take,takeLatest } from '@redux-saga/core/effects'
+import { getListUser , deleteUser ,updateUser} from '../apis/user'
+import { call, delay, fork, put, take,takeEvery,takeLatest } from '@redux-saga/core/effects'
 import { hideLoading, showLoading } from '../actions/ui'
 import {
     fetchListUserSuccess ,
@@ -60,9 +60,24 @@ function* processdeleleUser({payload}){
     
 }
 
+function* processUpdateUser({payload}){
+    console.log("🚀 ~ file: user.js ~ line 64 ~ function*processUpdateUser ~ payload", payload)
+    const {id , data} = payload;
+    put(showLoading())
+    try {
+        const resp = call(updateUser , {data , id})
+        console.log("🚀 ~ file: user.js ~ line 69 ~ function*processUpdateUser ~ resp", resp)
+    } catch (error) {
+        
+    } finally {
+        put(hideLoading())
+    }
+}
+
 function* userSaga(){
     yield fork(watchFetchListUserAction)
     yield takeLatest(userTypes.DELETE_USER , processdeleleUser);
+    yield takeEvery(userTypes.UPDATE_USER , processUpdateUser)
 }
 
 export default userSaga;

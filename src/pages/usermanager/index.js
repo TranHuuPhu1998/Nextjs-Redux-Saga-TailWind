@@ -1,20 +1,32 @@
-import React , {useEffect} from "react"
+import React , {useState,useEffect} from "react"
 import Link from 'next/link'
 import AdminLayout from "../../common/Layout/AdminLayout"
 import UserList from '../../components/UserList/UserList'
 import {useSelector,useDispatch} from 'react-redux'
 import { fetchListUser } from '../../actions/user'
+import { useRouter } from "next/router"
 
 const UserManager = () => {
     const dispatch = useDispatch();
+    const [isAdmin , setIsAdmin] = useState(false)
+    const router = useRouter()
     const users = useSelector((state) => state.userReducers);
-
+    
     useEffect(() => {
+        const isAdmin = localStorage.getItem('ADMIN')
+        if(isAdmin){   
+            setIsAdmin(true)
+        }else {
+            router.push('/404')
+        }
         dispatch(fetchListUser())
     }, [dispatch])
     
     return (
-        <AdminLayout>
+        <>
+        {
+        isAdmin ? (
+            <AdminLayout>
             <div className="overflow-x-auto">
                 <div className="p-2 text-center text-green-900 text-3xl	bg-indigo-600 bg-opacity-50 font-mono cursor-pointer">
                     <div
@@ -38,8 +50,8 @@ const UserManager = () => {
                     <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
                         <th className="py-3 px-6 text-left">User Name</th>
                         <th className="py-3 px-6 text-left">Email</th>
-                        <th className="py-3 px-6 text-center">Permission</th>
-                        <th className="py-3 px-6 text-center">Position</th>
+                        {/* <th className="py-3 px-6 text-center">Permission</th>
+                        <th className="py-3 px-6 text-center">Position</th> */}
                         <th className="py-3 px-6 text-center">Status</th>
                         <th className="py-3 px-6 text-center">ACTIONS</th>
                     </tr>
@@ -53,6 +65,9 @@ const UserManager = () => {
             </div>
             </div>
         </AdminLayout>
+           ) : ""
+        }
+    </>
   );
 };
 

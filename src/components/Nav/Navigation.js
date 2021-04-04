@@ -9,7 +9,7 @@ const Navigation = () => {
           className="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200"
           href="#"
         >
-          TRELLO
+          TRELLO ADMIN
         </a>
         <ul className="mt-6">
           <li className="relative px-6 py-3">

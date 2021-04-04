@@ -1,8 +1,9 @@
-import React , {useState} from 'react'
+import React , {useState , useEffect} from 'react'
 import Link from 'next/link'
 import {useRouter} from 'next/router'
-import { useDispatch } from "react-redux"
+import { useDispatch ,useSelector } from "react-redux"
 import { login } from '../../actions/auth'
+import {AUTHORIZATION_KEY} from '../../constants'
 
 const Login = () => {
     const [email, SetEmail] = useState(String);
@@ -12,14 +13,25 @@ const Login = () => {
     const dispatch = useDispatch();
     const router = useRouter();
 
+    const user = useSelector(state => state.authReducers)
+
     const onLogin = (event) => {
-        // event.preventDefault();
+        event.preventDefault();
         if(password === password_confirmation){
+            console.log("event login");
             dispatch(login(email,password));
         }else {
             SetError('Retype Password is Wrong');
         }
     }
+
+    useEffect(()=> {
+        const token = localStorage.getItem(AUTHORIZATION_KEY);
+        if(token){
+            router.push('/dashboard');
+        } 
+    },[user])
+
     const onRegister = () => {
         router.push('/singup')
     }

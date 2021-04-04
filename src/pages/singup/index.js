@@ -10,12 +10,13 @@ const SingUp = () => {
     const [position , SetPosition] = useState(String);
     const [permission , SetPermission] = useState(String);
     const [password_confirmation , SetPasswordConfirmation] = useState(String);
-    
+    const status = 'free time';
     const [error , SetError] = useState('');
     const dispatch = useDispatch();
 
     const onSingup = (event) => {
         event.preventDefault();
+        
         if(password === password_confirmation){
             dispatch(singup(name,email,password_confirmation,password,position,permission));
         }else {

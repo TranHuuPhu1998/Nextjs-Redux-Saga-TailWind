@@ -1,12 +1,18 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {useDispatch} from 'react-redux'
 import {deleteUser} from '../../actions/user'
 import ModelLayout from '../ModelLayout/ModelLayout'
-const UserAction = ({id}) => {
+import UserModelUpdate from '../UserModel/UserModelUpdate'
+const UserAction = ({name,email,permission,position,status,id}) => {
+    const [isopen , setIsopen] = useState(false);
     const dispatch = useDispatch();
     
     const onDeleteUser = (id) => {
         dispatch(deleteUser(id))
+    }
+
+    const onOpenModel = () => {
+        setIsopen(!isopen)
     }
 
     return (
@@ -32,7 +38,9 @@ const UserAction = ({id}) => {
                     />
                 </svg>
             </div>
-            <div className="w-4 mr-2 transform hover:text-purple-500 hover:scale-110 cursor-pointer">
+            <div className="w-4 mr-2 transform hover:text-purple-500 hover:scale-110 cursor-pointer"
+                onClick={()=>onOpenModel()}
+            >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -64,7 +72,20 @@ const UserAction = ({id}) => {
                     />
                 </svg>
             </div>
-            {/* <ModelLayout/> */}
+            { isopen ? 
+                <ModelLayout> 
+                    <UserModelUpdate 
+                        id={id}
+                        name={name}
+                        email={email}
+                        permission={permission}
+                        position={position}
+                        status={status}
+                        onOpenModel={onOpenModel}
+                    />
+                </ModelLayout>  
+                : <></>
+            }
         </div>
     )
 }

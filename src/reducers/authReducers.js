@@ -1,7 +1,9 @@
 import { toastError, toastSuccess } from '../common/helpers/toastHelper';
 import * as types from '../constants/auth';
 
-const initialState = {};
+const initialState = {
+  user:{}
+};
 
 const reducers = (state = initialState, action) => {
 
@@ -13,6 +15,7 @@ const reducers = (state = initialState, action) => {
     }
     case types.SIGNUP_SUCCESS: {
       toastSuccess('sing up success');
+     
       return {
         ...state
       };
@@ -29,16 +32,18 @@ const reducers = (state = initialState, action) => {
       };
     }
     case types.LOGIN_SUCCESS: {
+      const {data} = action.payload;
       toastSuccess('Login success');
       return {
-        ...state
+        ...state,
+        user: data
       };
     }
     case types.LOGIN_FAILED: {
         const { error } = action.payload;
         toastError("Login failed");
         return {
-            ...state
+            ...state,
         };
     }
     case types.SEND_MAIL : {

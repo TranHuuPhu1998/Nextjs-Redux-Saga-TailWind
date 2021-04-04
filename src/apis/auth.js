@@ -12,7 +12,6 @@ export const login = data => {
 };
 
 export const sendMail = data => {
-console.log("🚀 ~ file: auth.js ~ line 15 ~ data", data)
   return axiosService.post(`${API_ENDPOINT}/forgot-password`, data);
 };
 

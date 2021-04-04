@@ -22,7 +22,6 @@ const reducers = (state = initialState , action) => {
         }
         case userConstanst.DELETE_USER_SUCCESS : {
             const {id} = action.payload;
-            console.log("🚀 ~ file: usersReducers.js ~ line 25 ~ reducers ~ id", id)
             const users = state.filter(item => item.id !== id);
             state = users;
             return [...state]

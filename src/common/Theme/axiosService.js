@@ -25,7 +25,9 @@ class AxiosService {
     redirectTo = (document , path) => {
         document.location = path;
     }
-
+    redirectPage = (title,path) => {
+        window.history.pushState('page2', title,path);
+    }
     get(endpoint) {
         return this.service.get(endpoint);
     }
@@ -44,7 +46,7 @@ class AxiosService {
         return this.service.request({
             method:'POST',
             url:endpoint,
-            headers: { 'Content-Type': 'application/json'},
+            headers: {"accept": "application/json",},
             responseType : 'json',
             data:payload
         });
@@ -54,6 +56,7 @@ class AxiosService {
         return this.service.request({
             method:'PUT',
             url:endpoint,
+            headers: {"accept": "application/json",},
             responseType:'json',
             data:payload
         })
@@ -63,7 +66,7 @@ class AxiosService {
         return this.service.request({
             method : 'DELETE',
             url : endpoint,
-            headers: { 'Content-Type': 'application/json'},
+            headers: {  "accept": "application/json",},
             responseType: 'json',
             data : payload
         })

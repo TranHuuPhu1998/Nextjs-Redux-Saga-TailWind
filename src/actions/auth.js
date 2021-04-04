@@ -9,7 +9,7 @@ export const singup = (name,email,password_confirmation,password,position,permis
             password,
             password_confirmation,
             position,
-            permission
+            permission,
         },
     }
 }
