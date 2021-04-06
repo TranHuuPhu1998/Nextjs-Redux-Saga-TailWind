@@ -11,8 +11,13 @@ export const addUser = data => {
     return axiosService.post(`${API_ENDPOINT}/${url}` , data);
 }
 
-export const updateUser = (data, userId) => {
-    return axiosService.put(`${API_ENDPOINT}/${url}/${userId}`, data);
+export const updateUser = (data , id) => {
+    return axiosService.put(`${API_ENDPOINT}/${url}/update/${id}`,data);
+}
+
+export const createUser = (data) => {
+console.log("🚀 ~ file: user.js ~ line 19 ~ createUser ~ data", data)
+    return axiosService.post(`${API_ENDPOINT}/${url}/create`, data);
 }
 
 export const deleteUser = userId => {

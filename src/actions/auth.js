@@ -66,6 +66,7 @@ export const sendMailSuccess = (data) => ({
 })
 
 export const sendMailFailed = (data) => ({
+    type : types.SEND_MAIL_FAILED,
     payload : {
         data
     }

@@ -1,4 +1,3 @@
-import "tailwindcss/tailwind.css";
 import React , {useState} from 'react'
 import {useDispatch} from 'react-redux'
 import {sendMail} from '../../actions/auth'

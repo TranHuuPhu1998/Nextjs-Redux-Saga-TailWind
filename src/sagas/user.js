@@ -1,13 +1,17 @@
 import * as userTypes from '../constants/user'
 import _get from 'lodash/get'
-import { getListUser , deleteUser ,updateUser} from '../apis/user'
+import { getListUser , deleteUser ,updateUser ,createUser} from '../apis/user'
 import { call, delay, fork, put, take,takeEvery,takeLatest } from '@redux-saga/core/effects'
 import { hideLoading, showLoading } from '../actions/ui'
 import {
     fetchListUserSuccess ,
     fetchListUserFailed,
     deleteUserSuccess,
-    deleteUserFailed
+    deleteUserFailed,
+    updateUserSuccess,
+    updateUserFailed,
+    createUserSuccess,
+    createUserFailed
 } from '../actions/user'
 import {STATUS_CODE} from '../constants'
 
@@ -61,23 +65,81 @@ function* processdeleleUser({payload}){
 }
 
 function* processUpdateUser({payload}){
-    console.log("🚀 ~ file: user.js ~ line 64 ~ function*processUpdateUser ~ payload", payload)
-    const {id , data} = payload;
-    put(showLoading())
-    try {
-        const resp = call(updateUser , {data , id})
-        console.log("🚀 ~ file: user.js ~ line 69 ~ function*processUpdateUser ~ resp", resp)
-    } catch (error) {
+    const {id , name , email , permission , position, status ,isAdmin} = payload;
+
+    if(id !== null){
+        yield put(showLoading())
+        try {
+    
+            const resp = yield call(updateUser , {
+                name,
+                email,
+                position,
+                permission,
+                status,
+                isAdmin
+            }, id)
+
+            const {data } = resp;
+            if(resp.status === 200) {
+                yield put(updateUserSuccess(data))
+            }
+            else {
+                yield put(updateUserFailed())
+            }
+        } catch (error) {
+            yield put(updateUserFailed())
+        } finally {
+            yield put(hideLoading())
+        }
+    }else {
         
+    }
+ 
+}
+
+function* processCreateUser({payload}) {
+
+    const {
+        name,
+        email,
+        password,
+        status,
+        position,
+        permission,
+        isAdmin} = payload;
+    yield put(showLoading());
+    try {
+        const resq = yield call(createUser , { 
+            name,
+            email,
+            password,
+            status,
+            position,
+            permission,
+            isAdmin,
+        });
+        console.log("🚀 ~ file: user.js ~ line 121 ~ function*processCreateUser ~ resq", resq);
+        const {data} = resq;
+        if(data.status === STATUS_CODE.SUCCESS) {
+            yield put(createUserSuccess(data.user))
+        }else {
+            yield put(createUserFailed())
+        }
+       
+    } catch (error) {
+        yield put(createUserFailed())
     } finally {
-        put(hideLoading())
+        yield put(createUserFailed())
+        yield put(hideLoading())
     }
 }
 
 function* userSaga(){
     yield fork(watchFetchListUserAction)
     yield takeLatest(userTypes.DELETE_USER , processdeleleUser);
-    yield takeEvery(userTypes.UPDATE_USER , processUpdateUser)
+    yield takeLatest(userTypes.UPDATE_USER , processUpdateUser);
+    yield takeLatest(userTypes.CREATE_USER , processCreateUser);
 }
 
 export default userSaga;

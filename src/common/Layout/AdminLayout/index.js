@@ -7,6 +7,7 @@ import { useRouter } from "next/router"
 const AdminLayout = ({children}) => {
     const router = useRouter()
     const [isAdmin , setIsAdmin] = useState(false)
+    const [isopen , setIsopen] = useState(true)
 
     useEffect(() => {
         const isAdmin = localStorage.getItem('ADMIN')
@@ -16,15 +17,19 @@ const AdminLayout = ({children}) => {
             setIsAdmin(false)
         }
     }, [])
+
+    const onClickOutSide = () => {
+        setIsopen(!isopen)
+    }
     
     return (
         <div className="flex h-screen bg-gray-50 dark:bg-gray-900" >
             {
-                isAdmin ? <Navigation/> : ""
+                isAdmin ? <Navigation onClickOutSide={onClickOutSide}/> : ""
             }
             <div className="flex flex-col flex-1 w-full">
-            <Header/>
-            <main className="h-full pb-16 overflow-y-auto">
+            <Header onClickOutSide={onClickOutSide} isopen={isopen} />
+            <main className="h-full pb-16 overflow-y-auto" onClick={onClickOutSide} >
                 {children}
             </main>
         </div>

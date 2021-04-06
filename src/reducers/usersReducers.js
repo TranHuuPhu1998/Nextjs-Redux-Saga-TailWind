@@ -1,5 +1,6 @@
 import * as userConstanst from '../constants/user'
 import * as authConstanst from '../constants/auth'
+
 const initialState = [];
 
 const reducers = (state = initialState , action) => {
@@ -26,6 +27,20 @@ const reducers = (state = initialState , action) => {
             state = users;
             return [...state]
         }
+        case userConstanst.UPDATE_USER : {
+            return [...state]
+        }
+        case userConstanst.UPDATE_USER_SUCCESS : {
+            const {data} = action.payload;
+            const index = state.findIndex(item => item.id === data.id)
+            state[index] = data;
+            return [...state]
+        }
+        case userConstanst.CREATE_USER_SUCCESS : {
+            const data = action.payload;
+            state = state.push(data.data);
+            return [...state]
+        }
         case authConstanst.RESET_PASSWORD : {
             return [...state]
         }
@@ -35,6 +50,7 @@ const reducers = (state = initialState , action) => {
         case authConstanst.RESET_PASSWORD_FAILED : {
             return [...state]
         }
+        
         default:
             return [...state];
     }

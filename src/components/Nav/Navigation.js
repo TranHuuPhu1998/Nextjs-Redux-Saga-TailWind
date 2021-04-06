@@ -1,9 +1,11 @@
 import React from 'react'
 import Link from 'next/link'
 
-const Navigation = () => {
+const Navigation = ({onClickOutSide}) => {
   return (
-    <aside className="z-20 flex-shrink-0 hidden w-64 overflow-y-auto bg-white dark:bg-gray-800 md:block border-solid border-r-2 border-light-blue-500 border-opacity-75">
+    <aside className="z-20 flex-shrink-0 hidden w-64 overflow-y-auto bg-white dark:bg-gray-800 md:block border-solid border-r-2 border-light-blue-500 border-opacity-75"
+      onClick={onClickOutSide}
+    >
       <div className="py-4 text-gray-500 dark:text-gray-400">
         <a
           className="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200"

@@ -1,11 +1,12 @@
 import Head from 'next/head'
+import dynamic from 'next/dynamic'
 import React from 'react'
 import styles from '../styles/Home.module.css'
-import Login from './login'
+
+const Login = dynamic(()=>import('./login'))
 
 export default function Home() {
   
-
   return (
     <div className={styles.container + " w-full"}>
       <Head>

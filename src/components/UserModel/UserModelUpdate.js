@@ -1,4 +1,6 @@
 import React , {useState , useEffect} from 'react'
+import {useDispatch} from 'react-redux'
+import {updateUser} from '../../actions/user'
 
 const UserModelUpdate = (payload) => {
 
@@ -7,17 +9,25 @@ const UserModelUpdate = (payload) => {
     const [email , setEmail] = useState(String)
     const [position , setPosition] = useState(String)
     const [permission , setPermission] = useState(String)
+    const [isAdmin , setIsadmin] = useState(false)
     
+    const dispatch = useDispatch();
+
     useEffect(()=> {
         setEmail(payload.email)
         setName(payload.name)
         setStatus(payload.status)
         setPosition(payload.position)
         setPermission(payload.permission)
+        setIsadmin(payload.isAdmin)
     },[])
 
     const onCloseModel = () =>{
         payload.onOpenModel()
+    }
+
+    const onUpdateModel = () => {
+        dispatch(updateUser(payload.id,name,email,status,position,permission,isAdmin))    
     }
     
     return (
@@ -128,11 +138,19 @@ const UserModelUpdate = (payload) => {
         </div>
         <div className="flex flex-col items-center justify-end px-6 py-3 -mx-6 -mb-4 space-y-4 sm:space-y-0 sm:space-x-6 sm:flex-row dark:bg-gray-800">
             <button className="w-full px-5 py-3 text-sm font-medium leading-5 text-white text-gray-700 transition-colors duration-150 border border-gray-300 rounded-lg dark:text-gray-400 sm:px-4 sm:py-2 sm:w-auto active:bg-transparent hover:border-gray-500 focus:border-gray-500 active:text-gray-500 focus:outline-none focus:shadow-outline-gray"
+                onClick={()=>setIsadmin(!isAdmin)}
+            >
+                {isAdmin ? "Admin" : "User"}
+            </button>
+
+            <button className="w-full px-5 py-3 text-sm font-medium leading-5 text-white text-gray-700 transition-colors duration-150 border border-gray-300 rounded-lg dark:text-gray-400 sm:px-4 sm:py-2 sm:w-auto active:bg-transparent hover:border-gray-500 focus:border-gray-500 active:text-gray-500 focus:outline-none focus:shadow-outline-gray"
                 onClick={onCloseModel}
             >
                 Cancel
             </button>
-            <button className="w-full px-5 py-3 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg sm:w-auto sm:px-4 sm:py-2 active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+            <button className="w-full px-5 py-3 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg sm:w-auto sm:px-4 sm:py-2 active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
+                onClick={onUpdateModel}
+            >
                 Accept
             </button>
         </div>

@@ -98,9 +98,9 @@ function* processSendMail({payload}){
     try {
        
         const resp = yield call(sendMail , {email});
-        const {data} = resp;
+        const {data,status} = resp;
         
-        if(data.status === STATUS_CODE.SUCCESS) {
+        if(status === 200) {
             yield put(sendMailSuccess(data));
         }else {
             yield put(sendMailFailed());

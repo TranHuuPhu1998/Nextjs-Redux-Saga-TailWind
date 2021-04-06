@@ -1,5 +1,8 @@
 import React from 'react'
-import AdminLayout from '../../common/Layout/AdminLayout'
+import dynamic from 'next/dynamic'
+
+const AdminLayout = dynamic(()=>import('../../common/Layout/AdminLayout/'),{ssr:false})
+
 const User = () => {
     return (
         <AdminLayout>

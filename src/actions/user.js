@@ -51,12 +51,17 @@ export const deleteUserFailed = (error) => {
     }
 }
 
-export const updateUser = (id,data) => {
+export const updateUser = (id,name,email,status,position,permission,isAdmin) => {
     return {
         type : userConstants.UPDATE_USER,
         payload : {
             id,
-            data
+            name,
+            email,
+            status,
+            position,
+            permission,
+            isAdmin
         }
     }
 } 
@@ -73,6 +78,41 @@ export const updateUserSuccess = (data) => {
 export const updateUserFailed = (error) => {
     return {
         type : userConstants.UPDATE_USER_FAILED,
+        payload : {
+            error
+        }
+    }
+}
+
+export const createUser = (name,email,password,status,position,permission,isAdmin) => {
+console.log("🚀 ~ file: user.js ~ line 88 ~ createUser ~ name,email,password,status,position,permission,isAdmin", name,email,password,status,position,permission,isAdmin)
+    return {
+        type : userConstants.CREATE_USER,
+        payload : {
+            name,
+            email,
+            password,
+            status,
+            position,
+            permission,
+            isAdmin
+        }
+    }
+}
+
+export const createUserSuccess = (data) => {
+    return {
+        type : userConstants.CREATE_USER_SUCCESS,
+        payload : {
+            data
+        }
+    }
+}
+
+
+export const createUserFailed = (error) => {
+    return {
+        type : userConstants.CREATE_USER_FAILED,
         payload : {
             error
         }

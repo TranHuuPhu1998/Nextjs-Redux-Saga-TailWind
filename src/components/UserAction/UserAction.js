@@ -3,8 +3,11 @@ import {useDispatch} from 'react-redux'
 import {deleteUser} from '../../actions/user'
 import ModelLayout from '../ModelLayout/ModelLayout'
 import UserModelUpdate from '../UserModel/UserModelUpdate'
-const UserAction = ({name,email,permission,position,status,id}) => {
+import UserModelInfor from '../UserModel/UserModelInfor'
+
+const UserAction = ({name,email,permission,position,status,id,isAdmin}) => {
     const [isopen , setIsopen] = useState(false);
+    const [isopeninfor , setIsopenInfor] = useState(false);
     const dispatch = useDispatch();
     
     const onDeleteUser = (id) => {
@@ -15,9 +18,15 @@ const UserAction = ({name,email,permission,position,status,id}) => {
         setIsopen(!isopen)
     }
 
+    const onOpenModelInfor = () => {
+        setIsopenInfor(!isopeninfor)
+    }
+
     return (
         <div className="flex item-center justify-center">
-            <div className="w-4 mr-2 transform hover:text-purple-500 hover:scale-110 cursor-pointer">
+            <div className="w-4 mr-2 transform hover:text-purple-500 hover:scale-110 cursor-pointer"
+            onClick={onOpenModelInfor}
+            >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -81,9 +90,25 @@ const UserAction = ({name,email,permission,position,status,id}) => {
                         permission={permission}
                         position={position}
                         status={status}
+                        isAdmin={isAdmin}
                         onOpenModel={onOpenModel}
                     />
                 </ModelLayout>  
+                : <></>
+            }
+            {
+               isopeninfor ?  
+                    <ModelLayout>
+                        <UserModelInfor
+                            name={name}
+                            email={email}
+                            permission={permission}
+                            position={position}
+                            status={status}
+                            isAdmin={isAdmin}
+                            onOpenModelInfor={onOpenModelInfor}
+                        />
+                    </ModelLayout>
                 : <></>
             }
         </div>

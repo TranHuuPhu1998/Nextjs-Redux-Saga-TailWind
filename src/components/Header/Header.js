@@ -1,16 +1,28 @@
-import React , {useState}from "react";
+import React , {useState , useEffect , useRef}from "react";
 import UserSetting from "../UserSetting/UserSetting"
+import {useClickOutSide} from '../../common/CustomHook/useClickOutside'
 
-const Header = () => {
-  const [isOpen , setIsOpen] = useState(false)
-  
+const Header = ({onClickOutSide , isopen}) => {
+  const [_isOpen , setIsOpen] = useState(false)
+  const clickRef = useRef()
+
+  useEffect(()=>{
+    if(isopen){
+      setIsOpen(!isopen)
+    }else {
+      setIsOpen(isopen)
+    }
+  },[isopen])
+
   const onToggleSetting = () => {
-    setIsOpen(!isOpen)
+    setIsOpen(!_isOpen)
   } 
-
+  useClickOutSide(clickRef, onClickOutSide)
   return (
-    <header className="z-10 py-4 bg-white shadow-md dark:bg-gray-800">
-      <div className="container flex items-center justify-between h-full px-6 mx-auto text-purple-600 dark:text-purple-300">
+    <header className="z-10 py-4 bg-white shadow-md dark:bg-gray-800" >
+      <div className="container flex items-center justify-between h-full px-6 mx-auto text-purple-600 dark:text-purple-300"
+        
+      >
         <button
           className="p-1 mr-5 -ml-1 rounded-md md:hidden focus:outline-none focus:shadow-outline-purple"
           aria-label="Menu"
@@ -97,6 +109,7 @@ const Header = () => {
               aria-label="Account"
               aria-haspopup="true"
               onClick={onToggleSetting}
+              ref={clickRef}
             >
               <img
                 className="object-cover w-8 h-8 rounded-full"
@@ -105,7 +118,7 @@ const Header = () => {
                 aria-hidden="true"
               />
             </button>
-            <UserSetting isOpen={isOpen}/>            
+            <UserSetting isOpen={_isOpen}/>            
           </li>
         </ul>
       </div>
