@@ -25,8 +25,8 @@ function MyApp({ Component, pageProps }) {
     if(router.pathname === "/forgotpassword"){
       router.push('/forgotpassword');
     } 
-    else if(router.pathname === "/singup"){
-      router.push("/singup");
+    else if(router.pathname === "/signup"){
+      router.push("/signup");
     }
 
     if(token && token !== 'undefined') {

@@ -15,7 +15,6 @@ const reducers = (state = initialState, action) => {
     }
     case types.SIGNUP_SUCCESS: {
       toastSuccess('sing up success');
-     
       return {
         ...state
       };
