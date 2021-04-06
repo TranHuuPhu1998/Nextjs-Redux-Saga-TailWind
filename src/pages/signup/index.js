@@ -4,7 +4,6 @@ import { useDispatch , useSelector} from "react-redux";
 import { Field, reduxForm } from 'redux-form';
 import { singup } from "../../actions/auth";
 import validate from "./validate"
-import dynamic from "next/dynamic";
 import TextField from '../../components/FormHelper/TextField'
 
 const SignUp = () => {

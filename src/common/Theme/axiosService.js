@@ -46,7 +46,7 @@ class AxiosService {
         return this.service.request({
             method:'POST',
             url:endpoint,
-            headers: {"accept": "application/json",},
+            headers: {"Content-Type": "application/json","Access-Control-Allow-Origin": "*"},
             responseType : 'json',
             data:payload
         });
@@ -56,7 +56,7 @@ class AxiosService {
         return this.service.request({
             method:'PUT',
             url:endpoint,
-            headers: {"accept": "application/json",},
+            headers: {"Content-Type": "application/json","Access-Control-Allow-Origin": "*"},
             responseType:'json',
             data:payload
         })
@@ -66,7 +66,7 @@ class AxiosService {
         return this.service.request({
             method : 'DELETE',
             url : endpoint,
-            headers: {  "accept": "application/json",},
+            headers: {"Content-Type": "application/json","Access-Control-Allow-Origin": "*"},
             responseType: 'json',
             data : payload
         })

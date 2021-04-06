@@ -1,45 +1,44 @@
 const validate = values => {
     const errors = {};
     if (!values.email) {
-      errors.email = 'Email không được bỏ trống';
+      errors.email = 'The email cannot be left blank';
     } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-      errors.email = 'Email không hợp lệ';
+      errors.email = 'Invalid email';
     }
 
     if(!values.name) {
-      errors.name = "Name không được bỏ trống";
+      errors.name = "The name cannot be left blank";
     } else if(values.name.trim().length < 6){
-      errors.name = "Name không phải từ 6 ký tự trở lên";
+      errors.name = "The name must not be 6 characters or more";
     }
 
     if (!values.password) {
-      errors.password = 'Mật khẩu không được bỏ trống';
+      errors.password = 'The password cannot be left blank';
     } else if (values.password.trim().length < 6) {
-      errors.password = 'Mật khẩu phải từ 6 ký tự trở lên';
+      errors.password = 'The password must not be 6 characters or more';
     }
 
     if (!values.confirmpassword) {
-      errors.confirmpassword = 'Mật khẩu không được bỏ trống';
+      errors.confirmpassword = 'The confirm password cannot be left blank';
     } else if (values.confirmpassword.trim().length < 6) {
-      errors.confirmpassword = 'Mật khẩu phải từ 6 ký tự trở lên';
+      errors.confirmpassword = 'The confirm password not be 6 characters or more';
     } else if (values.confirmpassword !== values.password) {
-      errors.confirmpassword = 'Mật khẩu không trùng khớp';
-    }
-    
+      errors.confirmpassword = 'The password does not match';
+    } 
     if(!values.position) {
-      errors.position = "Position không được bỏ trống";
-    } else if(typeof values.position !== 'number') {
-      errors.position = "Position phải là số";
+      errors.position = "The position cannot be left blank";
+    } else if(parseInt(values.position) === 'NaN') {
+      errors.position = "Position is not a number";
     }
 
     if(!values.permission){
-      errors.permission = "Permission không được bỏ trống";
-    } else if(typeof values.permission !== 'number'){
-      errors.permission = "permission phải là số"
+      errors.permission = "The permission cannot be left blank";
+    } else if(parseInt(values.permission) === 'NaN'){
+      errors.permission = "permission is not a number"
     }
 
     if (!values.isAccept) {
-      errors.isAccept = 'Bắt buộc';
+      errors.isAccept = 'Obligatory';
     }
     return errors;
   };

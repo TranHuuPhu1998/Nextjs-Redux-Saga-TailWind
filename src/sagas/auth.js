@@ -1,4 +1,3 @@
-import {push} from 'connected-react-router';
 import _get from 'lodash';
 import {call , put , take, takeLatest ,delay, takeEvery,cancel,fork} from 'redux-saga/effects';
 import {hideLoading , showLoading} from '../actions/ui';
@@ -36,12 +35,11 @@ function* processSignup({payload}) {
         });
       
         const {data} = resp;
-
         if(data.status === STATUS_CODE.SUCCESS){
             yield put(singupSuccess(data));
             axiosService.redirectTo(document , authTypes.REDIRECT_AFTER_SIGNUP_SUCCESS)
         }else {
-            yield put(signupFailed(data));
+            yield put(singupFailed(data.message));
         }
     } catch (error) {
         const details = _get(error , 'response.data.detail' ,{});
@@ -65,23 +63,17 @@ function* processLogin({payload}) {
         });   
         
         const {data} = resp;
-      
+
         if(data.status === STATUS_CODE.SUCCESS){
-            console.log("🚀 ~ file: auth.js ~ line 70 ~ function*processLogin ~ data", data.status === STATUS_CODE.SUCCESS)
             yield put(loginSuccess(data.user));
             const {access_token} = data;
-           
-            axiosService.setHeader('Authorization', `Bearer ${access_token}`);
-           
-            localStorage.setItem(AUTHORIZATION_KEY , access_token);
+            yield axiosService.setHeader('Authorization', `Bearer ${access_token}`);
+            yield localStorage.setItem(AUTHORIZATION_KEY , access_token);
             if(data.user.isAdmin) {
-                localStorage.setItem("ADMIN" , access_token);
+                yield localStorage.setItem("ADMIN" , access_token);
             }
-            // yield put(push(authTypes.REDIRECT_AFTER_LOGIN_SUCCESS));
-            // yield axiosService.redirectPage("title",authTypes.REDIRECT_AFTER_LOGIN_SUCCESS);
-            // yield axiosService.redirectTo(document , authTypes.REDIRECT_AFTER_LOGIN_SUCCESS);
         }else {
-            yield put(loginFailed());
+            yield put(loginFailed(data.message));
         }
     } catch (error) {
         yield put(loginFailed());
@@ -99,15 +91,17 @@ function* processSendMail({payload}){
        
         const resp = yield call(sendMail , {email});
         const {data,status} = resp;
-        
+
         if(status === 200) {
-            yield put(sendMailSuccess(data));
+            yield put(sendMailSuccess(data.message));
         }else {
-            yield put(sendMailFailed());
+            yield put(sendMailFailed(data));
         }
 
     } catch (error) {
-        yield put(sendMailFailed());
+        const details = _get(error , 'response.data.detail' ,{});
+
+        yield put(sendMailFailed(details));
     } finally {
         yield delay(100);
         yield put(hideLoading());
