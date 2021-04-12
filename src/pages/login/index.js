@@ -9,18 +9,19 @@ import TextField from '../../components/FormHelper/TextField'
 import validate from '../signup/validate'
 
 const Login = (props) => {
-    const { handleSubmit, submitting } = props
+    const { handleSubmit, submitting , dispatch ,invalid ,valid } = props;
 
     const [email, SetEmail] = useState(String);
     const [password, SetPassword] = useState(String);
     const [error , SetError] = useState('');
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
     const router = useRouter();
 
     const user = useSelector(state => state.authReducers)
 
     const onLogin = () => {
-        dispatch(login(email,password));
+
+        !invalid ? dispatch(login(email,password)) : "";
     }
 
     useEffect(()=> {

@@ -2,7 +2,7 @@ import * as taskConstants from '../constants/task'
 
 const initialState = {
     listTask : [],
-    taskEditing :null
+    listTaskItem : []
 };
 
 const reducers = (state = initialState , action) => {
@@ -22,10 +22,22 @@ const reducers = (state = initialState , action) => {
         }
         case taskConstants.FETCH_TASK_FAILED: {
             const { error } = action.payload;
-            // toastError(error);
+            toastError(error);
             return {
                 ...state,
                 listTask: []
+            }
+        }
+        case taskConstants.FETCH_TASK_ITEM_SUCCESS : {
+            const {data} = action.payload;
+            return {
+                ...state,
+                listTaskItem : [...data]
+            }
+        }
+        case taskConstants.FETCH_TASK_ITEM_FAILED : {
+            return {
+                ...state
             }
         }
         default:

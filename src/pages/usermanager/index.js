@@ -1,6 +1,6 @@
 import React , {useState,useEffect} from "react"
 import Link from 'next/link'
-import {useSelector,useDispatch} from 'react-redux'
+import { useSelector,useDispatch } from 'react-redux'
 import { fetchListUser } from '../../actions/user'
 import { useRouter } from "next/router"
 import dynamic from "next/dynamic"
@@ -27,7 +27,6 @@ const UserManager = () => {
     }, [dispatch])
 
     const onOpenModelUser = () => {
-        console.log(isopen);
         setIsopen(!isopen)
     }
 

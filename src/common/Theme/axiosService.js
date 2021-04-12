@@ -71,5 +71,16 @@ class AxiosService {
             data : payload
         })
     }
+
+    logout(endpoint ,payload){
+        return this.service.request({
+            method : 'DELETE',
+            url : endpoint,
+            headers: {
+                "X-Requested-With" : "XMLHttpRequest",
+                "Authorization" : `${payload}`
+            },
+        })
+    }
 }
 export default new AxiosService();

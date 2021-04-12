@@ -16,10 +16,11 @@ export const updateUser = (data , id) => {
 }
 
 export const createUser = (data) => {
-console.log("🚀 ~ file: user.js ~ line 19 ~ createUser ~ data", data)
     return axiosService.post(`${API_ENDPOINT}/${url}/create`, data);
 }
 
 export const deleteUser = userId => {
     return axiosService.delete(`${API_ENDPOINT}/${url}/delete/${userId}`)
 }
+
+

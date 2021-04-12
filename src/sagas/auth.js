@@ -12,10 +12,12 @@ import {
     sendMailSuccess,
     sendMailFailed,
     resetPasswordSuccess,
-    resetPasswordFailed
+    resetPasswordFailed,
+    logoutSuccess,
+    logoutFailed
 } from '../actions/auth';
 
-import {login , singup , sendMail, resetPassword} from '../apis/auth';
+import {login , singup , logout, sendMail, resetPassword} from '../apis/auth';
 import * as authTypes from '../constants/auth';
 import axiosService from '../common/Theme/axiosService';
 
@@ -43,7 +45,7 @@ function* processSignup({payload}) {
         }
     } catch (error) {
         const details = _get(error , 'response.data.detail' ,{});
-        yield put(singupFailed(details));
+        yield put(singupFailed(data.message));
     } 
     finally {
         yield delay(100);
@@ -73,14 +75,34 @@ function* processLogin({payload}) {
                 yield localStorage.setItem("ADMIN" , access_token);
             }
         }else {
-            yield put(loginFailed(data.message));
+            yield put(loginFailed());
         }
     } catch (error) {
+        const details = _get(error , 'response.data.detail' ,{});
         yield put(loginFailed());
     }
     finally {
         yield delay(100);
         yield put(hideLoading());
+    }
+}
+
+function* processLogout({payload}) {
+    const {token} = payload;
+    try {
+        const resp = yield call(logout,{token});
+        const {data} = resp;
+
+        if(data.status === STATUS_CODE.SUCCESS){
+            yield put(logoutSuccess(data))
+        }
+        else {
+            yield put(logoutSuccess())
+        }
+        
+    } catch (error) {
+        const details = _get(error , 'response.data.detail' ,{});
+        yield put(logoutFailed(details));
     }
 }
 
@@ -136,7 +158,8 @@ function* processResetPassword({payload}){
 
 function* authSaga(){
     yield takeLatest(authTypes.SIGNUP , processSignup);
-    yield takeLatest(authTypes.LOGIN,processLogin);
+    yield takeLatest(authTypes.LOGIN, processLogin);
+    yield takeLatest(authTypes.LOGOUT, processLogout);
     yield takeLatest(authTypes.SEND_MAIL , processSendMail);
     yield takeLatest(authTypes.RESET_PASSWORD , processResetPassword);
 }

@@ -7,7 +7,7 @@ const ListCard = ({listTasks}) => {
     return (
         <div>
             <TopTitle/>
-            <div className="ml-10 mr-10">
+            <div className="max-w-5xl mx-auto">
             <StatusTitle>List Project Ready</StatusTitle>
             <div className="flex flex-wrap justify-between">
             {
@@ -15,6 +15,7 @@ const ListCard = ({listTasks}) => {
                         if(item.status === 0)
                             return (
                                 <CardItem 
+                                    id={item.id}
                                     key={index}
                                     title={item.title}
                                     description={item.description}
@@ -32,6 +33,7 @@ const ListCard = ({listTasks}) => {
                             return (
                                 <CardItem 
                                     key={index}
+                                    id={item.id}
                                     title={item.title}
                                     description={item.description}
                                     content={item.content}
@@ -48,6 +50,7 @@ const ListCard = ({listTasks}) => {
                             return (
                                 <CardItem 
                                     key={index}
+                                    id={item.id}
                                     title={item.title}
                                     description={item.description}
                                     content={item.content}

@@ -1,8 +1,68 @@
-import React from "react";
+import React , {useState,useEffect} from "react";
 
 const TaskOpen = () => {
+
+  const [cardslength , setCardslength] = useState(Number)
+  const [cardItems , setCardItems] = useState(null)
+  const [isOpenCard , setIsOpenCard] = useState(true)
+  const [isAddLayout , setIsAddLayout] = useState(false)
+  const taskitem = [];
+  // useEffect(() => {
+  //   setCardItems(taskitem)
+  // }, [taskitem])
+
+  const onhandleChage = (e) => {
+    if(e.currentTarget.value){
+      setIsAddLayout(true)
+    }else {
+      setIsAddLayout(false)
+    }
+    let obj = {
+      taskname : e.currentTarget.value,
+      taskid : e.currentTarget.id
+    }
+  }
+
+  const renderLayoutCards = () => {
+    let lengthWrite = cardslength;
+    let arr = [];
+    let _cardslength = new Array(lengthWrite)
+    
+    for(var i= 0 ; i < _cardslength.length ; i++){
+      arr.push(i)
+    }
+
+    return arr?.map((item,index)=>{
+      return (
+        <div key={index} className="bg-white p-2 rounded mt-1 border-b border-grey cursor-pointer hover:bg-grey-lighter">
+          <input type="text" value={item.taskname} id={item.id} onChange={onhandleChage}/>
+        </div>
+      )
+    })
+  }
+
+  const renderCardItems = () => {
+    return cardItems?.map((item,index)=>{
+      return (
+        <div key={index} className="bg-white p-2 rounded mt-1 border-b border-grey cursor-pointer hover:bg-grey-lighter">
+          <p>{item.taskname}</p>
+        </div>
+      )
+    })
+  }
+
+  const onAddCardLayout = () => {
+    let total = cardslength + 1;
+    setCardslength(total);
+    setIsOpenCard(!isOpenCard)
+  }
+
+  const onAddCard = () => {
+    isAddLayout ? setIsOpenCard(!isOpenCard) : null;
+  }
+
   return (
-    <div className="rounded bg-gray-300 w-64 p-2 ml-4">
+    <div className="rounded bg-gray-300 w-64 p-2 ml-4 mt-4">
       <div className="flex justify-between py-1">
         <h3 className="text-sm">OPEN</h3>
         <svg
@@ -17,45 +77,51 @@ const TaskOpen = () => {
         <div className="bg-white p-2 rounded mt-1 border-b border-grey cursor-pointer hover:bg-grey-lighter">
           Do a mobile first layout
         </div>
-        <div className="bg-white p-2 rounded mt-1 border-b border-grey cursor-pointer hover:bg-grey-lighter">
-          Check the meta tags
-        </div>
-        <div className="bg-white p-2 rounded mt-1 border-b border-grey cursor-pointer hover:bg-grey-lighter">
-          Check the responsive layout on all devices
-          <div className="text-grey-darker mt-2 ml-2 flex justify-between items-start">
-            <span className="text-xs flex items-center">
-              <svg
-                className="h-4 fill-current mr-1"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 50 50"
-              >
-                <path d="M11 4c-3.855 0-7 3.145-7 7v28c0 3.855 3.145 7 7 7h28c3.855 0 7-3.145 7-7V11c0-3.855-3.145-7-7-7zm0 2h28c2.773 0 5 2.227 5 5v28c0 2.773-2.227 5-5 5H11c-2.773 0-5-2.227-5-5V11c0-2.773 2.227-5 5-5zm25.234 9.832l-13.32 15.723-8.133-7.586-1.363 1.465 9.664 9.015 14.684-17.324z" />
-              </svg>
-              3/5
-            </span>
-            <img
-              src="https://i.imgur.com/OZaT7jl.png"
-              className="rounded-full"
-            />
-          </div>
-        </div>
-        <p className="mt-3 text-grey-dark flex justify-between cursor-pointer bg-blue-400 rounded-3xl p-2">
-          <span className="text-black font-bold">Add another card</span>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
+        {renderCardItems()}
+        {renderLayoutCards()}
+        {isOpenCard ? 
+          (
+            <p className="mt-3 text-grey-dark flex justify-between cursor-pointer bg-blue-400 rounded-3xl p-2"
+            onClick={onAddCardLayout}
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
-            />
-          </svg>
-        </p>
+            <span className="text-black font-bold">Add layout card</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+          </p>
+          ) : (
+          <p className="mt-3 text-grey-dark flex justify-between cursor-pointer bg-blue-400 rounded-3xl p-2"
+              onClick={onAddCard}
+          >
+            <span>Add</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+          </p>
+          )
+        }
       </div>
     </div>
   );

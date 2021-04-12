@@ -20,10 +20,8 @@ const reducers = (state = initialState, action) => {
       };
     }
     case types.SIGNUP_FAILED: {
-      console.log("🚀 ~ file: authReducers.js ~ line 26 ~ reducers ~ action.payload", action.payload)
       toastError(action.payload.error);
       return {
-     
         ...state
       };
     }
@@ -41,7 +39,7 @@ const reducers = (state = initialState, action) => {
       };
     }
     case types.LOGIN_FAILED: {
-        toastError(action.payload.error);
+        toastError("Email or Password is Wrong");
         return {
             ...state,
         };
@@ -58,7 +56,6 @@ const reducers = (state = initialState, action) => {
         };
     }
     case types.SEND_MAIL_FAILED : {
-
         toastError("Email not found");
         return {
             ...state
@@ -74,6 +71,23 @@ const reducers = (state = initialState, action) => {
         toastSuccess("reset password Success");
         return {
             ...state
+        }
+    }
+    case types.LOGOUT : {
+        return {
+          ...state
+        }
+    }
+    case types.LOGOUT_SUCCESS : {
+        toastSuccess("logout success");
+        return {
+          ...state
+        }
+    }
+    case types.LOGOUT_FAILED : {
+        toastSuccess("logout Failed");
+        return {
+          ...state
         }
     }
     default:

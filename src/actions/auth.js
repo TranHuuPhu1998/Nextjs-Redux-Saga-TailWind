@@ -28,6 +28,27 @@ export const singupFailed = (error) => ({
     }
 });
 
+export const logout = (data) => ({
+    type : types.LOGOUT,
+    payload : {
+        token : data
+    }
+})
+
+export const logoutSuccess = (data) => ({
+    type : types.LOGOUT_SUCCESS,
+    payload : {
+        data
+    }
+})
+
+export const logoutFailed = (error) => ({
+    type : types.LOGIN_FAILED,
+    payload : {
+        error
+    }
+})
+
 export const login = (email, password) => ({
     type : types.LOGIN,
     payload : {

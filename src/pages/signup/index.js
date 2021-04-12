@@ -24,7 +24,7 @@ const SignUp = () => {
             dispatch(singup(name,email,password_confirmation,password,position,permission));
         }
     }
-
+    
     return (
         <>
             <div className={'w-full bg-gray-200 flex justify-center items-center h-screen'}>

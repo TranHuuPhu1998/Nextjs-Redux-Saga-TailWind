@@ -1,16 +1,25 @@
-import React, { useRef } from 'react'
-import { useRouter } from 'next/router'
+import React, {useRef} from 'react'
+import {useRouter} from 'next/router'
+import {useDispatch} from 'react-redux'
+import {logout} from '../../actions/auth'
 import {AUTHORIZATION_KEY} from '../../constants'
 import {useClickOutSide} from '../../common/CustomHook/useClickOutside'
 
 const UserSetting = ({isOpen}) => {
     const router = useRouter();
     const clickRef = useRef();
+    const dispatch = useDispatch();
 
-    const onLogout = () => {
+    const onLogout = async () => {
+        const tokenkey = localStorage.getItem(AUTHORIZATION_KEY);
+        
+        let token = `Bearer ${tokenkey}`;
+        dispatch(logout(token)) 
         localStorage.removeItem(AUTHORIZATION_KEY);
-        router.push('/login')
+        localStorage.removeItem('ADMIN');
+        router.push('/login');
     }
+
 
     useClickOutSide(clickRef , ()=> {
         alert('do not hit the box')
