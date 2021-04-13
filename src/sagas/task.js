@@ -1,14 +1,21 @@
 import * as taskTypes from '../constants/task'
+import * as taskitemTypes from '../constants/taskitem'
 import _get from 'lodash/get'
 import {take , fork, call,put , delay ,takeLatest} from 'redux-saga/effects'
-import {getListTask,getListTaskItem} from '../apis/task'
+import {getListTask} from '../apis/task'
+import {getListTaskItem,addTaskItem} from '../apis/taskitem'
 import {hideLoading , showLoading} from '../actions/ui'
 import { 
     fetchListTaskFailed, 
     fetchListTaskSuccess, 
-    fetchListTaskItemSuccess,
-    fetchListTaskItemFailed
 } from '../actions/taskActions'
+
+import {
+    fetchListTaskItemSuccess,
+    fetchListTaskItemFailed,
+    addTaskItemSucess,
+    addTaskItemFailed,
+} from '../actions/taskitem'
 
 // TASK LIST
 
@@ -38,25 +45,56 @@ function* watchFetchListTaskAction(){
 
 function* watchFetchListTaskItemAction(){
     while(true) {
-        const resp = yield take(taskTypes.FETCH_TASK_ITEM);
-        console.log("🚀 ~ file: task.js ~ line 42 ~ function*watchFetchListTaskItemAction ~ resp", resp)
+        yield take(taskitemTypes.FETCH_TASK_ITEM);
+
         try {
             yield put(showLoading());
             const response = yield call(getListTaskItem);
-            console.log("🚀 ~ file: task.js ~ line 45 ~ function*watchFetchListTaskItemAction ~ response", response)
+            console.log("🚀 ~ file: task.js ~ line 46 ~ function*watchFetchListTaskItemAction ~ response", response)
+            const {data , status} = response;
+            if(status === 200){
+                yield put(fetchListTaskItemSuccess(data.data))
+            }else {
+                yield put(fetchListTaskItemFailed())
+            }
         } catch (error) {
             const details = _get(error, 'response.data.details', {});
             yield put(fetchListTaskItemFailed(details));
         } finally {
-            yield delay(100);
             yield put(hideLoading());
         }
+    }
+}
+
+function* processAddTaskItem({payload}){
+    console.log("dispatch")
+    const {taskname , id} = payload;
+    try {
+        const response = yield call(addTaskItem , {
+            taskname,
+            id
+        });
+        console.log("🚀 ~ file: task.js ~ line 77 ~ function*processAddTaskItem ~ response", response)
+        const {data,status} = response;
+        if(status === 201){
+            console.log("add task item success");
+            yield put(addTaskItemSucess(data.data))
+        }else {
+            yield put(addTaskItemFailed())
+        }
+
+    } catch (error) {
+        // yield put(addTaskItemFailed())
+    } finally {
+        console.log("add task item failed");
     }
 }
 
 
 function* taskSaga(){
     yield fork(watchFetchListTaskAction);
+    yield fork(watchFetchListTaskItemAction);
+    yield takeLatest(taskitemTypes.ADD_TASK_ITEM , processAddTaskItem);
 }
 
 export default taskSaga;

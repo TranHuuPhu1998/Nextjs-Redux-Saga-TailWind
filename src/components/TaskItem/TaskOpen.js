@@ -1,15 +1,24 @@
 import React , {useState,useEffect} from "react";
+import {useDispatch,useSelector} from "react-redux";
+import {fetchListTaskItem} from "../../actions/taskitem";
+import {addTaskItem} from "../../actions/taskitem";
 
-const TaskOpen = () => {
+const TaskOpen = (props) => {
 
+  const dispatch = useDispatch();
   const [cardslength , setCardslength] = useState(Number)
-  const [cardItems , setCardItems] = useState(null)
   const [isOpenCard , setIsOpenCard] = useState(true)
   const [isAddLayout , setIsAddLayout] = useState(false)
-  const taskitem = [];
-  // useEffect(() => {
-  //   setCardItems(taskitem)
-  // }, [taskitem])
+  const [taskname , setTaskname] = useState(String)
+
+  const taskItemReducers = useSelector((state) => state.taskItemReducers);
+  const taskitem = props?.taskItemReducers?.filter((item) => item.taskid === props.id);
+  
+  const {id} = props;
+
+  useEffect(() => {
+    dispatch(fetchListTaskItem())
+  }, [dispatch])
 
   const onhandleChage = (e) => {
     if(e.currentTarget.value){
@@ -17,10 +26,7 @@ const TaskOpen = () => {
     }else {
       setIsAddLayout(false)
     }
-    let obj = {
-      taskname : e.currentTarget.value,
-      taskid : e.currentTarget.id
-    }
+    setTaskname(e.currentTarget.value);
   }
 
   const renderLayoutCards = () => {
@@ -42,7 +48,7 @@ const TaskOpen = () => {
   }
 
   const renderCardItems = () => {
-    return cardItems?.map((item,index)=>{
+    return taskitem?.map((item,index)=>{
       return (
         <div key={index} className="bg-white p-2 rounded mt-1 border-b border-grey cursor-pointer hover:bg-grey-lighter">
           <p>{item.taskname}</p>
@@ -59,6 +65,7 @@ const TaskOpen = () => {
 
   const onAddCard = () => {
     isAddLayout ? setIsOpenCard(!isOpenCard) : null;
+    dispatch(addTaskItem(taskname,id))
   }
 
   return (

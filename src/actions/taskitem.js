@@ -23,3 +23,31 @@ export const fetchListTaskItemFailed = (error) => {
         }
     }
 }
+
+export const addTaskItem = (taskname,id) => {
+    return {
+        type : taskitem.ADD_TASK_ITEM,
+        payload : {
+            taskname,
+            id
+        }
+    }
+}
+
+export const addTaskItemSucess = (data) => {
+    return {
+        type : taskitem.ADD_TASK_SUCCESS,
+        payload : {
+            data
+        }
+    }
+}
+
+export const addTaskItemFailed = (error) => {
+    return {
+        type : taskitem.ADD_TASK_ITEM,
+        payload : {
+            error
+        }
+    }
+}

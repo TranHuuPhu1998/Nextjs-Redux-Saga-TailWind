@@ -1,12 +1,11 @@
 import dynamic from 'next/dynamic'
+import TaskOpen from '../TaskItem/TaskOpen'
+import TaskInfor from '../TaskItem/TaskInfor'
 
-const TaskInfor = dynamic(()=>import('../TaskItem/TaskInfor'),{ssr:false})
-const TaskOpen = dynamic(()=>import('../TaskItem/TaskOpen'),{ssr:false})
-
-const ListTask = ({tasks , id}) => {
-
-    const task = tasks.listTask?.filter(item => item.id === id)
+const ListTask = ({tasks ,taskitem, id}) => {
     
+    const task = tasks.listTask?.filter(item => item.id === id)
+
     return (
         <div className="bg-blue justify-center font-sans">
             <div className="flex p-4 bg-green-700 text-current text-2xl	">
@@ -26,7 +25,9 @@ const ListTask = ({tasks , id}) => {
                     created={task[0]?.created_at}
                     updated_at={task[0]?.updated_at}
                 />
-                <TaskOpen/>
+                <TaskOpen 
+                    id={id}
+                />
             </div>
         </div>
     )

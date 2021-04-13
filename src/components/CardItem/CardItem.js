@@ -8,7 +8,7 @@ const CardItem = ({title , description , content ,id }) => {
     }
 
     return (
-        <div className=" bg-white rounded-xl shadow-md overflow-hidden mb-5 mr-5 ml-5 ml-0 2xl:w-2/5 xl:w-5/12 lg:w-5/12 md:w-full sm:w-full cursor-pointer"
+        <div className=" bg-white rounded-xl shadow-md overflow-hidden mb-5 mr-5 ml-5 ml-0 2xl:w-2/5 xl:w-5/12 lg:w-5/12 md:w-2/5 sm:w-full xs2:w-full cursor-pointer"
             onClick={()=>onShowTask(id)}
         >
             <div className="md:flex h-full">

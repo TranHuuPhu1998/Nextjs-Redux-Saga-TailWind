@@ -2,9 +2,10 @@ import {combineReducers} from 'redux'
 import { reducer as formReducer } from 'redux-form';
 
 import tasksReducers from './tasksReducers'
-import uiReducers from './ui'
+import uiReducers from './uiReducers'
 import userReducers from './usersReducers'
 import authReducers from './authReducers'
+import tasksitem from './taskItemReducers'
 
 const rootReducers = () =>
     combineReducers({
@@ -12,7 +13,8 @@ const rootReducers = () =>
         tasksReducers,
         uiReducers,
         userReducers,
-        authReducers
+        authReducers,
+        tasksitem
     })
 
 export default rootReducers;

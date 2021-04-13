@@ -18,13 +18,15 @@ function px(pixels) {
         "5xl": px(48),
         "6xl": px(64),
       },
+      screens: {
+        'xs2': {'max': '600px'},
+          // => @media (max-width: 600px) { ... } 
+        'xs': {'max': '410px'},
+        // => @media (max-width: 410px) { ... } 
+        'sm': {'max': '375px'},
+         // => @media (max-width: 375px) { ... } 
+      },
       extend: {
-        screens: {
-          'xs': {'max': '410px'},
-          // => @media (max-width: 410px) { ... } 
-          'sm': {'max': '375px'},
-           // => @media (max-width: 375px) { ... } 
-        },
         width: {
           '48': '14.2857143%',
         }

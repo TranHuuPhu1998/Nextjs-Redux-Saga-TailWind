@@ -7,10 +7,6 @@ export const getListTask = () => {
     return axiosService.get(`${API_ENDPOINT}/${url}`);
 };
 
-export const getListTaskItem = () => {
-    return axiosService.get(`${API_ENDPOINT}/${url}`)
-}
-
 export const addTask = data => {
     return axiosService.post(`${API_ENDPOINT}/${url}` , data);
 };
@@ -22,3 +18,7 @@ export const updateTask = (data, taskId) => {
 export const deleteTask = taskId => {
     return axiosService.delete(`${API_ENDPOINT}/${url}/${taskId}`);
 };
+
+export const getListTaskItem = () => {
+    return axiosService.get(`${API_ENDPOINT}/${url}`)
+}
