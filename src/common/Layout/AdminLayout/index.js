@@ -28,12 +28,12 @@ const AdminLayout = ({children}) => {
                 isAdmin ? <Navigation onClickOutSide={onClickOutSide}/> : ""
             }
             <div className="flex flex-col flex-1 w-full">
-            <Header onClickOutSide={onClickOutSide} isopen={isopen} />
-            <main className="h-full pb-16 overflow-y-auto" onClick={onClickOutSide} >
-                {children}
-            </main>
+                <Header onClickOutSide={onClickOutSide} isopen={isopen} />
+                <main className="h-full overflow-y-auto" onClick={onClickOutSide} >
+                    {children}
+                </main>
+            </div>
         </div>
-    </div>
     )
 }
 

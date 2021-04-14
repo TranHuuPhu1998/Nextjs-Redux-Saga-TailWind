@@ -10,6 +10,7 @@ const AdminLayout = dynamic(()=>import('../../common/Layout/AdminLayout'),{ssr:f
 const UserList = dynamic(()=>import('../../components/UserList/UserList'),{ssr:false})
 
 const UserManager = () => {
+    
     const dispatch = useDispatch();
     const [isAdmin , setIsAdmin] = useState(false)
     const [isopen , setIsopen] = useState(false)

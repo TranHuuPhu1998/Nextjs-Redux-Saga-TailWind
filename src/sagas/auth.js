@@ -58,7 +58,6 @@ function* processLogin({payload}) {
     const {email , password} = payload;
     yield put(showLoading());
     try {
-        console.log("dispatch");
         const resp = yield call(login ,{
             email,
             password
@@ -134,7 +133,6 @@ function* processResetPassword({payload}){
     const {password , token} = payload;
     yield put(showLoading())
     try {
-        console.log("send");
         const resp = yield call(resetPassword , {token , password})
         const {data} = resp;
         if(data.status = STATUS_CODE.SUCCESS) {

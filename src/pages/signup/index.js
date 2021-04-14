@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import Link from "next/link";
-import { useDispatch , useSelector} from "react-redux";
+import { useSelector} from "react-redux";
 import { Field, reduxForm } from 'redux-form';
 import { singup } from "../../actions/auth";
-import validate from "./validate"
-import TextField from '../../components/FormHelper/TextField'
+import validate from "../../common/Validate/validate";
+import TextField from '../../components/FormHelper/TextField';
 
-const SignUp = () => {
+const SignUp = (props) => {
+    const { handleSubmit, submitting , dispatch ,valid } = props;
+
     const [email, SetEmail] = useState(String);
     const [name , SetName] = useState(String);
     const [password, SetPassword] = useState(String);
@@ -14,21 +16,19 @@ const SignUp = () => {
     const [permission , SetPermission] = useState(String);
     const [password_confirmation , SetPasswordConfirmation] = useState(String);
     const [error , SetError] = useState('');
+    
     const status = 'free time';
-    const dispatch = useDispatch();
-
+ 
     const onSingup = (event) => {
         event.preventDefault();
-        
-        if(password === password_confirmation){
-            dispatch(singup(name,email,password_confirmation,password,position,permission));
-        }
+        valid ? dispatch(singup(name,email,password_confirmation,password,position,permission)) : "";
     }
     
     return (
         <>
             <div className={'w-full bg-gray-200 flex justify-center items-center h-screen'}>
                 <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col my-2 xl:w-2/4 lg:w-1/2 md:w-9/12 sm:w-1/2 w-9/12">
+                    <form onSubmit={handleSubmit(validate)}>
                     <h2 className="font-bold text-center text-5xl text-purple-400 pb-4 pt-2 mb-5 border-2 border-solid border-red-500 sm:text-3xl xs:text-xl">
                         Sign Up
                     </h2>
@@ -135,16 +135,20 @@ const SignUp = () => {
                         />
                     </div>
                     </div>
-                    <button className="mt-5 bg-gray-200 hover:bg-blue-700 hover:text-white border border-gray-400 text-blue-700 font-bold py-2 px-6 rounded-lg"
-                            onClick={(e)=>onSingup(e)}
+                    <button className="w-full mt-5 bg-gray-200 hover:bg-blue-700 hover:text-white border border-gray-400 text-blue-700 font-bold py-2 px-6 rounded-lg"
+                            type="submit"
+                            disabled={submitting}
+                            onClick={(e)=>onSingup(e,validate)}
                     >
                         Registration
                     </button>
-                    <button className="mt-5 bg-gray-200 hover:bg-blue-700 hover:text-white border border-gray-400 text-blue-700 font-bold py-2 px-6 rounded-lg">
+                    <button type="button" className="w-full mt-5 bg-gray-200 hover:bg-blue-700 hover:text-white border border-gray-400 text-blue-700 font-bold py-2 px-6 rounded-lg"
+                    >
                         <Link href="/login">
                             <a>Go to login</a>
                         </Link>
                     </button>
+                    </form>
                 </div>
 
             </div>

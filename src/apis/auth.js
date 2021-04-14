@@ -12,7 +12,6 @@ export const login = data => {
 };
 
 export const logout = data => {
-  console.log(data.token);
   return axiosService.logout(`${API_ENDPOINT}/${url}/logout`, data.token)
 }
 

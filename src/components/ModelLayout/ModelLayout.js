@@ -9,7 +9,6 @@ const index = ({children}) => {
                 id="modal"
             >
               {children}
-
             </div>
         </div>
     );

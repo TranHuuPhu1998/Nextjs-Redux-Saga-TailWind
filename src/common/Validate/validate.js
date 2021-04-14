@@ -12,6 +12,10 @@ const validate = values => {
       errors.name = "The name must not be 6 characters or more";
     }
 
+    if(!values.status){
+      errors.status = "The status cannot be left blank";
+    } 
+
     if (!values.password) {
       errors.password = 'The password cannot be left blank';
     } else if (values.password.trim().length < 6) {
@@ -25,6 +29,7 @@ const validate = values => {
     } else if (values.confirmpassword !== values.password) {
       errors.confirmpassword = 'The password does not match';
     } 
+    
     if(!values.position) {
       errors.position = "The position cannot be left blank";
     } else if(parseInt(values.position) === 'NaN') {

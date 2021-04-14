@@ -35,7 +35,6 @@ function* watchFetchListTaskAction(){
             const details = _get(error, 'response.data.details', {});
             yield put(fetchListTaskFailed(details));
         }finally {
-            yield delay(100);
             yield put(hideLoading()); 
         }
     }
@@ -50,7 +49,6 @@ function* watchFetchListTaskItemAction(){
         try {
             yield put(showLoading());
             const response = yield call(getListTaskItem);
-            console.log("🚀 ~ file: task.js ~ line 46 ~ function*watchFetchListTaskItemAction ~ response", response)
             const {data , status} = response;
             if(status === 200){
                 yield put(fetchListTaskItemSuccess(data.data))
@@ -67,17 +65,14 @@ function* watchFetchListTaskItemAction(){
 }
 
 function* processAddTaskItem({payload}){
-    console.log("dispatch")
     const {taskname , id} = payload;
     try {
         const response = yield call(addTaskItem , {
             taskname,
             id
         });
-        console.log("🚀 ~ file: task.js ~ line 77 ~ function*processAddTaskItem ~ response", response)
         const {data,status} = response;
         if(status === 201){
-            console.log("add task item success");
             yield put(addTaskItemSucess(data.data))
         }else {
             yield put(addTaskItemFailed())
@@ -86,7 +81,7 @@ function* processAddTaskItem({payload}){
     } catch (error) {
         // yield put(addTaskItemFailed())
     } finally {
-        console.log("add task item failed");
+        // console.log("add task item failed");
     }
 }
 

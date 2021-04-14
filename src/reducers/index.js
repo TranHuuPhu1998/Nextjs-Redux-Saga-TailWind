@@ -6,6 +6,7 @@ import uiReducers from './uiReducers'
 import userReducers from './usersReducers'
 import authReducers from './authReducers'
 import tasksitem from './taskItemReducers'
+import projects from './projectReducers'
 
 const rootReducers = () =>
     combineReducers({
@@ -14,7 +15,8 @@ const rootReducers = () =>
         uiReducers,
         userReducers,
         authReducers,
-        tasksitem
+        tasksitem,
+        projects
     })
 
 export default rootReducers;

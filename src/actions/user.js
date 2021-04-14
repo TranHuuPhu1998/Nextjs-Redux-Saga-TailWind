@@ -85,7 +85,6 @@ export const updateUserFailed = (error) => {
 }
 
 export const createUser = (name,email,password,status,position,permission,isAdmin) => {
-console.log("🚀 ~ file: user.js ~ line 88 ~ createUser ~ name,email,password,status,position,permission,isAdmin", name,email,password,status,position,permission,isAdmin)
     return {
         type : userConstants.CREATE_USER,
         payload : {

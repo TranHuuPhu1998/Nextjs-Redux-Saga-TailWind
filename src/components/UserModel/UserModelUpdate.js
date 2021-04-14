@@ -51,9 +51,7 @@ const UserModelUpdate = (payload) => {
                 value={email}
                 onChange={(e) => setEmail(e.currentTarget.value)}
                 />
-                <p className="text-red text-xs italic text-left">
-                Please fill out this field.
-                </p>
+               
             </div>
         </div>
         <div className="-mx-3 md:flex mb-6">
@@ -72,9 +70,7 @@ const UserModelUpdate = (payload) => {
                 value={name}
                 onChange={(e) => setName(e.currentTarget.value)}
                 />
-                <p className="text-red text-xs italic text-left">
-                Please fill out this field.
-                </p>
+               
             </div>
             <div className="md:w-full px-3">
                 <label
@@ -91,9 +87,7 @@ const UserModelUpdate = (payload) => {
                 value={status}
                 onChange={(e) => setStatus(e.currentTarget.value)}
                 />
-                <p className="text-red text-xs italic text-left">
-                Please fill out this field.
-                </p>
+             
             </div>
         </div>
         <div className="-mx-3 md:flex mb-6">
@@ -112,9 +106,7 @@ const UserModelUpdate = (payload) => {
                 value={position}
                 onChange={(e) => setPosition(e.currentTarget.value)}
                 />
-                <p className="text-red text-xs italic text-left">
-                Please fill out this field.
-                </p>
+               
             </div>
             <div className="md:w-full px-3">
                 <label
@@ -131,9 +123,7 @@ const UserModelUpdate = (payload) => {
                 value={permission}
                 onChange={(e) => setPermission(e.currentTarget.value)}
                 />
-                <p className="text-red text-xs italic text-left">
-                Please fill out this field.
-                </p>
+               
             </div>
         </div>
         <div className="flex flex-col items-center justify-end px-6 py-3 -mx-6 -mb-4 space-y-4 sm:space-y-0 sm:space-x-6 sm:flex-row dark:bg-gray-800">

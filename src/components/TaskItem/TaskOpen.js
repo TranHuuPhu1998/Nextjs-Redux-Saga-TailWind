@@ -1,4 +1,4 @@
-import React , {useState,useEffect} from "react";
+import React , {useState,useEffect,useRef} from "react";
 import {useDispatch,useSelector} from "react-redux";
 import {fetchListTaskItem} from "../../actions/taskitem";
 import {addTaskItem} from "../../actions/taskitem";
@@ -6,45 +6,31 @@ import {addTaskItem} from "../../actions/taskitem";
 const TaskOpen = (props) => {
 
   const dispatch = useDispatch();
-  const [cardslength , setCardslength] = useState(Number)
+  const inputRef = useRef(null)
+
   const [isOpenCard , setIsOpenCard] = useState(true)
   const [isAddLayout , setIsAddLayout] = useState(false)
   const [taskname , setTaskname] = useState(String)
 
-  const taskItemReducers = useSelector((state) => state.taskItemReducers);
-  const taskitem = props?.taskItemReducers?.filter((item) => item.taskid === props.id);
-  
+  const taskItemReducers = useSelector((state) => state.tasksitem).filter((item) => Number(item.taskid) === props.id);
+  const taskitem = taskItemReducers;
+
   const {id} = props;
 
   useEffect(() => {
     dispatch(fetchListTaskItem())
-  }, [dispatch])
+  }, [dispatch,isAddLayout])
 
   const onhandleChage = (e) => {
-    if(e.currentTarget.value){
-      setIsAddLayout(true)
-    }else {
-      setIsAddLayout(false)
-    }
     setTaskname(e.currentTarget.value);
   }
 
   const renderLayoutCards = () => {
-    let lengthWrite = cardslength;
-    let arr = [];
-    let _cardslength = new Array(lengthWrite)
-    
-    for(var i= 0 ; i < _cardslength.length ; i++){
-      arr.push(i)
-    }
-
-    return arr?.map((item,index)=>{
-      return (
-        <div key={index} className="bg-white p-2 rounded mt-1 border-b border-grey cursor-pointer hover:bg-grey-lighter">
-          <input type="text" value={item.taskname} id={item.id} onChange={onhandleChage}/>
-        </div>
-      )
-    })
+    return (
+      <div className="bg-white p-2 rounded mt-1 border-b border-grey cursor-pointer hover:bg-grey-lighter">
+        <input className="w-full" type="text" name="taskname" onChange={onhandleChage} ref={inputRef}/>
+      </div>
+    )
   }
 
   const renderCardItems = () => {
@@ -58,14 +44,15 @@ const TaskOpen = (props) => {
   }
 
   const onAddCardLayout = () => {
-    let total = cardslength + 1;
-    setCardslength(total);
     setIsOpenCard(!isOpenCard)
+    setIsAddLayout(!isAddLayout)
   }
 
   const onAddCard = () => {
-    isAddLayout ? setIsOpenCard(!isOpenCard) : null;
     dispatch(addTaskItem(taskname,id))
+    inputRef.current.value = ""
+    setIsOpenCard(!isOpenCard)
+    setIsAddLayout(!isAddLayout)
   }
 
   return (
@@ -85,7 +72,7 @@ const TaskOpen = (props) => {
           Do a mobile first layout
         </div>
         {renderCardItems()}
-        {renderLayoutCards()}
+        {isAddLayout ? renderLayoutCards() : ""}
         {isOpenCard ? 
           (
             <p className="mt-3 text-grey-dark flex justify-between cursor-pointer bg-blue-400 rounded-3xl p-2"

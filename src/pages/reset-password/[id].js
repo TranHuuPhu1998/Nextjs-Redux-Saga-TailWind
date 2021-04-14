@@ -1,23 +1,31 @@
-import React , {useState} from 'react'
-import {useRouter} from 'next/router'
-import {useDispatch} from 'react-redux'
-import { resetPassword } from '../../actions/auth'
+import React , {useState} from 'react';
+import {useRouter} from 'next/router';
+import {resetPassword} from '../../actions/auth';
+import {Field , reduxForm } from 'redux-form';
+import TextField from '../../components/FormHelper/TextField';
+import validate from '../../common/Validate/validate';
 
-const ResetPassword = () => {
+const ResetPassword = (props) => {
+    const { handleSubmit, submitting , dispatch ,valid } = props;
+
     const router = useRouter();
-    const dispatch = useDispatch();
     const token = router.query.id;
-
+    
     const [password, setPassword] = useState(String);
     const [passwordConfirmation , setPasswordConfirmation] = useState(String);
-    const [error , setError] = useState(String)
+    const [error , setError] = useState(String);
 
     const onResetPassword = () => {
-        dispatch(resetPassword(token , password))    
+        valid ? dispatch(resetPassword(token , password)) : "";   
     }
+
+    const onLogin = () => {
+        router.push('/login');
+    }
+
     return (
         <>
-        <div className={'w-full bg-gray-200 flex justify-center items-center h-screen'}>
+            <div className={'w-full bg-gray-200 flex justify-center items-center h-screen'}>
             <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col my-2 xl:w-1/4 lg:w-1/2 md:w-9/12 sm:w-1/2 w-9/12">
                 <h2 className="font-bold text-center text-5xl text-purple-400 pb-4 pt-2 mb-5 border-2 border-solid border-red-500 sm:text-3xl xs:text-xl">
                 Reset Password
@@ -30,16 +38,15 @@ const ResetPassword = () => {
                         >
                         Password
                         </label>
-                        <input
-                        className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3"
-                        id="grid-password"
-                        type="password"
-                        placeholder="******************"
-                        onChange={(e) => setPassword(e.currentTarget.value)}
+                        <Field
+                            className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3"
+                            id="grid-password"
+                            type="password"
+                            name="password"
+                            placeholder="******************"
+                            onChange={(e) => setPassword(e.currentTarget.value)}
+                            component={TextField}
                         />
-                        <p className="text-grey-dark text-xs italic">
-                        Make it as long and as crazy as you'd like
-                        </p>
                     </div>
           
                 </div>
@@ -51,28 +58,35 @@ const ResetPassword = () => {
                         >
                         Retype Password
                         </label>
-                        <input
-                        className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3"
-                        id="grid-repassword"
-                        type="repassword"
-                        placeholder="******************"
-                        onChange={(e) => setPasswordConfirmation(e.currentTarget.value)}
+                        <Field
+                            id="grid-repassword"
+                            type="password"
+                            name="confirmpassword"
+                            placeholder="******************"
+                            onChange={(e) => setPasswordConfirmation(e.currentTarget.value)}
+                            component={TextField}
                         />
-                        <p className="text-grey-dark text-xs italic">
-                            {error ? error : "re-enter the correct password"}
-                        </p>
                     </div>
                 </div>
                 <button className="mt-5 bg-gray-200 hover:bg-blue-700 hover:text-white border border-gray-400 text-blue-700 font-bold py-2 px-6 rounded-lg"
+                        disabled={submitting}
                         onClick={()=>onResetPassword()}
                 >
                     Reset Password
                 </button>
+                <button className="mt-5 bg-gray-200 hover:bg-blue-700 hover:text-white border border-gray-400 text-blue-700 font-bold py-2 px-6 rounded-lg"
+                        onClick={()=>onLogin()}
+                >
+                    Login
+                </button>
             </div>
 
         </div>
-    </>
+        </>
     )
 }
 
-export default ResetPassword
+export default reduxForm({
+    form : 'RESET_PASSWORD',
+    validate
+})(ResetPassword)

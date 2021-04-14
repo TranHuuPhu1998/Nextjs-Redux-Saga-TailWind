@@ -6,8 +6,7 @@ const initialState = {
 };
 
 const reducers = (state = initialState, action) => {
-
-    switch (action.type) {
+  switch (action.type) {
     case types.SIGNUP: {
       return {
         ...state

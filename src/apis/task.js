@@ -18,7 +18,3 @@ export const updateTask = (data, taskId) => {
 export const deleteTask = taskId => {
     return axiosService.delete(`${API_ENDPOINT}/${url}/${taskId}`);
 };
-
-export const getListTaskItem = () => {
-    return axiosService.get(`${API_ENDPOINT}/${url}`)
-}

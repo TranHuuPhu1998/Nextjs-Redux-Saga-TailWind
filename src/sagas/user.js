@@ -119,7 +119,7 @@ function* processCreateUser({payload}) {
             permission,
             isAdmin,
         });
-        console.log("🚀 ~ file: user.js ~ line 121 ~ function*processCreateUser ~ resq", resq);
+     
         const {data} = resq;
         if(data.status === STATUS_CODE.SUCCESS) {
             yield put(createUserSuccess(data.user))

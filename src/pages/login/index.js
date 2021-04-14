@@ -6,7 +6,7 @@ import { login } from '../../actions/auth'
 import {AUTHORIZATION_KEY} from '../../constants'
 import {Field , reduxForm} from 'redux-form'
 import TextField from '../../components/FormHelper/TextField'
-import validate from '../signup/validate'
+import validate from '../../common/Validate/validate'
 
 const Login = (props) => {
     const { handleSubmit, submitting , dispatch ,invalid ,valid } = props;
@@ -14,13 +14,12 @@ const Login = (props) => {
     const [email, SetEmail] = useState(String);
     const [password, SetPassword] = useState(String);
     const [error , SetError] = useState('');
-    // const dispatch = useDispatch();
+
     const router = useRouter();
 
     const user = useSelector(state => state.authReducers)
 
     const onLogin = () => {
-
         !invalid ? dispatch(login(email,password)) : "";
     }
 
@@ -100,6 +99,7 @@ const Login = (props) => {
                     Login
                 </button>
                 <button className="mt-5 bg-gray-200 hover:bg-blue-700 hover:text-white border border-gray-400 text-blue-700 font-bold py-2 px-6 rounded-lg"
+                        type="button"
                         onClick={onRegister}
                 >
                     Register
