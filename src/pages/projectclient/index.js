@@ -8,8 +8,7 @@ const Project = dynamic(()=>import('../../components/Project/ProjectList'))
 const User = () => {
     const dispatch = useDispatch()
     const projects = useSelector(state => state.projects)
-    console.log("🚀 ~ file: index.js ~ line 10 ~ User ~ projects", projects)
-    
+
     useEffect(()=>{
         dispatch(fetchProject())
     },[dispatch])

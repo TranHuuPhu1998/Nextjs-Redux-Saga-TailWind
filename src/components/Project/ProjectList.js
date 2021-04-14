@@ -5,7 +5,7 @@ const ProjectList = ({projects}) => {
     <tbody className="text-gray-600 text-sm font-light">
         {projects.map((item,index)=>{
             return (
-                <tr className="border-b border-gray-200 hover:bg-gray-100">
+                <tr key={index} className="border-b border-gray-200 hover:bg-gray-100">
                 <td className="py-3 px-6 text-left whitespace-nowrap">
                   <div className="flex items-center">
                     <span className="font-medium">{item.project_name}</span>
@@ -89,7 +89,6 @@ const ProjectList = ({projects}) => {
                   </div>
                 </td>
               </tr>
-        
             )
         })}
 
