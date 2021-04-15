@@ -5,8 +5,8 @@ import {fetchListTask} from '../../actions/taskActions'
 import {useDispatch , useSelector} from 'react-redux'
 import {AUTHORIZATION_KEY} from '../../constants'
 
-const AdminLayout = dynamic(()=>import('../../common/Layout/AdminLayout'))
-const ListCard = dynamic(() => import('../../components/ListCard/ListCard'))
+const AdminLayout = dynamic(()=>import('../../common/Layout/AdminLayout'),{ssr:false})
+const ListCard = dynamic(() => import('../../components/ListCard/ListCard'),{ssr:false})
 
 const DashBoard = () => {
     const dispatch = useDispatch();
