@@ -79,9 +79,9 @@ function* processAddTaskItem({payload}){
         }
 
     } catch (error) {
-        // yield put(addTaskItemFailed())
+        yield put(addTaskItemFailed())
     } finally {
-        // console.log("add task item failed");
+        yield put(addTaskItemFailed())
     }
 }
 

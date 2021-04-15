@@ -11,7 +11,7 @@ function* watchFetchListProjectAction(){
         try {
             yield put(showLoading());
             const response = yield call(getListProject);
-            console.log("🚀 ~ file: project.js ~ line 13 ~ function*watchFetchListProjectAction ~ response", response)
+      
             const {data , status} = response;
             if(status === 200){
                 yield put(fetchProjectSuccess(data.data))

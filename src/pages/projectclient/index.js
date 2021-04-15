@@ -1,17 +1,38 @@
-import React , {useEffect} from 'react'
+import React , {useEffect,useState,useCallback} from 'react'
 import dynamic from 'next/dynamic'
 import { useDispatch, useSelector} from 'react-redux'
 import {fetchProject} from '../../actions/project'
+import {fetchListUser} from '../../actions/user'
 const AdminLayout = dynamic(()=>import('../../common/Layout/AdminLayout/'),{ssr:false})
 const Project = dynamic(()=>import('../../components/Project/ProjectList'))
 
 const User = () => {
     const dispatch = useDispatch()
+    const [projectUser , setprojectUser] = useState(Array)
+
     const projects = useSelector(state => state.projects)
-    console.log("🚀 ~ file: index.js ~ line 10 ~ User ~ projects", projects)
+
+    const users = useSelector(state => state.userReducers)
+
+    useEffect(()=>{
+        let temp = [];
+        let temp2 = [];
+        projects.forEach((item,index)=>{
+            item.member = [];
+            users.forEach((item2,index2)=>{
+                if(item.id === item2.users_id){
+                    item.member.push(item2)  
+                    temp.push(item)
+                }
+            })
+            temp2 = [...new Set(temp)]
+        })
+        setprojectUser(temp2)
+    },[projects])
     
     useEffect(()=>{
         dispatch(fetchProject())
+        dispatch(fetchListUser())
     },[dispatch])
 
     return (
@@ -26,20 +47,22 @@ const User = () => {
             <div className="overflow-x-auto">
                 <div className="min-w-screen bg-gray-100 font-sans overflow-hidden">
             <div className="w-full">
-            <div className="bg-white shadow-md rounded">
-                <table className="min-w-max w-full table-auto">
-                <thead>
-                    <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-                    <th className="py-3 px-6 text-left">Project</th>
-                    <th className="py-3 px-6 text-left">Client</th>
-                    <th className="py-3 px-6 text-center">Users</th>
-                    <th className="py-3 px-6 text-center">Status</th>
-                    <th className="py-3 px-6 text-center">Actions</th>
-                    </tr>
-                </thead>
-                    <Project projects={projects}/>
-                </table>
-            </div>
+                <div className="bg-white shadow-md rounded">
+                    <div className="min-w-max w-full table-auto">
+                        <div>
+                            <div className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal flex">
+                                <p className="py-3 w-1/5 px-6 text-left">Project</p>
+                                <p className="py-3 w-1/5 px-6 text-left">Client</p>
+                                <p className="py-3 w-1/5 px-6 text-center">Users</p>
+                                <p className="py-3 w-1/5 px-6 text-center">Status</p>
+                                <p className="py-3 w-1/5 px-6 text-center">Actions</p>
+                            </div>
+                        </div>
+                        <div className="text-gray-600 text-sm font-light">
+                            <Project projects={projectUser}/>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
             </div>

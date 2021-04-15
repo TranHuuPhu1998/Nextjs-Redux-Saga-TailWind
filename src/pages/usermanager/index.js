@@ -16,7 +16,7 @@ const UserManager = () => {
     const [isopen , setIsopen] = useState(false)
     const router = useRouter()
     const users = useSelector((state) => state.userReducers);
-    
+  
     useEffect(() => {
         const isAdmin = localStorage.getItem('ADMIN')
         if(isAdmin){   

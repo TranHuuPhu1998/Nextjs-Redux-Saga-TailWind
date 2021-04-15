@@ -1,6 +1,6 @@
 import React from 'react'
 
-const index = ({children}) => {
+const ModelLayout = ({children}) => {
     return (
         <div className="fixed inset-0 z-30 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center">
             <div
@@ -8,10 +8,10 @@ const index = ({children}) => {
                 role="dialog"
                 id="modal"
             >
-              {children}
+                {children}
             </div>
         </div>
     );
 }
 
-export default index
+export default ModelLayout
