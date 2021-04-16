@@ -2,8 +2,13 @@ import * as projectTypes from '../constants/project'
 import _get from 'lodash/get'
 import {call, fork, put, take , takeLatest} from 'redux-saga/effects'
 import { hideLoading, showLoading } from '../actions/ui'
-import {fetchProjectSuccess,fetchProjectFailed} from '../actions/project'
-import {getListProject} from '../apis/project'
+import { 
+    fetchProjectSuccess,
+    fetchProjectFailed,
+    deleteProjectSuccess,
+    deleteProjectFailed
+} from '../actions/project'
+import { getListProject , deleteProject} from '../apis/project'
 
 function* watchFetchListProjectAction(){
     while(true){
@@ -28,8 +33,26 @@ function* watchFetchListProjectAction(){
     }
 }
 
+function* processDeleteProject({payload}) {
+    const {id} = payload;
+    try {
+        const resp = yield call(deleteProject , id);
+        const {status} = resp;
+        if(status === 200){
+            yield put(deleteProjectSuccess(id))
+        }else {
+            yield put(deleteProjectFailed())
+        }
+    } catch (error) {
+        yield put(deleteProjectFailed())
+    } finally {
+        yield put(deleteProjectFailed())
+    }
+}
+
 function* projectSaga(){
     yield fork(watchFetchListProjectAction);
+    yield takeLatest(projectTypes.DELETE_PROJECT ,processDeleteProject);
 }
 
 export default projectSaga;

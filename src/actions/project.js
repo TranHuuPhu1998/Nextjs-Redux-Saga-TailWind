@@ -50,3 +50,30 @@ export const addProjectFailed = (error)=> {
         }
     }
 }
+
+export const deleteProject = (id) => {
+    return {
+        type : projectConstants.DELETE_PROJECT,
+        payload : {
+            id
+        }
+    }
+}
+
+export const deleteProjectSuccess = (id) => {
+    return {
+        type : projectConstants.DELETE_PROJECT_SUCCESS,
+        payload : {
+            id
+        }
+    }
+}
+
+export const deleteProjectFailed = (error) => {
+    return {
+        type : projectConstants.DELETE_PROJECT_FAILED,
+        payload : {
+            error
+        }
+    }
+}

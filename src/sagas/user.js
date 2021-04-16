@@ -92,10 +92,7 @@ function* processUpdateUser({payload}){
         } finally {
             yield put(hideLoading())
         }
-    }else {
-        
     }
- 
 }
 
 function* processCreateUser({payload}) {

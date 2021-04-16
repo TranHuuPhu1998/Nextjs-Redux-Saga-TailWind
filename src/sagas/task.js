@@ -45,7 +45,6 @@ function* watchFetchListTaskAction(){
 function* watchFetchListTaskItemAction(){
     while(true) {
         yield take(taskitemTypes.FETCH_TASK_ITEM);
-
         try {
             yield put(showLoading());
             const response = yield call(getListTaskItem);
@@ -60,6 +59,7 @@ function* watchFetchListTaskItemAction(){
             yield put(fetchListTaskItemFailed(details));
         } finally {
             yield put(hideLoading());
+            yield put(fetchListTaskItemFailed());
         }
     }
 }

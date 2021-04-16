@@ -16,5 +16,5 @@ export const updateProject = (data) => {
 }
 
 export const deleteProject = (id) => {
-    return axiosService.delete(`${API_ENDPOINT}/${url}/${id}`);
+    return axiosService.delete(`${API_ENDPOINT}/${url}/delete/${id}`);
 }
