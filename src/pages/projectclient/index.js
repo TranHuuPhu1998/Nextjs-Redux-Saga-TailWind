@@ -4,13 +4,14 @@ import { useDispatch, useSelector} from 'react-redux'
 import {fetchProject} from '../../actions/project'
 import {fetchListUser} from '../../actions/user'
 const AdminLayout = dynamic(()=>import('../../common/Layout/AdminLayout/'),{ssr:false})
-const Project = dynamic(()=>import('../../components/Project/ProjectList'))
+const Project = dynamic(()=>import('../../components/Project/ProjectList'),{ssr:false})
+const ProjectModelCreate = dynamic(()=>import('../../components/ProjectModel/ProjectModelCreate'),{ssr:false})
 
 const User = () => {
     const dispatch = useDispatch()
 
-    const [projectUser , setprojectUser] = useState(Array)
-    const [isopen , setIsopen] = useState(false)
+    const [projectUser , setProjectUser] = useState(Array)
+    const [isOpen , setIsOpen] = useState(false)
 
     const projects = useSelector(state => state.projects)
     const users = useSelector(state => state.userReducers)
@@ -28,7 +29,7 @@ const User = () => {
             })
             temp2 = [...new Set(temp)]
         })
-        setprojectUser(temp2)
+        setProjectUser(temp2)
     },[projects,users])
     
     useEffect(()=>{
@@ -37,7 +38,7 @@ const User = () => {
     },[dispatch])
 
     const onCreateProject = () => {
-        setIsopen(!isopen)
+        setIsOpen(!isOpen)
     }
 
     return (
@@ -76,6 +77,9 @@ const User = () => {
             </div>
             </div>
         </AdminLayout>
+        {
+            isOpen ? <ProjectModelCreate users={users} onCreateProject={onCreateProject}/> : null
+        }
       </>
     )
 }
