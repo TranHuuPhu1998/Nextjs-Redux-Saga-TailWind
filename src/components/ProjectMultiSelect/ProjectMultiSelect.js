@@ -4,25 +4,6 @@ import MultiButtonClose from './MultiIButtonClose'
 
 const ProjectMultiSelect = ({users}) => {
 
-    const optionProps = [
-        {
-            'id' : 1,
-            'name' : 'phu',
-        },
-        {
-            'id' : 2,
-            'name' : 'phuong',
-        },
-        {
-            'id' : 3,
-            'name' : 'nhi',
-        },
-        {
-            'id' : 4,
-            'name' : 'em',
-        },
-    ];
-
     const [option,setOption] = useState([])
     const [isOpen , setIsOpen] = useState(false)
     const [async, setAsync] = useState(false)
@@ -74,7 +55,7 @@ const ProjectMultiSelect = ({users}) => {
                                   
                                     <div className="flex flex-auto flex-wrap">
                                         {
-                                           isShowOption && (arrayEmpty > 0) ? (<div className="flex justify-center items-center m-1 font-medium py-1 px-2 bg-white rounded-full text-teal-700 bg-teal-100 border border-teal-300 ">
+                                           isShowOption && (arrayEmpty > 0) ? (<div className="flex justify-center items-center m-1 font-medium bg-white rounded-full text-teal-700 bg-teal-100 border border-teal-300 ">
                                             <div className="text-xs font-normal leading-none max-w-full flex-initial x-model" />
                                             <div className="flex flex-auto flex-row-reverse">
                                                 <div className="flex flex-auto flex-wrap">
