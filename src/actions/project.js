@@ -24,11 +24,17 @@ export const fetchProjectFailed = error => {
     }
 }
 
-export const addProject = (data) => {
+export const addProject = (project_client,project_name,project_type,project_status,date_start,date_end,members) => {
     return {
         type : projectConstants.ADD_PROJECT,
         payload : {
-            data
+            project_client,
+            project_name,
+            project_type,
+            project_status,
+            date_start,
+            date_end,
+            members
         }
     }
 }

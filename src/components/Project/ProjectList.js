@@ -15,7 +15,7 @@ const ProjectList = ({projects}) => {
         date_start={item.date_start}
         project_id={item.project_id}
         id = {item.id}
-        member={item.member}
+        member={item.members}
       />
     )}
   )

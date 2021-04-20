@@ -21,6 +21,18 @@ const reducers = (state = initialState , action) => {
                 ...state
             ]
         }
+        case types.ADD_PROJECT_SUCCESS : {
+            state.unshift(action.payload.data);  
+            return [
+                ...state
+            ]
+        }
+        case types.ADD_PROJECT_FAILED : {
+            toastSuccess('Add Project Failed');
+            return [
+                ...state
+            ]
+        }
         case types.DELETE_PROJECT : {
             return [
                 ...state

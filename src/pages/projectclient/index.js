@@ -15,22 +15,6 @@ const User = () => {
 
     const projects = useSelector(state => state.projects)
     const users = useSelector(state => state.userReducers)
-
-    useEffect(()=>{
-        let temp = [];
-        let temp2 = [];
-        projects.forEach((item,index)=>{
-            item.member = [];
-            users.forEach((item2,index2)=>{
-                if(item.id === item2.users_id){
-                    item.member.push(item2)  
-                    temp.push(item)
-                }
-            })
-            temp2 = [...new Set(temp)]
-        })
-        setProjectUser(temp2)
-    },[projects,users])
     
     useEffect(()=>{
         dispatch(fetchProject())
@@ -69,7 +53,7 @@ const User = () => {
                             </div>
                         </div>
                         <div className="text-gray-600 text-sm font-light">
-                            <Project projects={projectUser}/>
+                            <Project projects={projects}/>
                         </div>
                     </div>
                 </div>

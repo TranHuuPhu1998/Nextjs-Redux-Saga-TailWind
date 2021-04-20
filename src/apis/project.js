@@ -7,8 +7,9 @@ export const getListProject = () => {
     return axiosService.get(`${API_ENDPOINT}/${url}`);
 }
 
-export const addProject = (data) => {
-    return axiosService.post(`${API_ENDPOINT}/${url}` , data);
+export const CreateProject = (data) => {
+console.log("🚀 ~ file: project.js ~ line 11 ~ CreateProject ~ data", data)
+    return axiosService.post(`${API_ENDPOINT}/${url}/create` , data);
 }
 
 export const updateProject = (data) => {

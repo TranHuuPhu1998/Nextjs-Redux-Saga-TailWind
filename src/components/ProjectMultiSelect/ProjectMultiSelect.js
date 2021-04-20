@@ -2,7 +2,7 @@ import React , {useEffect, useState } from "react";
 import MultiButtonOpen from './MultiButtonOpen'
 import MultiButtonClose from './MultiIButtonClose'
 
-const ProjectMultiSelect = ({users}) => {
+const ProjectMultiSelect = ({users,optionChoseProps}) => {
 
     const [option,setOption] = useState([])
     const [isOpen , setIsOpen] = useState(false)
@@ -12,11 +12,11 @@ const ProjectMultiSelect = ({users}) => {
     const [arrayEmpty , setArrayEmpty] = useState(1) 
 
     useEffect(()=>{setOption(users)},[])
-
+    
     const onShowOption = () => {
         setIsOpen(!isOpen)
     }
-
+    
     const onChoseOption =  (value) => {
         if(!isShowOption){
             setIsShowOption(!isShowOption)
@@ -25,10 +25,11 @@ const ProjectMultiSelect = ({users}) => {
         let _optionChose = optionChose
         let rs = _optionChose.concat(value)
         setOptionChose(rs)
-
         let filterOption = option.filter((item,index)=> item.id !== value.id)
         setOption(filterOption)
-        
+        // func props component Project Model Create 
+        // get data for component Project Model Create 
+        optionChoseProps(rs)
     }
 
     const onRemote = (value) => {
@@ -36,16 +37,13 @@ const ProjectMultiSelect = ({users}) => {
         option.push(value)
         setArrayEmpty(rs.length)
         setOptionChose(rs)
+        // func props component Project Model Create 
+        // get data for component Project Model Create 
+        optionChoseProps(rs)
     }
     
     return (
         <>
-            {/* <select className="hidden" id="select">
-                <option value="1">Option 2</option>
-                <option value="2">Option 3</option>
-                <option value="3">Option 4</option>
-                <option value="4">Option 5</option>
-            </select> */}
             <div className="flex flex-col items-center mx-auto">
                     <input name="values" type="hidden" />
                     <div className="inline-block relative ">

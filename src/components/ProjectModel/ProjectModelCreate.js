@@ -1,28 +1,51 @@
-import React ,{useState}from 'react'
+import React ,{useState,useEffect}from 'react'
 import dynamic from 'next/dynamic'
 import {Field , reduxForm} from 'redux-form'
+import {useDispatch} from 'react-redux'
 import TextField from '../../components/FormHelper/TextField'
 import validateProject from '../../common/Validate/validateProject'
 import LabelCreateLayout from '../ModelBlockLayout/LabelCreateLayout'
-const ModelLayout = dynamic(()=>import('../ModelLayout/ModelLayout'),{ssr:false})
-const ProjectMultiSelect = dynamic(()=>import('../ProjectMultiSelect/ProjectMultiSelect'),{ssr:false})
-const H2Layout = dynamic(()=>import('../ModelBlockLayout/H2Layout'),{ssr:false})
+import {addProject} from '../../actions/project'
+import DatePicter from '../DatePicter/DatePicter'
+import ModelLayout from '../ModelLayout/ModelLayout'
+import ProjectMultiSelect from '../ProjectMultiSelect/ProjectMultiSelect'
+import H2Layout from '../ModelBlockLayout/H2Layout'
 
 const ProjectModelCreate = (props) => {
 
-    const { handleSubmit, submitting , dispatch ,valid , onCreateProject } = props;
+    const { handleSubmit, submitting , dispatch ,valid ,onCreateProject } = props;
+
+    // const dispatch = useDispatch();
 
     const [project_client , setProject_client] = useState(String)
     const [project_name , setProject_name] = useState(String)
     const [project_type , setProject_type] = useState(String)
     const [project_status , setProject_status] = useState(String)
-    const [date_start , setDate_start] = useState(Date)
-    const [date_end , setDate_end] = useState(Date)
+    const [date_start , setDateStart] = useState(Date)
+    const [date_end , setDateEnd] = useState(Date)
+    const [members , setMembers] = useState([])
+
+    const onCreateProjectUser = () => {
+        // event.preventDefault();
+        dispatch(addProject(project_client,project_name,project_type,project_status,date_start,date_end,members))
+    }
+    
+    const optionChose = (data) => {
+        setMembers(data)
+    }
+
+    const onSetDateStart = (data) => {
+        setDateStart(data)
+    }
+
+    const onSetDateEnd = (data) => {
+        setDateEnd(data)
+    }
 
     return (
         <ModelLayout>
-            <div className="bg-white p-4 mb-4 my-2">
-                <form onSubmit={handleSubmit(validateProject)}>
+            <div  className="bg-white p-4 mb-4 my-2">
+                <div>
                     <H2Layout>Create Project</H2Layout>
                     <div className="-mx-3 md:flex mb-6">
                         <div className="md:w-full px-3">
@@ -77,7 +100,10 @@ const ProjectModelCreate = (props) => {
                                 >
                                 Member Action 
                             </label>
-                            <ProjectMultiSelect users={props.users}/>
+                            <ProjectMultiSelect 
+                                users={props.users} 
+                                optionChoseProps = {optionChose}
+                                />
                        </div>
                         <div className="md:w-full px-3">
                             <label
@@ -106,15 +132,7 @@ const ProjectModelCreate = (props) => {
                             >
                             Date Start
                             </label>
-                            <Field
-                                id="date_start"
-                                name="date_start"
-                                type="text"
-                                placeholder="Date Start"
-                                value={date_start}
-                                onChange={(e) => setDate_start(e.currentTarget.value)}
-                                component={TextField}
-                            />
+                            <DatePicter onSetDate = {onSetDateStart}/>
                         </div>
                         <div className="md:w-full px-3">
                             <label
@@ -123,33 +141,24 @@ const ProjectModelCreate = (props) => {
                             >
                             Date End
                             </label>
-                            <Field
-                                id="date_end"
-                                name="date_end"
-                                type="text"
-                                placeholder="Date End"
-                                value={date_end}
-                                onChange={(e) => setDate_end(e.currentTarget.value)}
-                                component={TextField}
-                            />
+                            <DatePicter onSetDate= {onSetDateEnd}/>
                         </div>
                     </div>
                     <div className="flex flex-col items-center justify-end px-6 py-3 -mx-6 -mb-4 space-y-4 sm:space-y-0 sm:space-x-6 sm:flex-row dark:bg-gray-800">
 
                     <button className="w-full px-5 py-3 text-sm font-medium leading-5 text-white text-gray-700 transition-colors duration-150 border border-gray-300 rounded-lg dark:text-gray-400 sm:px-4 sm:py-2 sm:w-auto active:bg-transparent hover:border-gray-500 focus:border-gray-500 active:text-gray-500 focus:outline-none focus:shadow-outline-gray"
-                         
                             onClick={()=>onCreateProject()}
                     >
                         Cancel
                     </button>
                     <button className="w-full px-5 py-3 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg sm:w-auto sm:px-4 sm:py-2 active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
-                        onClick={()=>onCreateUser(validateProject)}
-                        disabled={submitting}
+                        type="submit"
+                        onClick={()=>onCreateProjectUser()}
                     >
                         Accept
                     </button>
                     </div>
-                </form>
+                </div>
             </div>
         </ModelLayout>
     )
