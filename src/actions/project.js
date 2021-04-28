@@ -83,3 +83,37 @@ export const deleteProjectFailed = (error) => {
         }
     }
 }
+
+export const updateProject = (id,project_client,project_name,project_type,project_status,date_start,date_end,members) => {
+    return {
+        type : projectConstants.UPDATE_PROJECT,
+        payload : {
+            id,
+            project_client,
+            project_name,
+            project_type,
+            project_status,
+            date_start,
+            date_end,
+            members
+        }
+    }
+}
+
+export const updateProjectSuccess = (data) => {
+    return {
+        type : projectConstants.UPDATE_PROJECT_SUCCESS,
+        payload : {
+            data
+        }
+    }
+}
+
+export const updateProjectFailed = (error) => {
+    return {
+        type : projectConstants.UPDATE_PROJECT_FAILED,
+        payload : {
+            error
+        }
+    }
+}

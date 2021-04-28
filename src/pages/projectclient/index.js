@@ -53,7 +53,7 @@ const User = () => {
                             </div>
                         </div>
                         <div className="text-gray-600 text-sm font-light">
-                            <Project projects={projects}/>
+                            <Project projects={projects} users={users}/>
                         </div>
                     </div>
                 </div>

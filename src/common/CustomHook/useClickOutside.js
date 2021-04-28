@@ -1,23 +1,19 @@
-import react , {useEffect} from 'react'
+import react , {useEffect , useRef} from 'react'
 
-export const useClickOutSide = (ref, callback) => {
-    const handleClick = e => {
-        if(ref.current && !ref.current.contains(e.target)){
-            callback()
+export const useClickOutSide = (ref, handler) => {
+    useEffect(() => {
+      const listener = (event) => {
+        if (!ref.current || ref.current.contains(event.target)) {
+          return;
         }
-        useEffect(() => {
-            document.addEventListener('click' , handleClick);
-            return () => {
-                document.removeEventListener('click' , handleClick);
-            }  
-        });
-    }
+        handler(event);
+      };
+      document.addEventListener("click", listener);
+      // document.addEventListener("touchstart", listener);
+        return () => {
+          document.removeEventListener("click", listener);
+          // document.removeEventListener("touchstart", listener);
+        };
+    },[ref, handler]);
 } 
 
-
-// let history
-
-// if (typeof document !== 'undefined') {
-//   const {createBrowserHistory} = require('history');
-//   history = createBrowserHistory()
-// }

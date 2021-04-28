@@ -1,6 +1,6 @@
 import React, { useState , useEffect , useRef } from 'react'
 
-const DatePicter = ({onSetDate}) => {
+const DatePicter = ({onSetDate, dayChoseProps,isOpenDateStart,isOpenDateEnd}) => {
 
     const clickRef = useRef();
 
@@ -11,9 +11,10 @@ const DatePicter = ({onSetDate}) => {
     const [isOpen , setIsOpen] = useState(false);
     const [dayChose , setDayChose] = useState(String);
 
-    const MONTH_NAMES = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    const MONTH_NAMES = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'Sep', 'October', 'November', 'December'];
     const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     
+    // get datetime for picter 
     const getNoOfDat = (value) => {
         let today = new Date();
         let month = today.getMonth();
@@ -30,7 +31,7 @@ const DatePicter = ({onSetDate}) => {
             }
         }
      
-        let datepickerValue = new Date(_year, month, today.getDate()).toDateString();
+        // let datepickerValue = new Date(_year, month, today.getDate()).toDateString();
         let daysInMonth = new Date(_year, month + 1, 0).getDate();
 
         // find where to start calendar day of week
@@ -43,14 +44,15 @@ const DatePicter = ({onSetDate}) => {
         let daysArray = [];
         for ( var i=1; i <= daysInMonth; i++) {
             daysArray.push(i);
+            console.log("🚀 ~ file: DatePicter.js ~ line 46 ~ getNoOfDat ~ daysArray", daysArray)
         }
 
         setBlankdays(blankdaysArray);
         setNo_of_days(daysArray);
         set_month(month)
-        // set_year(_year)
     }
 
+    // set current datetime only the first time 
     useEffect(()=>{
         let today = new Date();
         let year = today.getFullYear();
@@ -58,25 +60,39 @@ const DatePicter = ({onSetDate}) => {
         getNoOfDat()
     },[])
 
+    // user chose day from ProjectModelCreate
+    useEffect(()=>{
+        setDayChose(dayChoseProps)
+        onSetDate(dayChoseProps)
+    },[dayChoseProps])
+
+    // use click out side elements
+    useEffect(()=>{
+        setIsOpen(false)
+    },[isOpenDateStart,isOpenDateEnd])
+
+    
     const onShowLayout = () => {
         setIsOpen(!isOpen)
     }
 
+    // format datetime when user active day
     const onChoseDay = (item) => {
-        let today = new Date();
-        let hours = today.getHours();
-        let minutes = today.getMinutes();
-        let month = _month.toString().length === 1 ? `0${_month+1}` : _month+1;
-        let day = item.toString().length === 1 ? `0${item}` : item;
-        let daytimes = `${_year}-${month}-${day} ${hours}:${minutes}`;
+        let today = new Date()
+        let hours = today.getHours()
+        let minutes = today.getMinutes()
+        let seconds = today.getSeconds()
+        seconds = seconds.toString().length === 1 ? `0${seconds}` : seconds
+        let month = _month.toString().length === 1 ? `0${_month+1}` : _month+1
+        let day = item.toString().length === 1 ? `0${item}` : item
+        let daytimes = `${_year}-${month}-${day} ${hours}:${minutes}:${seconds}`
 
         setDayChose(daytimes)
         onSetDate(daytimes)
     }
 
-
     return (
-        <div className="flex items-center justify-center " ref={clickRef}>
+        <div className="flex items-center justify-center ">
         <div className="antialiased sans-serif w-full">
             <div>
             <div className="mx-auto">

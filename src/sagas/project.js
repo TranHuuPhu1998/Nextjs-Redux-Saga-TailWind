@@ -8,9 +8,11 @@ import {
     deleteProjectSuccess,
     deleteProjectFailed,
     addProjectSuccess,
-    addProjectFailed
+    addProjectFailed,
+    updateProjectSuccess,
+    updateProjectFailed
 } from '../actions/project'
-import { getListProject , deleteProject , CreateProject} from '../apis/project'
+import { getListProject , deleteProject , CreateProject , updateProject} from '../apis/project'
 
 function* watchFetchListProjectAction(){
     while(true){
@@ -66,7 +68,6 @@ function* processCreateProject({payload}){
         });
         const {data , status} = resp;     
         if(status === 201) {
-            console.log("vooo");
             yield put(addProjectSuccess(data.data))
         }   
         else {
@@ -77,10 +78,35 @@ function* processCreateProject({payload}){
     }
 }
 
+function* processUpdateProject({payload}) {
+    const {id,project_client,project_name,project_type,project_status,date_start,date_end,members} = payload;
+    try {
+        const resp = yield call(updateProject,{
+            id,
+            project_client,
+            project_name,
+            project_type,
+            project_status,
+            date_start,
+            date_end,
+            members
+        })
+        const {data,status} = resp;
+        if(status === 200){
+            yield put(updateProjectSuccess(data.data))
+        }else {
+            yield put(updateProjectFailed())
+        }
+    } catch (error) {
+        yield put(updateProjectFailed())
+    }
+}
+
 function* projectSaga(){
-    yield fork(watchFetchListProjectAction);
-    yield takeLatest(projectTypes.DELETE_PROJECT ,processDeleteProject);
-    yield takeLatest(projectTypes.ADD_PROJECT , processCreateProject);
+    yield fork(watchFetchListProjectAction)
+    yield takeLatest(projectTypes.DELETE_PROJECT ,processDeleteProject)
+    yield takeLatest(projectTypes.ADD_PROJECT , processCreateProject)
+    yield takeLatest(projectTypes.UPDATE_PROJECT , processUpdateProject)
 }
 
 export default projectSaga;

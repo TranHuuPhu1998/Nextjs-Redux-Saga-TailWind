@@ -4,7 +4,7 @@ import ProjectModelUpdate from '../ProjectModel/ProjectModelUpdate'
 import {useDispatch} from 'react-redux'
 import {deleteProject} from '../../actions/project'
 
-const ProjectAction = ({projectItem}) => {
+const ProjectAction = ({projectItem,users}) => {
 
     const dispatch = useDispatch()
     const [isInfo , setIsInfo] = useState(false)
@@ -16,6 +16,14 @@ const ProjectAction = ({projectItem}) => {
 
     const onDeleteProject = (id) => {
         dispatch(deleteProject(id))
+    }
+
+    const onUpdateProject = () => {
+        setIsupdate(!isUpdate)
+    }
+
+    const onCancelModel = () => {
+        setIsupdate(!isUpdate)
     }
 
     return (
@@ -43,7 +51,9 @@ const ProjectAction = ({projectItem}) => {
                     />
                 </svg>
             </div>
-            <div className="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
+            <div className="w-4 mr-2 transform hover:text-purple-500 hover:scale-110"
+                onClick={()=>onUpdateProject()}
+            >
                 <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -73,6 +83,8 @@ const ProjectAction = ({projectItem}) => {
             }
             {
                 isUpdate ? <ProjectModelUpdate 
+                                onCancelModel={onCancelModel}
+                                users= {users}
                                 projectItem={projectItem}/> : ""
             }
         </div>

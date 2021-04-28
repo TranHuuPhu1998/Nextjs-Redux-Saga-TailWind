@@ -1,8 +1,9 @@
-import React , {useEffect, useState } from "react";
+import React , {useEffect, useState , useRef } from "react";
+import { updateUser } from "../../actions/user";
 import MultiButtonOpen from './MultiButtonOpen'
 import MultiButtonClose from './MultiIButtonClose'
 
-const ProjectMultiSelect = ({users,optionChoseProps}) => {
+const ProjectMultiSelect = ({users,optionChoseProps,usersUpdate,isOpenProps}) => {
 
     const [option,setOption] = useState([])
     const [isOpen , setIsOpen] = useState(false)
@@ -11,8 +12,17 @@ const ProjectMultiSelect = ({users,optionChoseProps}) => {
     const [optionChose , setOptionChose] = useState([])
     const [arrayEmpty , setArrayEmpty] = useState(1) 
 
-    useEffect(()=>{setOption(users)},[])
+    useEffect(()=>{
+        setOption(users)
+        setOptionChose(usersUpdate || [])
+        optionChoseProps(usersUpdate)
+        setIsShowOption(!isShowOption)
+    },[usersUpdate])
     
+    useEffect(()=>{
+        setIsOpen(false)
+    },[isOpenProps])
+
     const onShowOption = () => {
         setIsOpen(!isOpen)
     }
@@ -44,20 +54,20 @@ const ProjectMultiSelect = ({users,optionChoseProps}) => {
     
     return (
         <>
-            <div className="flex flex-col items-center mx-auto">
+            <div 
+                className="flex flex-col items-center mx-auto">
                     <input name="values" type="hidden" />
-                    <div className="inline-block relative ">
+                    <div className="inline-block relative w-full">
                         <div className="flex flex-col items-center relative">
                             <div className="w-full svelte-1l8159u  border rounded border-solid border-red-200">
                                 <div className="my-1 p-1 flex border border-gray-200 bg-white rounded svelte-1l8159u">
-                                  
                                     <div className="flex flex-auto flex-wrap">
                                         {
                                            isShowOption && (arrayEmpty > 0) ? (<div className="flex justify-center items-center m-1 font-medium bg-white rounded-full text-teal-700 bg-teal-100 border border-teal-300 ">
                                             <div className="text-xs font-normal leading-none max-w-full flex-initial x-model" />
                                             <div className="flex flex-auto flex-row-reverse">
                                                 <div className="flex flex-auto flex-wrap">
-                                                    {optionChose.map((item,index)=>{
+                                                    {optionChose?.map((item,index)=>{
                                                         return (
                                                             <p  className="p-1 cursor-pointer flex justify-center items-center border rounded border-solid border-red-200 mr-2 mb-2" 
                                                                 key={index}
@@ -86,12 +96,9 @@ const ProjectMultiSelect = ({users,optionChoseProps}) => {
                                         </div>
                                     </div>
                                     <div className="text-gray-300 w-8 py-1 pl-2 pr-1 border-l flex items-center border-gray-200 svelte-1l8159u">
-                                        
                                         {
                                             isOpen ?  <MultiButtonClose onShowOption={onShowOption}/> : <MultiButtonOpen onShowOption={onShowOption}/> 
                                         }
-
-                                      
                                     </div>
                                 </div>
                             </div>
@@ -102,9 +109,9 @@ const ProjectMultiSelect = ({users,optionChoseProps}) => {
                                             {
                                                 isOpen ? option.map((item,index)=>{
                                                     return (<div key={index} 
-                                                            className="cursor-pointer w-full border-gray-100 rounded-t border-b hover:bg-teal-100"
-                                                            onClick={()=>onChoseOption(item)}
-                                                            >
+                                                        className="cursor-pointer w-full border-gray-100 rounded-t border-b hover:bg-teal-100"
+                                                        onClick={()=>onChoseOption(item)}
+                                                        >
                                                             <div className="flex w-full items-center p-2 pl-2 border-transparent border-l-2 relative">
                                                                 <div className="w-full items-center flex">
                                                                     <div className="mx-2 leading-6">
@@ -112,7 +119,7 @@ const ProjectMultiSelect = ({users,optionChoseProps}) => {
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                   </div>)
+                                                    </div>)
                                                }) : null
                                             }
                                         </div>

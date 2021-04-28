@@ -1,7 +1,7 @@
 import React from "react";
 import ProjectItem from "./ProjectItem"
 
-const ProjectList = ({projects}) => {
+const ProjectList = ({projects,users}) => {
 
   const Listprojects = projects?.map((item,index)=>{
     return (
@@ -15,7 +15,9 @@ const ProjectList = ({projects}) => {
         date_start={item.date_start}
         project_id={item.project_id}
         id = {item.id}
-        member={item.members}
+        members={item.members}
+
+        users={users}
       />
     )}
   )

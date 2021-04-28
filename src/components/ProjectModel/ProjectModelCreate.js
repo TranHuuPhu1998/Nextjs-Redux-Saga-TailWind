@@ -1,4 +1,4 @@
-import React ,{useState,useEffect}from 'react'
+import React ,{useState,useEffect,useRef}from 'react'
 import dynamic from 'next/dynamic'
 import {Field , reduxForm} from 'redux-form'
 import {useDispatch} from 'react-redux'
@@ -10,12 +10,14 @@ import DatePicter from '../DatePicter/DatePicter'
 import ModelLayout from '../ModelLayout/ModelLayout'
 import ProjectMultiSelect from '../ProjectMultiSelect/ProjectMultiSelect'
 import H2Layout from '../ModelBlockLayout/H2Layout'
+import {useClickOutSide} from '../../common/CustomHook/useClickOutside'
 
 const ProjectModelCreate = (props) => {
 
-    const { handleSubmit, submitting , dispatch ,valid ,onCreateProject } = props;
-
-    // const dispatch = useDispatch();
+    const { handleSubmit, submitting , dispatch ,valid ,onCreateProject } = props
+    const refclick = useRef()
+    const refdatestart = useRef()
+    const refdateend = useRef()
 
     const [project_client , setProject_client] = useState(String)
     const [project_name , setProject_name] = useState(String)
@@ -24,9 +26,11 @@ const ProjectModelCreate = (props) => {
     const [date_start , setDateStart] = useState(Date)
     const [date_end , setDateEnd] = useState(Date)
     const [members , setMembers] = useState([])
+    const [isOpen , setIsOpen] = useState(false)
+    const [isOpenDateStart , setIsOpenDateStart] = useState(false)
+    const [isOpenDateEnd , setIsOpenDateEnd] = useState(false)
 
     const onCreateProjectUser = () => {
-        // event.preventDefault();
         dispatch(addProject(project_client,project_name,project_type,project_status,date_start,date_end,members))
     }
     
@@ -42,9 +46,22 @@ const ProjectModelCreate = (props) => {
         setDateEnd(data)
     }
 
+    // click out side elements
+    useClickOutSide(refclick ,() => {
+        setIsOpen(!isOpen);
+    })
+
+    useClickOutSide(refdatestart ,() => {
+        setIsOpenDateStart(!isOpenDateStart);
+    })
+
+    useClickOutSide(refdateend ,() => {
+        setIsOpenDateEnd(!isOpenDateEnd);
+    })
+
     return (
         <ModelLayout>
-            <div  className="bg-white p-4 mb-4 my-2">
+            <div className="bg-white p-4 mb-4 my-2" >
                 <div>
                     <H2Layout>Create Project</H2Layout>
                     <div className="-mx-3 md:flex mb-6">
@@ -93,7 +110,7 @@ const ProjectModelCreate = (props) => {
                         </div>
                     </div>
                     <div className="-mx-3 md:flex mb-6">
-                        <div className="md:w-full px-3">
+                        <div className="md:w-full px-3" ref={refclick}>
                             <label
                                 className="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2 text-left"
                                 htmlFor="project_type"
@@ -103,7 +120,8 @@ const ProjectModelCreate = (props) => {
                             <ProjectMultiSelect 
                                 users={props.users} 
                                 optionChoseProps = {optionChose}
-                                />
+                                isOpenProps={isOpen}
+                            />
                        </div>
                         <div className="md:w-full px-3">
                             <label
@@ -125,23 +143,23 @@ const ProjectModelCreate = (props) => {
                     </div>
                     <div className="-mx-3 md:flex mb-6">
 
-                        <div className="md:w-full px-3">
+                        <div className="md:w-full px-3" ref={refdatestart}>
                             <label
                             className="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2 text-left"
                             htmlFor="date_start"
                             >
                             Date Start
                             </label>
-                            <DatePicter onSetDate = {onSetDateStart}/>
+                            <DatePicter isOpenDateStart={isOpenDateStart} onSetDate = {onSetDateStart}/>
                         </div>
-                        <div className="md:w-full px-3">
+                        <div className="md:w-full px-3" ref={refdateend}>
                             <label
                             className="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2 text-left"
                             htmlFor="date_end"
                             >
                             Date End
                             </label>
-                            <DatePicter onSetDate= {onSetDateEnd}/>
+                            <DatePicter isOpenDateEnd={isOpenDateEnd} onSetDate= {onSetDateEnd}/>
                         </div>
                     </div>
                     <div className="flex flex-col items-center justify-end px-6 py-3 -mx-6 -mb-4 space-y-4 sm:space-y-0 sm:space-x-6 sm:flex-row dark:bg-gray-800">

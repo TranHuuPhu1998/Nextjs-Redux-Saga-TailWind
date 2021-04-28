@@ -52,6 +52,14 @@ const reducers = (state = initialState , action) => {
                 ...state
             ]
         }
+        case types.UPDATE_PROJECT_SUCCESS: {
+            toastSuccess('Update Project Success');
+            let index = state.findIndex(item => item.id === action.payload.data.id)
+            state[index] = action.payload.data
+            return [
+                ...state
+            ]
+        }
         default: 
             return [
                 ...state
