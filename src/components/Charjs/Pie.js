@@ -39,15 +39,15 @@ const PieChart = () => {
 
     return (
         <div>
-            <div class="flex bg-blue-400 p-2">
-                <h3 class="text-white bold">VerticalBar Chart</h3>
+            <div className="flex bg-blue-400 p-2">
+                <h3 className="text-white bold">VerticalBar Chart</h3>
 
-                <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                        <i class="fas fa-minus"></i>
+                <div className="card-tools">
+                    <button type="button" className="btn btn-tool" data-card-widget="collapse">
+                        <i className="fas fa-minus"></i>
                     </button>
-                    <button type="button" class="btn btn-tool" data-card-widget="remove">
-                        <i class="fas fa-times"></i>
+                    <button type="button" className="btn btn-tool" data-card-widget="remove">
+                        <i className="fas fa-times"></i>
                     </button>
                 </div>
             </div>

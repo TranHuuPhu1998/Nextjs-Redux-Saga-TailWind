@@ -21,6 +21,7 @@ const reducers = (state = initialState , action) => {
             ]
         }
         case taskitem.ADD_TASK_SUCCESS : {
+            console.log(action.payload.data);
             state = state.push(action.payload.data)
             return [
                 ...state

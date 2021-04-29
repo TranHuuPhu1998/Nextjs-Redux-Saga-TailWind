@@ -71,8 +71,10 @@ function* processAddTaskItem({payload}){
             taskname,
             id
         });
+        console.log("🚀 ~ file: task.js ~ line 73 ~ function*processAddTaskItem ~ response", response)
         const {data,status} = response;
         if(status === 201){
+            console.log("oke");
             yield put(addTaskItemSucess(data.data))
         }else {
             yield put(addTaskItemFailed())
