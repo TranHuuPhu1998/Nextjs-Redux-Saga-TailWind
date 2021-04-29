@@ -3,9 +3,10 @@ import dynamic from 'next/dynamic'
 import { useDispatch, useSelector} from 'react-redux'
 import {fetchProject} from '../../actions/project'
 import {fetchListUser} from '../../actions/user'
-const AdminLayout = dynamic(()=>import('../../common/Layout/AdminLayout/'),{ssr:false})
-const Project = dynamic(()=>import('../../components/Project/ProjectList'),{ssr:false})
-const ProjectModelCreate = dynamic(()=>import('../../components/ProjectModel/ProjectModelCreate'),{ssr:false})
+import AdminLayout from '../../common/Layout/AdminLayout/'
+import Project from '../../components/Project/ProjectList'
+import ProjectModelCreate from '../../components/ProjectModel/ProjectModelCreate'
+
 
 const User = () => {
     const dispatch = useDispatch()

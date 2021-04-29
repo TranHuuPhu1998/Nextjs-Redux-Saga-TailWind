@@ -6,6 +6,14 @@ function px(pixels) {
   module.exports = {
     purge: ["./components/**/*.{js,ts,jsx,tsx}", "./pages/**/*.{js,ts,jsx,tsx}"],
     theme: {
+      minWidth: {
+        '0': '0',
+        '1/4': '25%',
+        '1/2': '50%',
+        '2/5': '43%',
+        '3/4': '75%',
+        'full': '100%',
+      },
       fontSize: {
         xs: px(12),
         sm: px(14),
