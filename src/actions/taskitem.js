@@ -34,7 +34,7 @@ export const addTaskItem = (taskname,id) => {
     }
 }
 
-export const addTaskItemSucess = (data) => {
+export const addTaskItemSuccess = (data) => {
     return {
         type : taskitem.ADD_TASK_SUCCESS,
         payload : {

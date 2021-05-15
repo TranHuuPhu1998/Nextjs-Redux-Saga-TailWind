@@ -7,10 +7,12 @@ import {ToastContainer} from 'react-toastify';
 import axiosService from '../common/Theme/axiosService'
 import makeStore from "../redux/configureStore"
 
-import "tailwindcss/tailwind.css";
+import "tailwindcss/tailwind.css"
 import "../styles/globals.css"
 import "../styles/main.css"
-import 'react-toastify/dist/ReactToastify.css';
+import "../styles/c3.css"
+
+import 'react-toastify/dist/ReactToastify.css'
 
 const Loading = dynamic(()=>import('../components/Loading/Loading'))
 

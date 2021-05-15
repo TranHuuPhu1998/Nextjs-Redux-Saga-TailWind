@@ -1,7 +1,6 @@
 import React from 'react'
 
 import App from 'next/app'
-
 import wrapper from '../redux/configureStore'
 
 class ExampleApp extends App {

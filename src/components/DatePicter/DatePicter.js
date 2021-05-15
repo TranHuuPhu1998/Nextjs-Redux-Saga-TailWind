@@ -44,7 +44,6 @@ const DatePicter = ({onSetDate, dayChoseProps,isOpenDateStart,isOpenDateEnd}) =>
         let daysArray = [];
         for ( var i=1; i <= daysInMonth; i++) {
             daysArray.push(i);
-            console.log("🚀 ~ file: DatePicter.js ~ line 46 ~ getNoOfDat ~ daysArray", daysArray)
         }
 
         setBlankdays(blankdaysArray);

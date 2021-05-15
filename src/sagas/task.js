@@ -13,7 +13,7 @@ import {
 import {
     fetchListTaskItemSuccess,
     fetchListTaskItemFailed,
-    addTaskItemSucess,
+    addTaskItemSuccess,
     addTaskItemFailed,
 } from '../actions/taskitem'
 
@@ -46,7 +46,7 @@ function* watchFetchListTaskItemAction(){
     while(true) {
         yield take(taskitemTypes.FETCH_TASK_ITEM);
         try {
-            yield put(showLoading());
+            // yield put(showLoading());
             const response = yield call(getListTaskItem);
             const {data , status} = response;
             if(status === 200){
@@ -58,7 +58,7 @@ function* watchFetchListTaskItemAction(){
             const details = _get(error, 'response.data.details', {});
             yield put(fetchListTaskItemFailed(details));
         } finally {
-            yield put(hideLoading());
+            // yield put(hideLoading());
             yield put(fetchListTaskItemFailed());
         }
     }
@@ -66,25 +66,7 @@ function* watchFetchListTaskItemAction(){
 
 function* processAddTaskItem({payload}){
     const {taskname , id} = payload;
-    try {
-        const response = yield call(addTaskItem , {
-            taskname,
-            id
-        });
-        console.log("🚀 ~ file: task.js ~ line 73 ~ function*processAddTaskItem ~ response", response)
-        const {data,status} = response;
-        if(status === 201){
-            console.log("oke");
-            yield put(addTaskItemSucess(data.data))
-        }else {
-            yield put(addTaskItemFailed())
-        }
-
-    } catch (error) {
-        yield put(addTaskItemFailed())
-    } finally {
-        yield put(addTaskItemFailed())
-    }
+    yield call(addTaskItem , {taskname,id});
 }
 
 

@@ -5,6 +5,8 @@ const Dankmemes = dynamic(()=>import('../../components/Charjs/Dankmemes'),{ssr:f
 const VerticalBar =  dynamic(()=>import('../../components/Charjs/VerticalBar'),{ssr:false})
 const PieChart = dynamic(()=>import('../../components/Charjs/Pie'),{ssr:false})
 const PolarareaChart = dynamic(()=>import('../../components/Charjs/Polararea'),{ssr:false})
+const Chartc3 = dynamic(()=>import('../../components/Charjs/c3Chart'),{ssr:false})
+const LineChart = dynamic(()=>import('../../components/Charjs/LineChart'),{ssr:false})
 
 const charts = () => {
     return (
@@ -21,6 +23,12 @@ const charts = () => {
                 </div>
                 <div className="min-w-2/5 border-2 border-solid border-blue-500	m-4">
                     <PolarareaChart/>
+                </div>
+                <div className="min-w-2/5 border-2 border-solid border-blue-500	m-4">
+                    <Chartc3/>
+                </div>
+                <div className="min-w-2/5 border-2 border-solid border-blue-500	m-4">
+                    <LineChart/>
                 </div>
             </div>
         </AdminLayout>

@@ -50,6 +50,7 @@ const TaskOpen = (props) => {
 
   const onAddCard = () => {
     dispatch(addTaskItem(taskname,id))
+  
     inputRef.current.value = ""
     setIsOpenCard(!isOpenCard)
     setIsAddLayout(!isAddLayout)
