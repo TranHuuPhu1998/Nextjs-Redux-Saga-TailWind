@@ -2,6 +2,7 @@ import React , {useState,useEffect,useRef} from "react";
 import {useDispatch,useSelector} from "react-redux";
 import {fetchListTaskItem} from "../../actions/taskitem";
 import {addTaskItem} from "../../actions/taskitem";
+import { Draggable, Droppable } from 'react-beautiful-dnd';
 
 const TaskOpen = (props) => {
 
@@ -57,7 +58,7 @@ const TaskOpen = (props) => {
   }
 
   return (
-    <div className="rounded bg-gray-300 w-64 p-2 ml-4 mt-4">
+    <div className="rounded bg-gray-300 w-64 p-2 ml-4 mt-4" style={{minHeight:'200px'}}>
       <div className="flex justify-between py-1">
         <h3 className="text-sm">OPEN</h3>
         <svg
@@ -120,6 +121,7 @@ const TaskOpen = (props) => {
       </div>
     </div>
   );
+  
 };
 
 export default TaskOpen;

@@ -1,21 +1,24 @@
-import * as taskTypes from '../constants/task'
-import * as taskitemTypes from '../constants/taskitem'
-import _get from 'lodash/get'
-import {take , fork, call,put , delay ,takeLatest} from 'redux-saga/effects'
-import {getListTask} from '../apis/task'
-import {getListTaskItem,addTaskItem} from '../apis/taskitem'
-import {hideLoading , showLoading} from '../actions/ui'
+import * as taskTypes from '../constants/task';
+import * as taskitemTypes from '../constants/taskitem';
+import _get from 'lodash/get';
+import {take , fork, call,put , delay ,takeLatest} from 'redux-saga/effects';
+import {getListTask} from '../apis/task';
+import {getListTaskItem,addTaskItem,updateTask} from '../apis/taskitem';
+import {hideLoading , showLoading} from '../actions/ui';
+
 import { 
     fetchListTaskFailed, 
     fetchListTaskSuccess, 
-} from '../actions/taskActions'
+} from '../actions/taskActions';
 
 import {
     fetchListTaskItemSuccess,
     fetchListTaskItemFailed,
     addTaskItemSuccess,
     addTaskItemFailed,
-} from '../actions/taskitem'
+    updateTaskItemSuccess,
+    updateTaskItemFailed
+} from '../actions/taskitem';
 
 // TASK LIST
 
@@ -38,8 +41,7 @@ function* watchFetchListTaskAction(){
             yield put(hideLoading()); 
         }
     }
-}
-
+};
 // TASK ITEM
 
 function* watchFetchListTaskItemAction(){
@@ -62,18 +64,40 @@ function* watchFetchListTaskItemAction(){
             yield put(fetchListTaskItemFailed());
         }
     }
-}
+};
 
 function* processAddTaskItem({payload}){
     const {taskname , id} = payload;
-    yield call(addTaskItem , {taskname,id});
-}
+    // yield call(addTaskItem , {taskname,id});
+    const _status = 'open';
+    try {
+        const resp = yield call(addTaskItem , {taskname,id,status : _status});
+        const {data , status} = resp;
+        if(status === 201) {
+            yield put(addTaskItemSuccess(data.data));
+        }else {
+            yield put(addTaskItemFailed());
+        }
+    } catch (error) {
+        yield put(addTaskItemFailed());
+    } 
+};
 
+function* processUpdateTaskItem({payload}){
+    const {taskname,taskid,id} = payload;
+    const statusTask = payload.status;
+    try {
+        const resp = yield call(updateTask,{taskname,taskid,status:statusTask,id});
+    } catch (error) {
+        yield put(updateTaskItemFailed())
+    }
+};
 
 function* taskSaga(){
     yield fork(watchFetchListTaskAction);
     yield fork(watchFetchListTaskItemAction);
     yield takeLatest(taskitemTypes.ADD_TASK_ITEM , processAddTaskItem);
-}
+    yield takeLatest(taskitemTypes.UPDATE_TASK_ITEM , processUpdateTaskItem);
+};
 
 export default taskSaga;

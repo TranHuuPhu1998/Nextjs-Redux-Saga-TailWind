@@ -45,9 +45,39 @@ export const addTaskItemSuccess = (data) => {
 
 export const addTaskItemFailed = (error) => {
     return {
-        type : taskitem.ADD_TASK_ITEM,
+        type : taskitem.ADD_TASK_FAILED,
         payload : {
             error
+        }
+    }
+}
+
+export const updateTaskItem = (data) => {
+    return {
+        type : taskitem.UPDATE_TASK_ITEM,
+        payload : {
+            taskname : data.taskname,
+            status : data.status,
+            taskid : data.taskid,
+            id : data.id
+        }
+    }
+}   
+
+export const updateTaskItemSuccess = (data) => {
+    return {
+        type : taskitem.UPDATE_TASK_ITEM_SUCCESS,
+        payload : {
+            data
+        }
+    }
+}
+
+export const updateTaskItemFailed = (error) => {
+    return {
+        type : taskitem.UPDATE_TASK_ITEM_FAILED,
+        payload : {
+            error 
         }
     }
 }

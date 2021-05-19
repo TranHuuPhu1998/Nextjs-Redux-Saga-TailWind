@@ -56,7 +56,7 @@ class AxiosService {
         return this.service.request({
             method:'PUT',
             url:endpoint,
-            headers: {"Content-Type": "application/json","Access-Control-Allow-Origin": "*"},
+            // headers: {"Content-Type": "application/json","Access-Control-Allow-Origin": "*"},
             responseType:'json',
             data:payload
         })

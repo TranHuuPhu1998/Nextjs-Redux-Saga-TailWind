@@ -12,7 +12,8 @@ export const addTaskItem = (data) => {
 }
 
 export const updateTask = (data) => {
-    return axiosService.put(`${API_ENDPOINT}/${url}/update/${id}`, data);
+console.log("🚀 ~ file: taskitem.js ~ line 15 ~ updateTask ~ data", data)
+    return axiosService.put(`${API_ENDPOINT}/${url}/update/${data.id}`, data);
 }
 
 export const deleteTask = (data) => {

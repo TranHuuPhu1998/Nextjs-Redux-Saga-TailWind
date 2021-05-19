@@ -48,7 +48,6 @@ const ForgotPassword = (props) => {
     )
 }
 
-
 export default reduxForm({
     form:'FORGOT_PASSWORD',
     validate

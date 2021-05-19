@@ -21,7 +21,7 @@ const reducers = (state = initialState , action) => {
             ]
         }
         case taskitem.ADD_TASK_SUCCESS : {
-            state = state.push(action.payload.data)
+            state.unshift(action.payload.data);
             return [
                 ...state
             ]
@@ -31,6 +31,21 @@ const reducers = (state = initialState , action) => {
                 ...state
             ]
         }
+        case taskitem.UPDATE_TASK_ITEM: {
+            return [
+                ...state
+            ]
+        }
+        case taskitem.UPDATE_TASK_ITEM_SUCCESS : {
+            return [
+                ...state
+            ]
+        }   
+        case taskitem.UPDATE_TASK_ITEM_FAILED : {
+            return [
+                ...state
+            ]
+        } 
         default : 
             return [
                 ...state,
