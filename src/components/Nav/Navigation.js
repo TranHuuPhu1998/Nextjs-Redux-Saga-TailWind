@@ -111,7 +111,20 @@ const Navigation = ({onClickOutSide}) => {
             </Link>
             </div>
           </li>
-
+          <li className="relative">
+            <div className={router.pathname == "/library" ? "bg-green-500 px-6 py-3 text-white" : "px-6 py-3"}>
+            <Link href="/library">
+              <a
+                className="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+              >
+               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z" />
+              </svg>
+                <span className="ml-4">React Library</span>
+              </a>
+            </Link>
+            </div>
+          </li>
         </ul>
         <div className="px-6 my-6">
           <button className="flex items-center justify-between w-full px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">

@@ -51,7 +51,7 @@ const ProjectMultiSelect = ({users,optionChoseProps,usersUpdate,isOpenProps}) =>
         // get data for component Project Model Create 
         optionChoseProps(rs)
     }
-    
+
     return (
         <>
             <div 
@@ -104,10 +104,9 @@ const ProjectMultiSelect = ({users,optionChoseProps,usersUpdate,isOpenProps}) =>
                             </div>
                             <div className="w-full  ">
                                 <div className="absolute shadow top-100 bg-white z-40 w-full lef-0 rounded max-h-select overflow-y-auto svelte-5uyqqj">
-                                    <div className={isOpen ? "flex flex-col w-full  overflow-auto h-32" : "flex flex-col w-full"} >
-                                        <div>
+                                    {isOpen ? <div className={isOpen && option.length > 0 ? "flex flex-col w-full  overflow-auto h-32" : "flex flex-col w-full"} >
                                             {
-                                                isOpen ? option.map((item,index)=>{
+                                                option.map((item,index)=>{
                                                     return (<div key={index} 
                                                         className="cursor-pointer w-full border-gray-100 rounded-t border-b hover:bg-teal-100"
                                                         onClick={()=>onChoseOption(item)}
@@ -120,10 +119,10 @@ const ProjectMultiSelect = ({users,optionChoseProps,usersUpdate,isOpenProps}) =>
                                                                 </div>
                                                             </div>
                                                     </div>)
-                                               }) : null
+                                               })
                                             }
-                                        </div>
-                                    </div>
+                                    </div> : null
+                                    }
                                 </div>
                             </div>
                         </div>

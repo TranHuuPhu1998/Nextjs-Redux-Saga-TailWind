@@ -8,7 +8,7 @@ const Login = dynamic(()=>import('./login'))
 export default function Home() {
   
   return (
-    <div className={styles.container + " w-full"}>
+    <div className={styles.container + "w-full"}>
       <Head>
         <title>Trello App</title>
         <link rel="icon" href="/favicon.ico" />

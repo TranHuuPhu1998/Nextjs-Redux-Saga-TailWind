@@ -25,11 +25,11 @@ const AdminLayout = ({children}) => {
     return (
         <div className="flex h-screen bg-gray-50 dark:bg-gray-900" >
             {
-                isAdmin ? <Navigation onClickOutSide={onClickOutSide}/> : ""
+                <Navigation onClickOutSide={onClickOutSide}/>
             }
-            <div className="flex flex-col flex-1 w-full">
+            <div className="flex flex-col flex-1 w-full overflow-y-auto overflow-x-auto">
                 <Header onClickOutSide={onClickOutSide} isopen={isopen} />
-                <main className="h-full overflow-y-auto" onClick={onClickOutSide} >
+                <main className="h-full" onClick={onClickOutSide} style={{marginTop:'86px'}}>
                     {children}
                 </main>
             </div>

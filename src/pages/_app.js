@@ -11,7 +11,7 @@ import "tailwindcss/tailwind.css"
 import "../styles/globals.css"
 import "../styles/main.css"
 import "../styles/c3.css"
-
+import "../styles/formik.css"
 import 'react-toastify/dist/ReactToastify.css'
 
 const Loading = dynamic(()=>import('../components/Loading/Loading'))

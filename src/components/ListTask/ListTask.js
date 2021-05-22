@@ -7,30 +7,6 @@ import TaskInfor from '../TaskItem/TaskInfor';
 import TaskTitle from '../BlockTitle/TasKTitle/TaskTitle';
 import Column2 from './Column2';
 
-const initialData = {
-    tasks: {
-        "task-1": { id: "task-1", content: "Take out the garbage" },
-        "task-2": { id: "task-2", content: "Watch my favorite show" },
-        "task-3": { id: "task-3", content: "Charge my phone" },
-        "task-4": { id: "task-4", content: "Cook dinner" },
-    },
-    columns: {
-        "OPEN": {
-            id: "OPEN",
-            taskIds: ["task-1", "task-2", "task-3", "task-4"],
-        },
-        "INPROCESS": {
-            id: "INPROCESS",
-            taskIds: [],
-        },
-        "SUCCESS": {
-            id: "SUCCESS",
-            taskIds: [],
-        },
-    },
-    // Facilitate reordering of the columns
-    columnOrder: ["OPEN", "INPROCESS", "SUCCESS"],
-};
 
 const ListTask = ({ tasks, taskItem, id }) => {
 
@@ -49,7 +25,6 @@ const ListTask = ({ tasks, taskItem, id }) => {
         const _newTaskIdInProcess = taskItem.map((ele,index) => {if(ele.status === 'inprocess'){return ele.id} });
         const _newTaskIdSuccess = taskItem.map((ele,index) => {if(ele.status === 'success'){return ele.id} });
 
-        // const _tasks = taskItem.map((ele,index) => ele);
         var _tasks = {};
         taskItem.forEach((ele,index) => {
             _newTaskId.forEach((ele2,index2) => {
@@ -179,14 +154,12 @@ const ListTask = ({ tasks, taskItem, id }) => {
         }
     };
 
-        // console.log("🚀 ~ file: ListTask.js ~ line 37 ~ ListTask ~ listTaskItem", listTaskItem)
-
     return (
         <>
             {
                 taskid[0] ?
                 <DragDropContext onDragStart={onDragStart} onDragEnd={onDragEnd}>
-                    <div className="bg-blue justify-center font-sans">
+                    <div className="bg-blue justify-center font-sans" style={{width:'1235px'}}>
                         <TaskTitle title={taskid[0].title}/>
                         <div className="flex items-baseline">
                             <TaskInfor

@@ -18,12 +18,11 @@ const ProjectItem = (props) => {
                         <span>{props.project_client}</span>
                     </div>
                 </div>
-                <div className="w-1/5 py-3 px-6 text-center flex items-center justify-center cursor-pointer">
+                <div className="w-1/5 py-3 px-6 text-center flex items-center justify-center cursor-pointer flex-wrap">
                     {
                         props.members?.map((memberItem,memberindex)=>{
                             return (
-                                <p key={memberindex} className="bg-blue-300 w-6 h-6 rounded-full font-bold text-center capitalize flex items-center justify-center text-white"
-                                >
+                                <p key={memberindex} className="bg-blue-300 w-6 h-6 rounded-full font-bold text-center capitalize flex items-center justify-center text-white">
                                     {memberItem.name[0]}
                                 </p>
                             )
