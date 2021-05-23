@@ -39,7 +39,7 @@ export class RichEditorExample extends React.Component {
         var contentState = editorState.getCurrentContent();
         if (!contentState.hasText()) {
             if (contentState.getBlockMap().first().getType() !== 'unstyled') {
-                className += styles.RichEditor-hidePlaceholder;
+                className += styles.RichEditor_hidePlaceholder;
             }
         }
         return (

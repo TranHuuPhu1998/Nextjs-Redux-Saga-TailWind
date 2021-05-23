@@ -55,6 +55,7 @@ const MyForm = ({
       Email
     </label>
     <input
+      className="pl-3 border-2 border-gray-300 bg-white h-10 pr-5 rounded-lg text-sm focus:outline-none w-full"
       id="email"
       placeholder="Enter your email"
       type="email"

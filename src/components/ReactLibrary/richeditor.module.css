@@ -24,7 +24,7 @@
   min-height: 100px;
 }
 
-.RichEditor-hidePlaceholder .public-DraftEditorPlaceholder-root {
+.RichEditor_hidePlaceholder .public-DraftEditorPlaceholder-root {
   display: none;
 }
 

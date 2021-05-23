@@ -159,7 +159,7 @@ const ListTask = ({ tasks, taskItem, id }) => {
             {
                 taskid[0] ?
                 <DragDropContext onDragStart={onDragStart} onDragEnd={onDragEnd}>
-                    <div className="bg-blue justify-center font-sans" style={{width:'1235px'}}>
+                    <div className="bg-blue justify-center font-sans" style={{width:'100%',minWidth:'1200px'}}>
                         <TaskTitle title={taskid[0].title}/>
                         <div className="flex items-baseline">
                             <TaskInfor

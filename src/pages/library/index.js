@@ -4,6 +4,7 @@ import * as url from '../../constants'
 import ReactVitualScroll from '../../components/ReactLibrary/ReactVitualScroll';
 import AdminLayout from '../../common/Layout/AdminLayout'
 import DraftJs from '../../components/ReactLibrary/draftJs'
+import Throttling from '../../components/ReactLibrary/Throttling'
 
 const library = ({data}) => {
     return (
@@ -11,6 +12,7 @@ const library = ({data}) => {
           <div className="flex">
             <ReactVitualScroll taskitem = {data.data}/>
             <DraftJs/>
+            <Throttling taskitem = {data.data}/>
           </div>
         </AdminLayout>
     )
