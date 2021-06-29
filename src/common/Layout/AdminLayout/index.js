@@ -29,7 +29,7 @@ const AdminLayout = ({children}) => {
             }
             <div className="flex flex-col flex-1 w-full overflow-y-auto overflow-x-auto">
                 <Header onClickOutSide={onClickOutSide} isopen={isopen} />
-                <main className="h-full" onClick={onClickOutSide} style={{marginTop:'86px'}}>
+                <main className="h-full" onClick={onClickOutSide} style={{marginTop:'64px'}}>
                     {children}
                 </main>
             </div>

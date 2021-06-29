@@ -8,11 +8,11 @@ export const getListTaskItem = () => {
 }
 
 export const addTaskItem = (data) => {
+console.log("🚀 ~ file: taskitem.js ~ line 11 ~ addTaskItem ~ data", data)
     return axiosService.post(`${API_ENDPOINT}/${url}/create/${data.id}`,data);
 }
 
 export const updateTask = (data) => {
-console.log("🚀 ~ file: taskitem.js ~ line 15 ~ updateTask ~ data", data)
     return axiosService.put(`${API_ENDPOINT}/${url}/update/${data.id}`, data);
 }
 

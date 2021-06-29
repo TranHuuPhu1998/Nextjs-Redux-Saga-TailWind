@@ -24,12 +24,12 @@ export const fetchListTaskItemFailed = (error) => {
     }
 }
 
-export const addTaskItem = (taskname,id) => {
+export const addTaskItem = (data) => {
+console.log("🚀 ~ file: taskitem.js ~ line 28 ~ addTaskItem ~ data", data)
     return {
         type : taskitem.ADD_TASK_ITEM,
         payload : {
-            taskname,
-            id
+            data
         }
     }
 }

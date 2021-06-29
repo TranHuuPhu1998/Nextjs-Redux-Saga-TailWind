@@ -12,6 +12,7 @@ const TaskContainer = styled.div`
         props.isDragging ? 'lightgreen' : 'white')};
     display:flex;
     transition : background-color 0.2s ease;
+    flex-direction: column;
 `
 
 const Handle = styled.div`
@@ -36,7 +37,11 @@ const Task2 = (props) => {
                     {...provided.dragHandleProps}
                 >
                     <Handle />
-                    {props.task.taskname}
+                    <div>
+                        <img src={`http://localhost:8000/${props.task.img_path}`} alt="images" />
+                    </div>
+                    <p> {props.task.taskname}</p>
+                    
                 </TaskContainer>
             )}
         </Draggable>

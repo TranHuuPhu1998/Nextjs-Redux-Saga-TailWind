@@ -3,15 +3,13 @@ import React from 'react';
 import * as url from '../../constants'
 import ReactVitualScroll from '../../components/ReactLibrary/ReactVitualScroll';
 import AdminLayout from '../../common/Layout/AdminLayout'
-import DraftJs from '../../components/ReactLibrary/draftJs'
 import Throttling from '../../components/ReactLibrary/Throttling'
 
 const library = ({data}) => {
     return (
         <AdminLayout>
-          <div className="flex">
+          <div className="flex" style={{height: 'calc(100vh - 64px)'}}>
             <ReactVitualScroll taskitem = {data.data}/>
-            <DraftJs/>
             <Throttling taskitem = {data.data}/>
           </div>
         </AdminLayout>

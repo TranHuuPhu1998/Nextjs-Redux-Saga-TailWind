@@ -2,8 +2,22 @@ import axios from 'axios';
 import React, { useEffect } from 'react'
 import * as url from '../../constants'
 import {useVirtual} from 'react-virtual'
-import LineCard from './LineCard'
-import styles from './lineCard.module.css'
+
+const LineCard = ({taskitem}) => {
+
+    String.prototype.limit = function(length) {
+        return this.length > length ? (this.substring(0, length) + '...') : this;
+    }
+
+    return (
+        <div className="flex justify-between border-b-2 border-solid border-current p-2 font-sans">
+            <p>{taskitem.taskname.trim().limit(10)}</p>
+            <p className="text-xs text-red-500">{taskitem.status}</p>
+            <p className="text-xs text-red-500">{new Date(taskitem.created_at).toLocaleTimeString('en-US')}</p>
+        </div>
+    )
+}
+
 
 const ReactVitualScroll = ({taskitem}) => {
 
@@ -16,19 +30,14 @@ const ReactVitualScroll = ({taskitem}) => {
         })
 
         return (
-            <div>
-                <div className="ml-5 mr-5 flex items-center justify-between p-2 text-sm font-semibold text-purple-100 bg-purple-600 rounded-lg shadow-md focus:outline-none focus:shadow-outline-purple" 
+            <div className="h-5/6 overflow-y-hidden">
+                <div className="ml-5  mr-5 mt-5 flex items-center justify-between p-2 text-sm font-semibold text-purple-100 bg-purple-600 rounded-lg shadow-md focus:outline-none focus:shadow-outline-purple" 
                     style={{width:'388px'}}>
                     React Virtual Scroll Task
                 </div>
                 <div ref={parentRef}
-                    className="List"
-                    style={{
-                        height: `550px`,
-                        width: `400px`,
-                        margin : '20px',
-                        overflow: 'auto',
-                    }}
+                    className="List overflow-auto m-5 h-1/2"
+                    style={{width: `400px`,}}
                 >
                     <div
                         className="border border-solid border-red-500"
@@ -41,7 +50,7 @@ const ReactVitualScroll = ({taskitem}) => {
                         {rowVirtualizer.virtualItems.map(virtualRow => (
                             <div
                                 key={virtualRow.index}
-                                className={virtualRow.index % 2 ? '' : styles.ListItemEven}
+                                className={virtualRow.index % 2 ? '' : 'bg-blue-300'}
                                 style={{
                                     position: 'absolute',
                                     top: 0,

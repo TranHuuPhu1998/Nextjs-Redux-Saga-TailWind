@@ -21,7 +21,6 @@ const reducers = (state = initialState , action) => {
         }
         case taskConstants.FETCH_TASK_FAILED: {
             const { error } = action.payload;
-            toastError(error);
             return {
                 ...state,
                 listTask: []

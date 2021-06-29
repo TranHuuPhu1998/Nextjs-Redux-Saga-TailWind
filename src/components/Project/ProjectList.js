@@ -16,7 +16,6 @@ const ProjectList = ({projects,users}) => {
         project_id={item.project_id}
         id = {item.id}
         members={item.members}
-
         users={users}
       />
     )}
