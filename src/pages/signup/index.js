@@ -79,6 +79,7 @@ const SignUp = (props) => {
                         <Field
                             id="password"
                             name="password"
+                            // autocomplete="current-password"
                             type="password"
                             placeholder="******************"
                             onChange={(e) => SetPassword(e.currentTarget.value)}
@@ -95,6 +96,7 @@ const SignUp = (props) => {
                         <Field
                             id="confirmpassword"
                             name="confirmpassword"
+                            // autocomplete="current-password"
                             type="password"
                             placeholder="******************"
                             onChange={(e) => SetPasswordConfirmation(e.currentTarget.value)}

@@ -73,7 +73,7 @@ function* processAddTaskItem({payload}){
     const _status = 'open';
     try {
         const resp = yield call(addTaskItem , {taskname,file:imgpath,id,status : _status});
-        console.log("🚀 ~ file: task.js ~ line 75 ~ function*processAddTaskItem ~ resp", resp)
+   
         const {data , status} = resp;
         if(status === 201) {
             yield put(addTaskItemSuccess(data.data));

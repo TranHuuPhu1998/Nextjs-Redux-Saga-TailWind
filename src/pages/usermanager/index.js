@@ -1,5 +1,6 @@
 import React , {useState,useEffect} from "react"
 import Link from 'next/link'
+import { makeStore } from '../../redux/configureStore'
 import { useSelector,useDispatch } from 'react-redux'
 import { fetchListUser } from '../../actions/user'
 import { useRouter } from "next/router"
@@ -12,20 +13,13 @@ const UserList = dynamic(()=>import('../../components/UserList/UserList'),{ssr:f
 const UserManager = () => {
     
     const dispatch = useDispatch();
-    const [isAdmin , setIsAdmin] = useState(false)
     const [isopen , setIsopen] = useState(false)
     const router = useRouter()
     const users = useSelector((state) => state.userReducers);
   
-    useEffect(() => {
-        const isAdmin = localStorage.getItem('ADMIN')
-        if(isAdmin){   
-            setIsAdmin(true)
-        }else {
-            router.push('/404')
-        }
-        dispatch(fetchListUser())
-    }, [dispatch])
+    // useEffect(() => {
+    //     dispatch(fetchListUser())
+    // }, [dispatch])
 
     const onOpenModelUser = () => {
         setIsopen(!isopen)
@@ -33,8 +27,6 @@ const UserManager = () => {
 
     return (
         <>
-            {
-            isAdmin ? (
                 <AdminLayout>
                     <div className="overflow-x-auto">
                     <div className="p-2 text-center text-green-900 text-3xl	bg-indigo-600 bg-opacity-50 font-mono cursor-pointer">
@@ -76,12 +68,17 @@ const UserManager = () => {
                     {
                         isopen ? <UserModelCreate onOpenModelUser = {onOpenModelUser} /> : <></>
                     }
-                </AdminLayout>
-            ) : ""
-            }
+            </AdminLayout>
            
         </>
   );
 };
+export const getStaticProps = async () => {
+    makeStore.dispatch(fetchListUser())
+  
+    return {
+      props: {  }, // will be passed to the page component as props
+    }
+}
 
 export default UserManager;

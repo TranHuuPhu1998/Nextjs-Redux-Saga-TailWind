@@ -42,6 +42,7 @@ const ResetPassword = (props) => {
                             className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3"
                             id="grid-password"
                             type="password"
+                            // autocomplete="current-password"
                             name="password"
                             placeholder="******************"
                             onChange={(e) => setPassword(e.currentTarget.value)}
@@ -61,6 +62,7 @@ const ResetPassword = (props) => {
                         <Field
                             id="grid-repassword"
                             type="password"
+                            // autocomplete="current-password"
                             name="confirmpassword"
                             placeholder="******************"
                             onChange={(e) => setPasswordConfirmation(e.currentTarget.value)}

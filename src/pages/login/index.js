@@ -71,6 +71,7 @@ const Login = (props) => {
                         id="password"
                         name="password"
                         type="password"
+                        // autocomplete="current-password"
                         placeholder="******************"
                         component={TextField}
                         onChange={(e) => SetPassword(e.currentTarget.value)}

@@ -63,6 +63,7 @@ const UserModelCreate = (props) => {
                                 name="password"
                                 type="password"
                                 placeholder="********"
+                                // autocomplete="current-password"
                                 value={password}
                                 onChange={(e) => setPassword(e.currentTarget.value)}
                                 component={TextField}

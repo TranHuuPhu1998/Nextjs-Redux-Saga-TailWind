@@ -21,6 +21,7 @@
     "lodash": "^4.17.21",
     "next": "10.0.9",
     "next-redux-wrapper": "^6.0.2",
+    "next-seo": "^4.26.0",
     "query-string": "^7.0.0",
     "react": "17.0.1",
     "react-beautiful-dnd": "^13.1.0",
@@ -41,9 +42,9 @@
     "yup": "^0.32.9"
   },
   "devDependencies": {
-    "autoprefixer": "^10.2.5",
-    "postcss": "^8.2.8",
+    "autoprefixer": "^10.2.6",
+    "postcss": "^8.3.5",
     "postcss-cli": "^8.3.1",
-    "tailwindcss": "^2.0.4"
+    "tailwindcss": "^2.2.4"
   }
 }
