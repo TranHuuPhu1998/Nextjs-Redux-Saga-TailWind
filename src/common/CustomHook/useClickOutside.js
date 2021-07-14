@@ -9,10 +9,8 @@ export const useClickOutSide = (ref, handler) => {
         handler(event);
       };
       document.addEventListener("click", listener);
-      // document.addEventListener("touchstart", listener);
         return () => {
           document.removeEventListener("click", listener);
-          // document.removeEventListener("touchstart", listener);
         };
     },[ref, handler]);
 } 
